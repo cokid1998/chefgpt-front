@@ -1,4 +1,4 @@
-import API from "@/hooks/API";
+import API from "@/hooks/API/API";
 import { useMutation } from "@tanstack/react-query";
 import { loginUrl } from "@/constants/APIUrl";
 

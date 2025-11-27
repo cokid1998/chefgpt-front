@@ -5,7 +5,7 @@ import { Mail, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import { useState } from "react";
-import usePostLogin from "@/hooks/auth/POST/usePostLogin";
+import usePostLogin from "@/hooks/API/auth/POST/usePostLogin";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
