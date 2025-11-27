@@ -7,6 +7,7 @@ import usePostSignup from "@/hooks/API/auth/POST/usePostSignup";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router";
 import { LOGIN_URL } from "@/constants/Url";
+import { toast } from "sonner";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,10 @@ export default function SignupPage() {
   const { mutate: signUpWithEmail } = usePostSignup();
 
   const handleSignup = () => {
-    if (password !== checkPassword) return; // Todo: Toast로 알림
+    if (password !== checkPassword) {
+      toast.error("비밀번호를 확인해주세요");
+      return;
+    }
 
     signUpWithEmail({
       email,
