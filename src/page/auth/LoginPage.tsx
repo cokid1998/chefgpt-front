@@ -6,12 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import { useState } from "react";
 import usePostLogin from "@/hooks/API/auth/POST/usePostLogin";
+import { SIGNUP_URL } from "@/constants/Url";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { mutate: loginWithPassword } = usePostLogin();
+
+  const onPressKeyDownLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      loginWithPassword({ email, password });
+    }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 to-slate-100 p-4">
@@ -53,6 +60,7 @@ export default function LoginPage() {
               placeholder="you@example.com"
               id="email"
               required
+              onKeyDown={(e) => onPressKeyDownLogin(e)}
             />
             <Mail
               className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
@@ -71,6 +79,7 @@ export default function LoginPage() {
               placeholder="••••••••"
               id="password"
               required
+              onKeyDown={(e) => onPressKeyDownLogin(e)}
             />
             <Lock
               className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
@@ -87,7 +96,7 @@ export default function LoginPage() {
         </Button>
 
         <Link
-          to="/"
+          to={SIGNUP_URL}
           className="my-3 text-sm font-medium text-slate-500 transition-colors hover:text-slate-700"
         >
           회원가입
