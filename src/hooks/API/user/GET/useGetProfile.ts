@@ -17,9 +17,11 @@ const getProfile = (userId: number) => {
 
 const useGetProfile = (userId: number) => {
   return useQuery({
-    queryKey: QUERY_KEYS.profile,
+    queryKey: QUERY_KEYS.profile(userId),
     queryFn: () => getProfile(userId),
     select: (data) => data.data,
+    staleTime: 5 * 60 * 60 * 1000,
+    gcTime: 5 * 60 * 60 * 1000, // Todo: gcTime의 적절한 시간은?
   });
 };
 

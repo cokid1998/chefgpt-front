@@ -11,7 +11,8 @@ import {
 import { Link } from "react-router";
 import { HOME, RECIPE, REFRIGERATOR, COMMUNITY, INFO } from "@/constants/Url";
 import useGetProfile from "@/hooks/API/user/GET/useGetProfile";
-import { useProfile } from "@/store/authStore";
+import { useIsLogged, useProfile } from "@/store/authStore";
+import { useQueryClient } from "@tanstack/react-query";
 
 const MENU = [
   {
@@ -43,6 +44,8 @@ const MENU = [
 
 export default function Sidebar() {
   const userId = useProfile()!.id;
+  const isLogged = useIsLogged();
+
   const { data: profile } = useGetProfile(userId);
 
   return (

@@ -1,11 +1,11 @@
 import API from "@/hooks/API/API";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUrl } from "@/constants/APIUrl";
 import { useSetAuth } from "@/store/authStore";
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import type { Profile } from "@/types/user";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
+import { toast } from "sonner";
 
 interface PostLoginReq {
   email: string;
@@ -18,23 +18,25 @@ interface PostLoginRes {
 }
 
 const postLogin = (payload: PostLoginReq) => {
-  return API.post<PostLoginRes>(
-    `${import.meta.env.VITE_API_URL}${loginUrl}`,
-    payload,
-  );
+  return API.post<PostLoginRes>(loginUrl, payload);
 };
 
 const usePostLogin = () => {
   const setAuth = useSetAuth();
   const queryClient = useQueryClient();
   const nav = useNavigate();
+
   return useMutation({
     mutationFn: (payload: PostLoginReq) => postLogin(payload),
     onSuccess: (res) => {
+      const profile = res.data.profile;
       setAuth(res.data);
       nav("/");
-      // profile key로 유저정보 캐싱
-      queryClient.setQueryData(QUERY_KEYS.profile, res.data);
+      // 로그인시 profile key로 유저정보 캐싱
+      queryClient.setQueryData(QUERY_KEYS.profile(profile.id), profile);
+    },
+    onError: (error: any) => {
+      toast.error(error.response.data.message); // Todo: 에러타입정의
     },
   });
 };
