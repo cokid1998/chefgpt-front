@@ -8,7 +8,9 @@ export default function layout() {
       <Sidebar />
 
       <main className="ml-(--sidebar-width) flex flex-1 flex-col">
-        <Outlet />
+        <section className="min-h-lvh">
+          <Outlet />
+        </section>
         <Footer />
       </main>
     </div>
