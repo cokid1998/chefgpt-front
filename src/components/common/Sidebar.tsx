@@ -7,12 +7,19 @@ import {
   Refrigerator,
   User,
   LogOut,
+  LogIn,
 } from "lucide-react";
 import { Link } from "react-router";
-import { HOME, RECIPE, REFRIGERATOR, COMMUNITY, INFO } from "@/constants/Url";
-import useGetProfile from "@/hooks/API/user/GET/useGetProfile";
-import { useIsLogged, useProfile } from "@/store/authStore";
-import { useQueryClient } from "@tanstack/react-query";
+import {
+  HOME,
+  RECIPE,
+  REFRIGERATOR,
+  COMMUNITY,
+  INFO,
+  LOGIN_URL,
+} from "@/constants/Url";
+import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
+import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
 
 const MENU = [
   {
@@ -44,7 +51,20 @@ const MENU = [
 
 export default function Sidebar() {
   const isLogged = useIsLogged();
+  const profile = useProfile();
+  const userId = profile?.id;
+  const delAuth = useDelAuth();
 
+  const { mutate: logOut } = usePostLogout();
+
+  const handleLogout = () => {
+    if (!userId) return;
+
+    // 1. 로컬스토리지 데이터 삭제, zustand에서 데이터삭제
+    // 2. 쿠키에 refreshToken삭제
+    delAuth();
+    logOut();
+  };
 
   return (
     <aside className="fixed z-10 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white">
@@ -80,26 +100,45 @@ export default function Sidebar() {
         </ul>
       </div>
 
-      <div className="h-[121px] border-t p-4">
-        <div className="flex items-center gap-3">
-          <User
-            className="bg-green-gradient rounded-full bg-slate-300 p-2"
-            size={40}
-            color="white"
-          />
-          <div>
-            <div className="truncate text-sm font-medium text-gray-900">
-              {profile?.name}
-            </div>
-            <div className="truncate text-xs text-gray-500">
-              {profile?.email}
+      <div
+        className={`border-t ${isLogged ? "h-[121px] p-4" : "flex h-fit items-center"}`}
+      >
+        {isLogged ? (
+          <div className="flex items-center gap-3">
+            <User
+              className="bg-green-gradient rounded-full bg-slate-300 p-2"
+              size={40}
+              color="white"
+            />
+            <div>
+              <div className="truncate text-sm font-medium text-gray-900">
+                {profile?.name}
+              </div>
+              <div className="truncate text-xs text-gray-500">
+                {profile?.email}
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
 
-        <button className="mt-3 flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-600 transition-all duration-200 hover:bg-green-50 hover:text-green-600">
-          <LogOut size={16} />
-          로그아웃
+        <button
+          onClick={isLogged ? handleLogout : () => {}}
+          className={`mt-3 flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-green-50 hover:text-green-600 ${isLogged ? "" : "m-4"}`}
+        >
+          {isLogged ? (
+            <>
+              <LogOut size={16} />
+              로그아웃
+            </>
+          ) : (
+            <Link
+              to={LOGIN_URL}
+              className={`flex w-full cursor-pointer items-center gap-2 rounded-md text-sm text-gray-600 transition-colors duration-200 hover:bg-green-50 hover:text-green-600 ${isLogged ? "" : ""}`}
+            >
+              <LogIn size={16} />
+              로그인
+            </Link>
+          )}
         </button>
       </div>
     </aside>

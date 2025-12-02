@@ -37,6 +37,7 @@ const useAuthStore = create(
         },
         delAuth: () => {
           set({ accessToken: null, profile: null, isLogged: false });
+          localStorage.removeItem("auth");
         },
       },
     })),
@@ -53,6 +54,10 @@ const useAuthStore = create(
 
 export const useSetAuth = () => {
   return useAuthStore((store) => store.actions.setAuth);
+};
+
+export const useDelAuth = () => {
+  return useAuthStore((store) => store.actions.delAuth);
 };
 
 export const useIsLogged = () => {
