@@ -1,3 +1,4 @@
 export const QUERY_KEYS = {
-  profile: (userId: number) => ["profile", userId],
+  profile: ["profile"],
+  profileById: (userId: number) => ["profile", userId],
 };
