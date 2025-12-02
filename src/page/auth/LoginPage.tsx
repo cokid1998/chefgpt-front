@@ -9,8 +9,8 @@ import usePostLogin from "@/hooks/API/auth/POST/usePostLogin";
 import { SIGNUP_URL } from "@/constants/Url";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@naver.com"); // Todo: 추후 초기값 삭제
+  const [password, setPassword] = useState("1234"); // Todo: 추후 초기값 삭제
 
   const { mutate: loginWithPassword } = usePostLogin();
 
@@ -61,6 +61,7 @@ export default function LoginPage() {
               id="email"
               required
               onKeyDown={(e) => onPressKeyDownLogin(e)}
+              value={email} // Todo: 추후 삭제
             />
             <Mail
               className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
@@ -80,6 +81,7 @@ export default function LoginPage() {
               id="password"
               required
               onKeyDown={(e) => onPressKeyDownLogin(e)}
+              value={password} // Todo: 추후 삭제
             />
             <Lock
               className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"

@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { HOME, RECIPE, REFRIGERATOR, COMMUNITY, INFO } from "@/constants/Url";
+import useGetProfile from "@/hooks/API/user/GET/useGetProfile";
+import { useProfile } from "@/store/authStore";
 
 const MENU = [
   {
@@ -40,6 +42,9 @@ const MENU = [
 ];
 
 export default function Sidebar() {
+  const userId = useProfile()!.id;
+  const { data: profile } = useGetProfile(userId);
+
   return (
     <aside className="fixed z-10 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white">
       <div className="flex items-center gap-3 border-b p-6">
@@ -83,10 +88,10 @@ export default function Sidebar() {
           />
           <div>
             <div className="truncate text-sm font-medium text-gray-900">
-              이태관
+              {profile?.name}
             </div>
             <div className="truncate text-xs text-gray-500">
-              cokid98@naver.com
+              {profile?.email}
             </div>
           </div>
         </div>

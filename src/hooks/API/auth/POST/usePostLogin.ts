@@ -4,6 +4,8 @@ import { loginUrl } from "@/constants/APIUrl";
 import { useSetAuth } from "@/store/authStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import type { Profile } from "@/types/user";
+import { QUERY_KEYS } from "@/constants/QueryKeys";
 
 interface PostLoginReq {
   email: string;
@@ -12,15 +14,7 @@ interface PostLoginReq {
 
 interface PostLoginRes {
   accessToken: string;
-  user: {
-    // Todo: 타입분리
-    id: number;
-    createdAt: Date;
-    email: string;
-    name: string;
-    password: string;
-    thumbnail: string;
-  };
+  profile: Profile;
 }
 
 const postLogin = (payload: PostLoginReq) => {
@@ -37,10 +31,10 @@ const usePostLogin = () => {
   return useMutation({
     mutationFn: (payload: PostLoginReq) => postLogin(payload),
     onSuccess: (res) => {
-      const { accessToken, user: profile } = res.data;
-      setAuth(accessToken);
-      queryClient.setQueryData(["profile"], profile);
+      setAuth(res.data);
       nav("/");
+      // profile key로 유저정보 캐싱
+      queryClient.setQueryData(QUERY_KEYS.profile, res.data);
     },
   });
 };
