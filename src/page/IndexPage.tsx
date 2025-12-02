@@ -27,6 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 
 const CATEGORY = [
   "전체",
@@ -142,7 +143,10 @@ export default function IndexPage() {
           </Popover>
 
           {CATEGORY.map((category) => (
-            <Badge className="cursor-pointer border-green-100 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50">
+            <Badge
+              key={category}
+              className="cursor-pointer border-green-100 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
+            >
               {category}
             </Badge>
           ))}
@@ -165,7 +169,7 @@ export default function IndexPage() {
           >
             <div className="relative h-48 overflow-hidden">
               <img
-                src="https://img.youtube.com/vi/sample1/maxresdefault.jpg"
+                src={youtubeDefaultImage}
                 className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
               />
               <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
@@ -204,7 +208,7 @@ export default function IndexPage() {
           >
             <div className="relative h-48 overflow-hidden">
               <img
-                src="https://img.youtube.com/vi/sample1/maxresdefault.jpg"
+                src={youtubeDefaultImage}
                 className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
               />
               <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
@@ -243,7 +247,7 @@ export default function IndexPage() {
           >
             <div className="relative h-48 overflow-hidden">
               <img
-                src="https://img.youtube.com/vi/sample1/maxresdefault.jpg"
+                src={youtubeDefaultImage}
                 className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
               />
               <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
