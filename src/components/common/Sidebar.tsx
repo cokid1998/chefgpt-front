@@ -20,6 +20,7 @@ import {
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
+import { useState } from "react";
 
 const MENU = [
   {
@@ -50,6 +51,8 @@ const MENU = [
 ];
 
 export default function Sidebar() {
+  const [curMenu, setCurMenu] = useState(HOME);
+
   const isLogged = useIsLogged();
   const profile = useProfile();
   const userId = profile?.id;
@@ -86,7 +89,8 @@ export default function Sidebar() {
           {MENU.map((menu) => (
             <li
               key={menu.link}
-              className="rounded-md text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-green-50 hover:text-green-600"
+              className={`rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-50 hover:text-green-600 ${curMenu === menu.link ? "bg-linear-to-r from-green-400 to-emerald-500 text-white [&_a]:hover:text-black" : "text-gray-700"} `}
+              onClick={() => setCurMenu(menu.link)}
             >
               <Link
                 to={menu.link}
