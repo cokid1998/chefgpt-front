@@ -17,6 +17,10 @@ export default function SignupPage() {
   const { mutate: signUpWithEmail } = usePostSignup();
 
   const handleSignup = () => {
+    if (!email || !password || !checkPassword) {
+      toast.error("입력란을 모두 채워주세요");
+      return;
+    }
     if (password !== checkPassword) {
       toast.error("비밀번호를 확인해주세요");
       return;
@@ -95,7 +99,7 @@ export default function SignupPage() {
             />
           </div>
         </div>
-        <Button onClick={() => handleSignup()} className="mt-4 h-11 w-full">
+        <Button onClick={handleSignup} className="mt-4 h-11 w-full">
           회원가입
         </Button>
       </div>
