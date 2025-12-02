@@ -31,8 +31,6 @@ const usePostSignup = () => {
       const profile = res.data.profile;
       nav("/");
       setAuth(res.data);
-      // 회원가입시 profile key로 유저정보 캐싱
-      queryClient.setQueryData(QUERY_KEYS.profile(profile.id), profile);
     },
   });
 };

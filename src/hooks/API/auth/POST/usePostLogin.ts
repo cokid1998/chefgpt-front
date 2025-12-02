@@ -32,8 +32,6 @@ const usePostLogin = () => {
       const profile = res.data.profile;
       setAuth(res.data);
       nav("/");
-      // 로그인시 profile key로 유저정보 캐싱
-      queryClient.setQueryData(QUERY_KEYS.profile(profile.id), profile);
     },
     onError: (error: any) => {
       toast.error(error.response.data.message); // Todo: 에러타입정의

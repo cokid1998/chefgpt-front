@@ -43,10 +43,8 @@ const MENU = [
 ];
 
 export default function Sidebar() {
-  const userId = useProfile()!.id;
   const isLogged = useIsLogged();
 
-  const { data: profile } = useGetProfile(userId);
 
   return (
     <aside className="fixed z-10 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white">
