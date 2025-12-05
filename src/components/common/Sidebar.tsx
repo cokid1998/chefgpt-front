@@ -74,14 +74,16 @@ export default function Sidebar() {
       <div className="flex items-center gap-3 border-b p-6">
         <Link
           to={HOME}
-          className="bg-green-gradient flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg transition-transform hover:scale-105"
+          className="flex w-full items-center gap-3 transition-transform hover:scale-105"
         >
-          <ChefHat color="white" size={28} />
+          <div className="bg-green-gradient flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg">
+            <ChefHat color="white" size={28} />
+          </div>
+          <div className="flex flex-col">
+            <div className="text-xl font-bold text-gray-900">ChefGPT</div>
+            <div className="text-xs text-gray-500">AI 단계별 요리 가이드</div>
+          </div>
         </Link>
-        <div className="flex flex-col">
-          <div className="text-xl font-bold text-gray-900">ChefGPT</div>
-          <div className="text-xs text-gray-500">AI 단계별 요리 가이드</div>
-        </div>
       </div>
 
       <div className="flex-1 p-2">
