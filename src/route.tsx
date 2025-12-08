@@ -16,6 +16,9 @@ import {
   REFRIGERATOR,
   SIGNUP_URL,
 } from "@/constants/Url";
+import UseQueryTestPage from "@/page/UseQueryTestPage";
+import TestPage1 from "@/page/TestPage1";
+import TestPage2 from "@/page/TestPage2";
 
 export default function RootRouter() {
   return (
@@ -30,6 +33,10 @@ export default function RootRouter() {
 
       <Route path={LOGIN_URL} element={<LoginPage />} />
       <Route path={SIGNUP_URL} element={<SignupPage />} />
+
+      <Route path={"/useQueryTest"} element={<UseQueryTestPage />} />
+      <Route path={"/test1"} element={<TestPage1 />} />
+      <Route path={"/test2"} element={<TestPage2 />} />
     </Routes>
   );
 }
