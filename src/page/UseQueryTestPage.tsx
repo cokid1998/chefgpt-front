@@ -77,33 +77,28 @@ export default function UseQueryTestPage() {
   하지만 useQuery의 인자에 select함수가 존재하는경우 select함수의 리턴타입으로 결정된다.
 
   useQuery의 원본 타입은 아래와 같다. (오버로드 함수라서 2개가 더 있다.)
+  ⭐️declare function useQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, queryClient?: QueryClient): UseQueryResult<NoInfer<TData>, TError>;
   declare function useQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: DefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey>, queryClient?: QueryClient): DefinedUseQueryResult<NoInfer<TData>, TError>;
   declare function useQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: UndefinedInitialDataOptions<TQueryFnData, TError, TData, TQueryKey>, queryClient?: QueryClient): UseQueryResult<NoInfer<TData>, TError>;
-  ⭐️declare function useQuery<TQueryFnData = unknown, TError = DefaultError, TData = TQueryFnData, TQueryKey extends QueryKey = QueryKey>(options: UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, queryClient?: QueryClient): UseQueryResult<NoInfer<TData>, TError>;
 
-  반환타입 관련 타입을 설명하기 위해 간추린 타입 (연관없는 타입은 모두 생략)
+  반환타입 관련 타입을 설명하기 위해 간추린 타입 (설명과 연관없는 타입은 모두 생략)
   declare function useQuery
   useQuery함수의 제네릭타입: <TQueryFnData = unknown, ⭐️TData = TQueryFnData>
   useQuery함수의 인자타입: (options: UseQueryOptions<TQueryFnData, TData>)
   useQuery함수의 리턴타입: UseQueryResult<TData>; <- UseQueryResult의 제네릭인 TData가 응답 데이터 타입이 됨
 
   ⭐️알아야할것
-  1. useQuery의 리턴타입은 "TData"
-  2. TData의 초기타입은 ⭐️TQueryFnData!!
-  3. TQueryFnData는 queryFn의 리턴타입
-  4. UseQueryOptions안에 있는 select의 타입 (정확히는 QueryObserverOptions라는 타입안에 있지만 UseQueryOptions에 있다고해도무방)
-  4-1. select?: (data: TQueryData) => TData;
+  1. useQuery data의 타입은 "TData", queryFn의 리턴타입은 "TQueryFnData"
+  2. TData의 초기타입은 ⭐️TQueryFnData!!, 즉 기본적으로 useQuery data타입 = queryFn리턴타입
+  3. UseQueryOptions안에 있는 select의 타입 (정확히는 QueryObserverOptions라는 타입안에 있지만 UseQueryOptions에 있다고해도무방)
+  3-1. select?: (data: TQueryData) => TData;
 
   select를 사용하지않을경우
-  1. useQuery의 리턴타입은 "TData"
-  2. TData의 초기타입은 ⭐️TQueryFnData
-  3. TQueryFnData의 타입은 queryFn의 리턴타입
-  4. 즉 useQuery리턴타입 = queryFn의 리턴타입
+  - ⭐️알아야할것2에 따라 useQuery data타입은 queryFn의 리턴타입이 됨
 
   select를 사용할경우
-  1. useQuery의 리턴타입은 "TData"
-  2. TData는 select함수의 리턴값에따라 타입이 자동으로 바뀜
-  2-1. 이게 가능한 이유는 TS의 제네릭 함수의 자동 추론 개념 (아래 예시코드)
+  - ⭐️알아야할것3-1에 따라 TData는 select함수의 리턴값에따라 타입이 정해짐
+  - select함수의 리턴타입에 따라 TData의 타입이 변하는 이유는 TS의 제네릭 함수의 자동 추론 개념 (아래 예시코드)
 
   function transform
   <Input, Output>
