@@ -47,7 +47,7 @@ const usePostTest = (options?: CustomUseMutationOptions<TestRes>) =>
     ...options,
   });
 
-export default function TestPage2() {
+export default function UseMutationStudyVer1() {
   const { mutate, data } = usePostTest({
     onSuccess: (data) => console.log(data),
     onSettled: (data) => console.log(data),
