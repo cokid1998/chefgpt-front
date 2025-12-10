@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { FoodType } from "@/types/refrigerator";
+import type { FoodType } from "@/types/refrigeratorType";
 import { Bot, Sparkles, User, Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";

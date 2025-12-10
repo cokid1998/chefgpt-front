@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { combine, persist } from "zustand/middleware";
-import type { Profile } from "@/types/user";
+import type { Profile } from "@/types/userType";
 
 // 로컬스토리지에는 accessToken만 넣음
 // 굳이 zustand와 persist를 이용해서 로컬스토리지를 사용하는 이유는

@@ -1,7 +1,7 @@
 import API from "@/hooks/API/API";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupAPIURL } from "@/constants/APIUrl";
-import type { Profile } from "@/types/user";
+import type { Profile } from "@/types/userType";
 import { useNavigate } from "react-router";
 import { useSetAuth } from "@/store/authStore";
 import { QUERY_KEYS } from "@/constants/QueryKeys";

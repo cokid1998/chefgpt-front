@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUrl } from "@/constants/APIUrl";
 import { useSetAuth } from "@/store/authStore";
 import { useNavigate } from "react-router";
-import type { Profile } from "@/types/user";
+import type { Profile } from "@/types/userType";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { toast } from "sonner";
 
