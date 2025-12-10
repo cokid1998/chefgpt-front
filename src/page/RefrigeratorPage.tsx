@@ -19,123 +19,120 @@ import {
 import { SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Chatbot from "@/components/refrigerator/Chatbot";
-import type { FoodType } from "@/types/refrigerator";
+import type { CategoryKrString, FoodType } from "@/types/refrigeratorType";
+import useGetFoods from "@/hooks/API/food/GET/useGetFoods";
+import { useProfile } from "@/store/authStore";
+import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
+import dayjs from "dayjs";
 
-const CATEGORY = [
-  "전체",
-  "채소",
-  "과일",
-  "육류",
-  "해산물",
-  "유제품",
-  "곡물",
-  "조미료",
-  "기타",
-];
+const switchLocationName = (location: "COLD" | "FROZEN" | "ROOM_TEMP") => {
+  switch (location) {
+    case "COLD":
+      return "❄️ 냉장";
+    case "FROZEN":
+      return "🧊 냉동";
+    case "ROOM_TEMP":
+      return "🌡️ 실온";
+    default:
+      "🛒 전체 식재료";
+  }
+};
 
-const FOODS: FoodType[] = [
-  {
-    id: 1,
-    name: "양배추",
-    quantity: 1,
-    unit: "개",
-    expiration_date: new Date(),
-    memo: "",
-    category: {
-      id: 1,
-      name: "기타",
-    },
-    location: "COLD",
+const formatDday = (date: Date) => {
+  const expirationDate = dayjs(date).startOf("day");
+  const today = dayjs().startOf("day");
+  const diff = expirationDate.diff(today, "day");
+  return diff < 0 ? `D+${Math.abs(diff)}` : `D-${diff}`;
+};
+
+const checkExpirationStatus = (date: Date) => {
+  const expirationDate = dayjs(date).startOf("day");
+  const today = dayjs().startOf("day");
+  const diff = expirationDate.diff(today, "day");
+
+  if (today > expirationDate) {
+    return "EXPIRE"; // 유통기한 지남
+  } else if (diff < 7) {
+    return "IMMINENT"; // 유통기한 임박
+  } else {
+    return "NORMAL"; // 유통기한 남음
+  }
+};
+
+const EXPIRE_STATUS_CONFIG = {
+  EXPIRE: {
+    borderColor: "border-red-200",
+    textLabel: "유통기한 지남",
+    textColor: "text-red-500",
+    icon: <CircleX className="text-red-500" />,
   },
-  {
-    id: 2,
-    name: "돼지고기",
-    quantity: 500,
-    unit: "g",
-    location: "FROZEN",
-    expiration_date: new Date(),
-    memo: "",
-    category: {
-      id: 1,
-      name: "기타",
-    },
+  IMMINENT: {
+    borderColor: "border-yellow-200",
+    textLabel: "유통기한 임박",
+    textColor: "text-yellow-500",
+    icon: <CircleAlert className="text-yellow-500" />,
   },
-  {
-    id: 3,
-    name: "우유",
-    quantity: 500,
-    unit: "L",
-    location: "COLD",
-    expiration_date: new Date(),
-    memo: "",
-    category: {
-      id: 1,
-      name: "기타",
-    },
+  NORMAL: {
+    borderColor: "border-green-200",
+    textLabel: "",
+    textColor: "text-green-500",
+    icon: <CircleCheck className="text-green-500" />,
   },
-  {
-    id: 4,
-    name: "계란",
-    quantity: 500,
-    unit: "개",
-    location: "COLD",
-    expiration_date: new Date(),
-    memo: "",
-    category: {
-      id: 1,
-      name: "기타",
-    },
-  },
-  {
-    id: 5,
-    name: "대파",
-    quantity: 500,
-    unit: "대",
-    location: "COLD",
-    expiration_date: new Date(),
-    memo: "",
-    category: {
-      id: 1,
-      name: "기타",
-    },
-  },
-  {
-    id: 6,
-    name: "식용유",
-    quantity: 1,
-    unit: "병",
-    location: "ROOM_TEMP",
-    expiration_date: new Date(),
-    memo: "카놀라유",
-    category: {
-      id: 1,
-      name: "기타",
-    },
-  },
-];
+} as const;
+
+const categoryBadgeColor = (category: CategoryKrString) => {
+  switch (category) {
+    case "채소":
+      return "bg-green-100 text-green-700";
+    case "육류":
+      return "bg-red-100 text-red-700";
+    case "유제품":
+      return "bg-blue-100 text-blue-700";
+    case "해산물":
+      return "bg-sky-100 text-sky-700";
+    case "과일":
+      return "bg-lime-100 text-lime-700";
+    case "조미료":
+      return "bg-purple-100 text-purple-700";
+    case "기타":
+      return "bg-gray-100 text-gray-700";
+    case "곡물":
+      return "bg-amber-100 text-amber-700";
+  }
+};
 
 function RefrigeratorPage() {
+  const profile = useProfile();
+  const { data: foodsData, isLoading } = useGetFoods(profile?.id!); // Todo: !를 써도 괜찮은걸까??
+  const { data: foodsCategory } = useGetCategory();
+  // console.log(foodsData);
+  // console.log(foodsCategory);
+
+  if (!foodsData || isLoading || !foodsCategory) return null; // Todo: 로딩처리
+
   return (
     <div className="flex flex-col">
-      <div className="bg-green-gradient mx-auto flex w-full items-center justify-between px-8 py-12">
-        <div className="flex flex-col">
-          <div className="mb-3 flex gap-3">
-            <Refrigerator size={40} color="white" />
-            <h1 className="text-4xl font-bold text-white">내 냉장고</h1>
+      <div className="bg-green-gradient">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-12">
+          <div className="flex flex-col">
+            <div className="mb-3 flex gap-3">
+              <Refrigerator size={40} color="white" />
+              <h1 className="text-4xl font-bold text-white">내 냉장고</h1>
+            </div>
+            <p className="text-xl text-white">
+              냉장고 속 식재료를 관리하고 AI에게 레시피를 추천받으세요
+            </p>
           </div>
-          <p className="text-xl text-white">
-            냉장고 속 식재료를 관리하고 AI에게 레시피를 추천받으세요
-          </p>
-        </div>
 
-        <Button
-          variant="outline"
-          size={"lg"}
-          className="text-green-600 hover:text-green-600"
-        >
-          <Plus />
-          식재료 추가
-        </Button>
+          <Button
+            variant="outline"
+            size={"lg"}
+            className="text-green-600 hover:text-green-600"
+          >
+            <Plus />
+            식재료 추가
+          </Button>
+        </div>
       </div>
 
       <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
@@ -143,19 +140,27 @@ function RefrigeratorPage() {
           <div className="grid grid-cols-4 gap-4">
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
               <p className="mb-1 text-sm text-gray-500">🛒 전체 식재료</p>
-              <p className="text-2xl font-bold text-gray-900">5개</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {foodsData?.totalCount}개
+              </p>
             </div>
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
               <p className="mb-1 text-sm text-gray-500">❄️ 냉장</p>
-              <p className="text-2xl font-bold text-gray-900">4개</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {foodsData?.coldCount}개
+              </p>
             </div>
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
               <p className="mb-1 text-sm text-gray-500">🧊 냉동</p>
-              <p className="text-2xl font-bold text-gray-900">4개</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {foodsData?.frozenCount}개
+              </p>
             </div>
             <div className="rounded-2xl border bg-white p-4 shadow-sm">
               <p className="mb-1 text-sm text-gray-500">🌡️ 실온</p>
-              <p className="text-2xl font-bold text-gray-900">4개</p>
+              <p className="text-2xl font-bold text-gray-900">
+                {foodsData?.RoomTempCount}개
+              </p>
             </div>
           </div>
 
@@ -168,154 +173,95 @@ function RefrigeratorPage() {
             </InputGroup>
 
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
-              {CATEGORY.map((category) => (
+              {foodsCategory?.map((category) => (
                 <Badge
-                  key={category}
+                  key={category.id}
                   variant={"outline"}
-                  className="cursor-pointer border-green-100 px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
+                  className="w-14 cursor-pointer border-green-200 px-3 py-1 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
                 >
-                  {category}
+                  {category.name}
                 </Badge>
               ))}
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl border border-red-200 p-4 shadow transition-all hover:shadow-md">
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <h3 className="text-lg font-bold text-gray-900">양배추</h3>
-                    <Badge className="rounded-sm bg-green-100 text-green-700">
-                      채소
-                    </Badge>
+            {foodsData?.foods.map((food) => {
+              const expireStatus = checkExpirationStatus(food.expiration_date);
+              const config = EXPIRE_STATUS_CONFIG[expireStatus];
+
+              return (
+                <div
+                  key={food.id}
+                  className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor}`}
+                >
+                  <div className="mb-3 flex items-start justify-between">
+                    <div>
+                      <div className="mb-2 flex items-center gap-2">
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {food.name}
+                        </h3>
+                        <Badge
+                          className={`rounded-sm ${categoryBadgeColor(food.category.name)}`}
+                        >
+                          {food.category.name}
+                        </Badge>
+                      </div>
+
+                      <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
+                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                          <Package size={12} />
+                          {food.quantity} {food.unit}
+                        </span>
+                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                          {switchLocationName(food.location)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div
+                      className={`flex flex-col items-end ${config.textColor}`}
+                    >
+                      <span className="mb-1 text-2xl leading-none font-bold">
+                        {formatDday(food.expiration_date)}
+                      </span>
+                      <span className="text-xs font-medium opacity-80">
+                        {config.textLabel}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      <Package size={12} />1 개
-                    </span>
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      ❄️ 냉장
-                    </span>
+                  <div className="mt-3 flex items-center justify-between border-t border-dashed border-red-200 pt-3">
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Calendar />
+                      <span>유통기한:</span>
+                      <span>
+                        {dayjs(food.expiration_date).format("YYYY년 MM월 DD일")}
+                      </span>
+                    </div>
+
+                    {config.icon}
                   </div>
                 </div>
-
-                <div className="flex flex-col items-end text-red-600">
-                  <span className="mb-1 text-2xl leading-none font-bold">
-                    D+10
-                  </span>
-                  <span className="text-xs font-medium opacity-80">
-                    유통기한 만료
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between border-t border-dashed border-red-200 pt-3">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar />
-                  <span>유통기한:</span>
-                  <span className="font-medium text-red-600">
-                    2025년 01월 25일
-                  </span>
-                </div>
-
-                <CircleX className="text-red-600" />
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-yellow-200 p-4 shadow transition-all hover:shadow-md">
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <h3 className="text-lg font-bold text-gray-900">양배추</h3>
-                    <Badge className="rounded-sm bg-green-100 text-green-700">
-                      채소
-                    </Badge>
-                  </div>
-
-                  <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      <Package size={12} />1 개
-                    </span>
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      ❄️ 냉장
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-end text-yellow-600">
-                  <span className="mb-1 text-2xl leading-none font-bold">
-                    D-3
-                  </span>
-                  <span className="text-xs font-medium opacity-80">
-                    유통기한 임박
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between border-t border-dashed border-yellow-200 pt-3">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar />
-                  <span>유통기한:</span>
-                  <span className="font-medium text-yellow-600">
-                    2025년 01월 25일
-                  </span>
-                </div>
-
-                <CircleAlert className="text-yellow-600" />
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-green-200 p-4 shadow transition-all hover:shadow-md">
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <h3 className="text-lg font-bold text-gray-900">양배추</h3>
-                    <Badge className="rounded-sm bg-green-100 text-green-700">
-                      채소
-                    </Badge>
-                  </div>
-
-                  <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      <Package size={12} />1 개
-                    </span>
-                    <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                      ❄️ 냉장
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-end text-green-600">
-                  <span className="mb-1 text-2xl leading-none font-bold">
-                    D-314
-                  </span>
-                  {/* <span className="text-xs font-medium opacity-80">
-                    유통기한 만료
-                  </span> */}
-                </div>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between border-t border-dashed border-green-200 pt-3">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar />
-                  <span>유통기한:</span>
-                  <span className="font-medium text-green-600">
-                    2025년 01월 25일
-                  </span>
-                </div>
-
-                <CircleCheck className="text-green-600" />
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
 
-        <Chatbot foods={FOODS} />
+        <Chatbot foods={foodsData.foods} />
       </div>
     </div>
   );
 }
 
 export default RefrigeratorPage;
+
+/**
+ * Todo:
+ * 식재료 숫자 보여주는 UI 중복 제거
+ * 유통기한 필터링 하는 UI
+ * 식재료 추가 모달
+ * 식재료 수정 모달
+ * queryKey 정규화
+ * 초기 음식데이터 렌더링시 유통기한상태에 따라서 정렬해서 보여주기
+ */
