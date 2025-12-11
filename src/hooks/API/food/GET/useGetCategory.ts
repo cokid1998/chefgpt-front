@@ -9,6 +9,8 @@ const useGetCategory = () =>
     queryKey: QUERY_KEYS.foodsCategory,
     queryFn: () => API.get<FoodCategory[]>(FOODS_CATEGORY_API_URL),
     select: (data) => data.data,
+    staleTime: 5 * 60 * 60 * 1000,
+    gcTime: 5 * 60 * 60 * 1000,
   });
 
 export default useGetCategory;
