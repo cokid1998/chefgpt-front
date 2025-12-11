@@ -24,8 +24,12 @@ import useGetFoods from "@/hooks/API/food/GET/useGetFoods";
 import { useProfile } from "@/store/authStore";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import dayjs from "dayjs";
+import { useIsModal, useOpenModal, useCloseModal } from "@/store/modalStore";
+import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 
-const switchLocationName = (location: "COLD" | "FROZEN" | "ROOM_TEMP") => {
+export const switchLocationName = (
+  location: "COLD" | "FROZEN" | "ROOM_TEMP",
+) => {
   switch (location) {
     case "COLD":
       return "❄️ 냉장";
@@ -105,6 +109,8 @@ function RefrigeratorPage() {
   const profile = useProfile();
   const { data: foodsData, isLoading } = useGetFoods(profile?.id!); // Todo: !를 써도 괜찮은걸까??
   const { data: foodsCategory } = useGetCategory();
+  const openModal = useOpenModal();
+  const closeModal = useCloseModal();
 
   if (!foodsData || isLoading || !foodsCategory) return null; // Todo: 로딩처리
 
@@ -126,6 +132,7 @@ function RefrigeratorPage() {
             variant="outline"
             size={"lg"}
             className="text-green-600 hover:text-green-600"
+            onClick={() => openModal(<CreateFoodModal />)}
           >
             <Plus />
             식재료 추가
@@ -249,5 +256,5 @@ export default RefrigeratorPage;
  * 식재료 추가 모달
  * 식재료 수정 모달
  * queryKey 정규화
- * 초기 음식데이터 렌더링시 유통기한상태에 따라서 정렬해서 보여주기
+ * 분리시켜야할 컴포넌트의 기준을 정하고 분리
  */
