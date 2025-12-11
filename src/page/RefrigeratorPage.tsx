@@ -105,8 +105,6 @@ function RefrigeratorPage() {
   const profile = useProfile();
   const { data: foodsData, isLoading } = useGetFoods(profile?.id!); // Todo: !를 써도 괜찮은걸까??
   const { data: foodsCategory } = useGetCategory();
-  // console.log(foodsData);
-  // console.log(foodsCategory);
 
   if (!foodsData || isLoading || !foodsCategory) return null; // Todo: 로딩처리
 
@@ -138,30 +136,17 @@ function RefrigeratorPage() {
       <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
         <div className="flex w-full flex-col gap-8">
           <div className="grid grid-cols-4 gap-4">
-            <div className="rounded-2xl border bg-white p-4 shadow-sm">
-              <p className="mb-1 text-sm text-gray-500">🛒 전체 식재료</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {foodsData?.totalCount}개
-              </p>
-            </div>
-            <div className="rounded-2xl border bg-white p-4 shadow-sm">
-              <p className="mb-1 text-sm text-gray-500">❄️ 냉장</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {foodsData?.coldCount}개
-              </p>
-            </div>
-            <div className="rounded-2xl border bg-white p-4 shadow-sm">
-              <p className="mb-1 text-sm text-gray-500">🧊 냉동</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {foodsData?.frozenCount}개
-              </p>
-            </div>
-            <div className="rounded-2xl border bg-white p-4 shadow-sm">
-              <p className="mb-1 text-sm text-gray-500">🌡️ 실온</p>
-              <p className="text-2xl font-bold text-gray-900">
-                {foodsData?.RoomTempCount}개
-              </p>
-            </div>
+            {foodsData.countConfig.map((count) => (
+              <div
+                key={count.key}
+                className="rounded-2xl border bg-white p-4 shadow-sm"
+              >
+                <p className="mb-1 text-sm text-gray-500">{count.label}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {count.value}개
+                </p>
+              </div>
+            ))}
           </div>
 
           <div className="rounded-2xl border p-6 shadow-sm">
@@ -258,7 +243,6 @@ export default RefrigeratorPage;
 
 /**
  * Todo:
- * 식재료 숫자 보여주는 UI 중복 제거
  * 유통기한 필터링 하는 UI
  * 식재료 추가 모달
  * 식재료 수정 모달

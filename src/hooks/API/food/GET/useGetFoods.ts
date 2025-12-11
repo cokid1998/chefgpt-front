@@ -11,13 +11,32 @@ const useGetFoods = (userId: number) =>
     select: (data) => {
       const foods = data.data;
 
+      const countConfig = [
+        {
+          key: "totalCount",
+          label: "🛒 전체 식재료",
+          value: foods.length,
+        },
+        {
+          key: "coldCount",
+          label: "❄️ 냉장",
+          value: foods.filter((food) => food.location === "COLD").length,
+        },
+        {
+          key: "frozenCount",
+          label: "🧊 냉동",
+          value: foods.filter((food) => food.location === "FROZEN").length,
+        },
+        {
+          key: "RoomTempCount",
+          label: "🌡️ 실온",
+          value: foods.filter((food) => food.location === "ROOM_TEMP").length,
+        },
+      ];
+
       return {
         foods,
-        totalCount: foods.length,
-        frozenCount: foods.filter((food) => food.location === "FROZEN").length,
-        coldCount: foods.filter((food) => food.location === "COLD").length,
-        RoomTempCount: foods.filter((food) => food.location === "ROOM_TEMP")
-          .length,
+        countConfig,
       };
     },
   });
