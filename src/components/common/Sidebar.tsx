@@ -9,7 +9,7 @@ import {
   LogOut,
   LogIn,
 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import {
   HOME,
   RECIPE,
@@ -51,7 +51,8 @@ const MENU = [
 ];
 
 export default function Sidebar() {
-  const [curMenu, setCurMenu] = useState(HOME);
+  const { pathname } = useLocation();
+  const [curMenu, setCurMenu] = useState(pathname);
 
   const isLogged = useIsLogged();
   const profile = useProfile();
