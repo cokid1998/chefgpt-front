@@ -216,7 +216,9 @@ function RefrigeratorPage() {
                     </div>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between border-t border-dashed border-red-200 pt-3">
+                  <div
+                    className={`mt-3 flex items-center justify-between border-t border-dashed pt-3 ${config.borderColor}`}
+                  >
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                       <Calendar />
                       <span>유통기한:</span>
