@@ -13,10 +13,12 @@ export interface FoodCategory {
   name: CategoryKrString;
 }
 
+export type LocationType = "COLD" | "FROZEN" | "ROOM_TEMP";
+
 export interface FoodType {
   id: number;
   name: string;
-  location: "COLD" | "FROZEN" | "ROOM_TEMP";
+  location: LocationType;
   quantity: number;
   unit: string;
   expiration_date: Date;

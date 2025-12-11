@@ -8,28 +8,40 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { type FoodType } from "@/types/refrigeratorType";
+import { type LocationType } from "@/types/refrigeratorType";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useCloseModal } from "@/store/modalStore";
 import { switchLocationName } from "@/page/RefrigeratorPage";
+import usePostFood from "@/hooks/API/food/POST/usePostFood";
 
-const location: FoodType["location"][] = ["COLD", "FROZEN", "ROOM_TEMP"];
+const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
 
 export default function CreateFoodModal() {
   const closeModal = useCloseModal();
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
+    categoryId: "",
     quantity: "",
     unit: "",
-    expirationDate: "",
-    location: "COLD",
+    expiration_date: "",
+    location: "COLD" as LocationType,
     memo: "",
   });
 
   const { data: foodsCategory } = useGetCategory();
+  const { mutate: createFood } = usePostFood();
+
+  const handleCreateFood = () => {
+    const formatPayload = {
+      ...formData,
+      quantity: Number(formData.quantity),
+      categoryId: Number(formData.categoryId),
+      expiration_date: new Date(formData.expiration_date),
+    };
+    createFood(formatPayload);
+  };
 
   return (
     <div className="w-xl rounded-sm bg-white p-6">
@@ -53,9 +65,9 @@ export default function CreateFoodModal() {
           <div>
             <div className="text-base font-semibold">카테고리 *</div>
             <Select
-              value={formData.category}
+              value={formData.categoryId}
               onValueChange={(value) =>
-                setFormData({ ...formData, category: value })
+                setFormData({ ...formData, categoryId: value })
               }
             >
               <SelectTrigger className="mt-2 w-full">
@@ -63,7 +75,7 @@ export default function CreateFoodModal() {
               </SelectTrigger>
               <SelectContent>
                 {foodsCategory?.map((category) => (
-                  <SelectItem key={category.id} value={category.name}>
+                  <SelectItem key={category.id} value={String(category.id)}>
                     {category.name}
                   </SelectItem>
                 ))}
@@ -75,7 +87,7 @@ export default function CreateFoodModal() {
             <div className="text-base font-semibold">보관 위치</div>
             <Select
               value={formData.location}
-              onValueChange={(value) =>
+              onValueChange={(value: LocationType) =>
                 setFormData({ ...formData, location: value })
               }
             >
@@ -124,9 +136,9 @@ export default function CreateFoodModal() {
           <div className="text-base font-semibold">유통기한</div>
           <Input
             type="date"
-            value={formData.expirationDate}
+            value={formData.expiration_date}
             onChange={(e) =>
-              setFormData({ ...formData, expirationDate: e.target.value })
+              setFormData({ ...formData, expiration_date: e.target.value })
             }
             className="mt-2 h-12"
           />
@@ -156,6 +168,7 @@ export default function CreateFoodModal() {
             type="submit"
             // disabled={createMutation.isLoading}
             className="bg-green-gradient"
+            onClick={handleCreateFood}
           >
             식재료 추가
             {/* {createMutation.isLoading ? "추가 중..." : "식재료 추가"} */}
