@@ -109,7 +109,6 @@ export default function CreateFoodModal() {
           <div>
             <div className="text-base font-semibold">수량</div>
             <Input
-              id="quantity"
               value={formData.quantity}
               onChange={(e) =>
                 setFormData({ ...formData, quantity: e.target.value })
@@ -122,7 +121,6 @@ export default function CreateFoodModal() {
           <div>
             <div className="text-base font-semibold">단위</div>
             <Input
-              id="unit"
               value={formData.unit}
               onChange={(e) =>
                 setFormData({ ...formData, unit: e.target.value })
@@ -147,7 +145,6 @@ export default function CreateFoodModal() {
         <div>
           <div className="text-base font-semibold">메모</div>
           <Textarea
-            id="memo"
             value={formData.memo}
             onChange={(e) => setFormData({ ...formData, memo: e.target.value })}
             placeholder="추가 메모사항"
@@ -165,7 +162,6 @@ export default function CreateFoodModal() {
             취소
           </Button>
           <Button
-            type="submit"
             disabled={isPending}
             className="bg-green-gradient"
             onClick={handleCreateFood}
