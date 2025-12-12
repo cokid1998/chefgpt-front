@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
+import { Plus, Loader } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -31,7 +31,7 @@ export default function CreateFoodModal() {
   });
 
   const { data: foodsCategory } = useGetCategory();
-  const { mutate: createFood } = usePostFood();
+  const { mutate: createFood, isPending } = usePostFood();
 
   const handleCreateFood = () => {
     const formatPayload = {
@@ -160,18 +160,19 @@ export default function CreateFoodModal() {
             type="button"
             variant="outline"
             onClick={() => closeModal()}
-            // disabled={createMutation.isLoading}
+            disabled={isPending}
           >
             취소
           </Button>
           <Button
             type="submit"
-            // disabled={createMutation.isLoading}
+            disabled={isPending}
             className="bg-green-gradient"
             onClick={handleCreateFood}
           >
-            식재료 추가
-            {/* {createMutation.isLoading ? "추가 중..." : "식재료 추가"} */}
+            {isPending && <Loader className="animate-spin" />}
+
+            {isPending ? "추가 중..." : "식재료 추가"}
           </Button>
         </div>
       </div>
