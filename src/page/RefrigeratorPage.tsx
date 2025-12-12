@@ -7,6 +7,7 @@ import {
   Calendar,
   CircleCheck,
   CircleAlert,
+  NotebookPen,
 } from "lucide-react";
 import {
   InputGroup,
@@ -187,7 +188,7 @@ function RefrigeratorPage() {
               return (
                 <div
                   key={food.id}
-                  className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor}`}
+                  className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor} flex flex-col justify-between`}
                 >
                   <div className="mb-3 flex items-start justify-between">
                     <div>
@@ -232,6 +233,8 @@ function RefrigeratorPage() {
                       </span>
                     </div>
                   </div>
+
+                  <div className="text-md text-gray-500">{food.memo}</div>
 
                   <div
                     className={`mt-3 flex items-center justify-between border-t border-dashed pt-3 ${config.borderColor}`}
