@@ -8,6 +8,7 @@ import {
   CircleCheck,
   CircleAlert,
   NotebookPen,
+  CircleQuestionMark,
 } from "lucide-react";
 import {
   InputGroup,
@@ -29,9 +30,11 @@ import { useOpenModal, useCloseModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 
 export const switchLocationName = (
-  location: "COLD" | "FROZEN" | "ROOM_TEMP",
+  location: "COLD" | "FROZEN" | "ROOM_TEMP" | null,
 ) => {
   switch (location) {
+    case null:
+      return "?";
     case "COLD":
       return "❄️ 냉장";
     case "FROZEN":
@@ -43,7 +46,8 @@ export const switchLocationName = (
   }
 };
 
-const formatDday = (date: Date) => {
+const formatDday = (date: Date | null) => {
+  if (date === null) return "D-?";
   const expirationDate = dayjs(date).startOf("day");
   const today = dayjs().startOf("day");
   const diff = expirationDate.diff(today, "day");
@@ -51,7 +55,7 @@ const formatDday = (date: Date) => {
 };
 
 const checkExpirationStatus = (date: Date | null) => {
-  if (date === null) return "NORMAL";
+  if (date === null) return "UNKNOWN";
 
   const expirationDate = dayjs(date).startOf("day");
   const today = dayjs().startOf("day");
@@ -84,6 +88,12 @@ const EXPIRE_STATUS_CONFIG = {
     textLabel: "",
     textColor: "text-green-500",
     icon: <CircleCheck className="text-green-500" />,
+  },
+  UNKNOWN: {
+    borderColor: "border-gray-200",
+    textLabel: "",
+    textColor: "text-gray-500",
+    icon: <CircleQuestionMark className="text-gray-500" />,
   },
 } as const;
 
@@ -204,29 +214,23 @@ function RefrigeratorPage() {
                       </div>
 
                       <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
-                        {(food.quantity || food.unit) && (
-                          <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                            <Package size={12} />
-                            {food.quantity} {food.unit}
-                          </span>
-                        )}
+                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                          <Package size={12} />
+                          {food.quantity ?? "?"} {food.unit ?? "?"}
+                        </span>
 
-                        {food.location && (
-                          <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                            {switchLocationName(food.location)}
-                          </span>
-                        )}
+                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                          {switchLocationName(food.location)}
+                        </span>
                       </div>
                     </div>
 
                     <div
                       className={`flex flex-col items-end ${config.textColor}`}
                     >
-                      {food.expiration_date && (
-                        <span className="mb-1 text-2xl leading-none font-bold">
-                          {formatDday(food.expiration_date)}
-                        </span>
-                      )}
+                      <span className="mb-1 text-2xl leading-none font-bold">
+                        {formatDday(food.expiration_date)}
+                      </span>
 
                       <span className="text-xs font-medium opacity-80">
                         {config.textLabel}
