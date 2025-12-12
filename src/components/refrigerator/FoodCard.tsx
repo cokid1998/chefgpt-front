@@ -11,6 +11,8 @@ import type { CategoryKrString, FoodType } from "@/types/refrigeratorType";
 import dayjs from "dayjs";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import { motion } from "motion/react";
+import { useOpenModal } from "@/store/modalStore";
+import UpdateFoodModal from "@/components/modal/refrigerator/UpdateFoodModal";
 
 export const switchLocationName = (
   location: "COLD" | "FROZEN" | "ROOM_TEMP" | null,
@@ -106,6 +108,7 @@ interface FoodCardProps {
 }
 
 export default function FoodCard({ food }: FoodCardProps) {
+  const openModal = useOpenModal();
   const expireStatus = checkExpirationStatus(food.expiration_date);
   const config = EXPIRE_STATUS_CONFIG[expireStatus];
 
@@ -114,6 +117,7 @@ export default function FoodCard({ food }: FoodCardProps) {
       key={food.id}
       whileHover={{ scale: 1.01 }}
       className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor} flex cursor-pointer flex-col justify-between bg-white`}
+      onClick={() => openModal(<UpdateFoodModal />)}
     >
       <div className="mb-3 flex items-start justify-between">
         <div>
