@@ -19,12 +19,12 @@ import {
 import { SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Chatbot from "@/components/refrigerator/Chatbot";
-import type { CategoryKrString, FoodType } from "@/types/refrigeratorType";
+import type { CategoryKrString } from "@/types/refrigeratorType";
 import useGetFoods from "@/hooks/API/food/GET/useGetFoods";
 import { useProfile } from "@/store/authStore";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import dayjs from "dayjs";
-import { useIsModal, useOpenModal, useCloseModal } from "@/store/modalStore";
+import { useOpenModal, useCloseModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 
 export const switchLocationName = (
@@ -49,7 +49,9 @@ const formatDday = (date: Date) => {
   return diff < 0 ? `D+${Math.abs(diff)}` : `D-${diff}`;
 };
 
-const checkExpirationStatus = (date: Date) => {
+const checkExpirationStatus = (date: Date | null) => {
+  if (date === null) return "NORMAL";
+
   const expirationDate = dayjs(date).startOf("day");
   const today = dayjs().startOf("day");
   const diff = expirationDate.diff(today, "day");
@@ -201,22 +203,30 @@ function RefrigeratorPage() {
                       </div>
 
                       <div className="mb-3 flex items-center gap-3 text-sm text-gray-600">
-                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                          <Package size={12} />
-                          {food.quantity} {food.unit}
-                        </span>
-                        <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
-                          {switchLocationName(food.location)}
-                        </span>
+                        {(food.quantity || food.unit) && (
+                          <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                            <Package size={12} />
+                            {food.quantity} {food.unit}
+                          </span>
+                        )}
+
+                        {food.location && (
+                          <span className="flex items-center gap-1 rounded-md bg-gray-50 px-2 py-1">
+                            {switchLocationName(food.location)}
+                          </span>
+                        )}
                       </div>
                     </div>
 
                     <div
                       className={`flex flex-col items-end ${config.textColor}`}
                     >
-                      <span className="mb-1 text-2xl leading-none font-bold">
-                        {formatDday(food.expiration_date)}
-                      </span>
+                      {food.expiration_date && (
+                        <span className="mb-1 text-2xl leading-none font-bold">
+                          {formatDday(food.expiration_date)}
+                        </span>
+                      )}
+
                       <span className="text-xs font-medium opacity-80">
                         {config.textLabel}
                       </span>
@@ -230,7 +240,11 @@ function RefrigeratorPage() {
                       <Calendar />
                       <span>유통기한:</span>
                       <span>
-                        {dayjs(food.expiration_date).format("YYYY년 MM월 DD일")}
+                        {food.expiration_date
+                          ? dayjs(food.expiration_date).format(
+                              "YYYY년 MM월 DD일",
+                            )
+                          : "유통기한을 입력하지 않았습니다."}
                       </span>
                     </div>
 

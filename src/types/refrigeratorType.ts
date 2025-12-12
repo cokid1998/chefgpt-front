@@ -18,10 +18,10 @@ export type LocationType = "COLD" | "FROZEN" | "ROOM_TEMP";
 export interface FoodType {
   id: number;
   name: string;
-  location: LocationType;
-  quantity: number;
-  unit: string;
-  expiration_date: Date;
-  memo: string;
+  location: LocationType | null;
+  quantity: number | null;
+  unit: string | null;
+  expiration_date: Date | null;
+  memo: string | null;
   category: FoodCategory;
 }
