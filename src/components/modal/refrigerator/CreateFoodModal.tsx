@@ -13,7 +13,7 @@ import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useCloseModal } from "@/store/modalStore";
-import { switchLocationName } from "@/page/RefrigeratorPage";
+import { switchLocationName } from "@/components/refrigerator/FoodCard";
 import usePostFood from "@/hooks/API/food/POST/usePostFood";
 
 const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
