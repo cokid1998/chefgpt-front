@@ -6,7 +6,9 @@ import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { toast } from "sonner";
 import type { FoodType } from "@/types/refrigeratorType";
 
-interface PatchFoodReq extends Partial<FoodType> {}
+interface PatchFoodReq extends Omit<FoodType, "id" | "category"> {
+  categoryId: number;
+}
 
 const usePatchFood = () => {
   const queryClient = useQueryClient();
