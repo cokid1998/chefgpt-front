@@ -28,7 +28,7 @@ const initState = {
   isLogged: false,
 } as Auth;
 
-const useAuthStore = create(
+export const useAuthStore = create(
   persist(
     combine(initState, (set) => ({
       actions: {
