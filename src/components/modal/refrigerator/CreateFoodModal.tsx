@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useCloseModal } from "@/store/modalStore";
 import { switchLocationName } from "@/components/refrigerator/FoodCard";
 import usePostFood from "@/hooks/API/food/POST/usePostFood";
+import { toast } from "sonner";
 
 const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
 
@@ -34,6 +35,10 @@ export default function CreateFoodModal() {
   const { mutate: createFood, isPending } = usePostFood();
 
   const handleCreateFood = () => {
+    if (!formData.name || !formData.categoryId) {
+      toast.error("이름 또는 카테고리는 필수 입력값입니다.");
+      return;
+    }
     const formatPayload = {
       ...formData,
       quantity: Number(formData.quantity),
