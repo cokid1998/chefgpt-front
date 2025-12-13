@@ -91,7 +91,7 @@ function RefrigeratorPage() {
 
           <div className="grid grid-cols-2 gap-4">
             {foodsData?.foods.map((food) => (
-              <FoodCard food={food} />
+              <FoodCard key={food.id} food={food} />
             ))}
           </div>
         </div>
