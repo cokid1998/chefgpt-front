@@ -15,8 +15,13 @@ const usePatchFood = () => {
   const closeModal = useCloseModal();
 
   return useMutation({
-    mutationFn: (payload: PatchFoodReq) =>
-      API.patch(UPDATE_FOOD_API_URL, payload),
+    mutationFn: ({
+      foodId,
+      payload,
+    }: {
+      foodId: number;
+      payload: PatchFoodReq;
+    }) => API.patch(UPDATE_FOOD_API_URL(foodId), payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.foods });
       closeModal();

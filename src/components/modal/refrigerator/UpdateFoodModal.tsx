@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { useCloseModal } from "@/store/modalStore";
 import { switchLocationName } from "@/components/refrigerator/FoodCard";
 import usePatchFood from "@/hooks/API/food/PATCH/usePatchFood";
+import { toast } from "sonner";
 
 const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
 
@@ -26,13 +27,33 @@ const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
  * Todo: CreateFoodModal 컴포넌트와 합칠수 있는 방법은 없을까
  */
 export default function UpdateFoodModal() {
+  const [formData, setFormData] = useState({
+    name: "",
+    categoryId: "",
+    quantity: "",
+    unit: "",
+    expiration_date: "",
+    location: "COLD" as LocationType,
+    memo: "",
+  });
   const closeModal = useCloseModal();
 
   const { data: foodsCategory } = useGetCategory();
   const { mutate: updateFood, isPending } = usePatchFood();
 
   const handleUpdateFood = () => {
-    // updateFood();
+    if (!formData.name || !formData.categoryId) {
+      toast.error("이름 또는 카테고리는 필수 입력값입니다.");
+      return;
+    }
+
+    const formatPayload = {
+      ...formData,
+      quantity: Number(formData.quantity),
+      categoryId: Number(formData.categoryId),
+      expiration_date: new Date(formData.expiration_date),
+    };
+    updateFood({ foodId: 9, payload: formatPayload });
   };
 
   return (
@@ -46,8 +67,8 @@ export default function UpdateFoodModal() {
         <div>
           <div className="text-base font-semibold">식재료 이름 *</div>
           <Input
-            // value={formData.name}
-            // onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder="예: 양배추"
             className="mt-2 h-12"
           />
@@ -57,10 +78,10 @@ export default function UpdateFoodModal() {
           <div>
             <div className="text-base font-semibold">카테고리 *</div>
             <Select
-            // value={formData.categoryId}
-            // onValueChange={(value) =>
-            //   setFormData({ ...formData, categoryId: value })
-            // }
+              value={formData.categoryId}
+              onValueChange={(value) =>
+                setFormData({ ...formData, categoryId: value })
+              }
             >
               <SelectTrigger className="mt-2 w-full">
                 <SelectValue placeholder="선택하세요" />
@@ -78,10 +99,10 @@ export default function UpdateFoodModal() {
           <div>
             <div className="text-base font-semibold">보관 위치</div>
             <Select
-            // value={formData.location}
-            // onValueChange={(value: LocationType) =>
-            //   setFormData({ ...formData, location: value })
-            // }
+              value={formData.location}
+              onValueChange={(value: LocationType) =>
+                setFormData({ ...formData, location: value })
+              }
             >
               <SelectTrigger className="mt-2 h-12 w-full">
                 <SelectValue />
@@ -101,11 +122,10 @@ export default function UpdateFoodModal() {
           <div>
             <div className="text-base font-semibold">수량</div>
             <Input
-              id="quantity"
-              // value={formData.quantity}
-              // onChange={(e) =>
-              //   setFormData({ ...formData, quantity: e.target.value })
-              // }
+              value={formData.quantity}
+              onChange={(e) =>
+                setFormData({ ...formData, quantity: e.target.value })
+              }
               placeholder="예: 1"
               className="mt-2 h-12"
             />
@@ -114,11 +134,10 @@ export default function UpdateFoodModal() {
           <div>
             <div className="text-base font-semibold">단위</div>
             <Input
-              id="unit"
-              // value={formData.unit}
-              // onChange={(e) =>
-              //   setFormData({ ...formData, unit: e.target.value })
-              // }
+              value={formData.unit}
+              onChange={(e) =>
+                setFormData({ ...formData, unit: e.target.value })
+              }
               placeholder="예: 개, kg, g"
               className="mt-2 h-12"
             />
@@ -128,10 +147,10 @@ export default function UpdateFoodModal() {
           <div className="text-base font-semibold">유통기한</div>
           <Input
             type="date"
-            // value={formData.expiration_date}
-            // onChange={(e) =>
-            //   setFormData({ ...formData, expiration_date: e.target.value })
-            // }
+            value={formData.expiration_date}
+            onChange={(e) =>
+              setFormData({ ...formData, expiration_date: e.target.value })
+            }
             className="mt-2 h-12"
           />
         </div>
@@ -139,9 +158,8 @@ export default function UpdateFoodModal() {
         <div>
           <div className="text-base font-semibold">메모</div>
           <Textarea
-            id="memo"
-            // value={formData.memo}
-            // onChange={(e) => setFormData({ ...formData, memo: e.target.value })}
+            value={formData.memo}
+            onChange={(e) => setFormData({ ...formData, memo: e.target.value })}
             placeholder="추가 메모사항"
             className="mt-2 h-20 resize-none"
           />
