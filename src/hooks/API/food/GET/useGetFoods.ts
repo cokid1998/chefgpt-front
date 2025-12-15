@@ -4,10 +4,10 @@ import API from "@/hooks/API/API";
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { type FoodType } from "@/types/refrigeratorType";
 
-const useGetFoods = (userId: number) =>
+const useGetFoods = () =>
   useQuery({
     queryKey: QUERY_KEYS.foods,
-    queryFn: () => API.get<FoodType[]>(FOODS_API_URL(userId)),
+    queryFn: () => API.get<FoodType[]>(FOODS_API_URL),
     select: (data) => {
       const foods = data.data;
 
