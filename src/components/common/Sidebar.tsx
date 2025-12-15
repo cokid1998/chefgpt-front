@@ -21,6 +21,7 @@ import {
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
 import { useState } from "react";
+import useGetProfile from "@/hooks/API/user/GET/useGetProfile";
 
 const MENU = [
   {
@@ -60,6 +61,7 @@ export default function Sidebar() {
   const delAuth = useDelAuth();
 
   const { mutate: logOut } = usePostLogout();
+  // const { data } = useGetProfile(); Todo: useGetProfile함수를 어디서 써야하는거지?
 
   const handleLogout = () => {
     if (!userId) return;

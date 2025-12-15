@@ -11,15 +11,15 @@ interface GetProfileRes {
   thumbnail: string;
 }
 
-const getProfile = (userId: number) => {
-  return API.get<GetProfileRes>(PROFILE_API_URL(userId));
+const getProfile = () => {
+  return API.get<GetProfileRes>(PROFILE_API_URL);
 };
 
-const useGetProfile = (userId: number) => {
+const useGetProfile = () => {
   return useQuery({
-    queryKey: QUERY_KEYS.profileById(userId),
-    queryFn: () => getProfile(userId),
-    enabled: !!userId,
+    queryKey: QUERY_KEYS.profile,
+    queryFn: () => getProfile(),
+    // enabled: !!userId,
     select: (data) => data.data,
     staleTime: 5 * 60 * 60 * 1000,
     gcTime: 5 * 60 * 60 * 1000, // Todo: gcTime의 적절한 시간은?

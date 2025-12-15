@@ -4,7 +4,7 @@ export const signupAPIURL = "/auth/signup";
 export const logoutUrl = "/auth/logout";
 
 // user
-export const PROFILE_API_URL = (userId: number) => `/profile/${userId}`;
+export const PROFILE_API_URL = "/profile";
 
 // foods
 export const FOODS_API_URL = (userId: number) => `/food/${userId}`;
