@@ -8,14 +8,14 @@ import {
 import { SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Chatbot from "@/components/refrigerator/Chatbot";
-import useGetFoods from "@/hooks/API/food/GET/useGetFoods";
+import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import FoodCard from "@/components/refrigerator/FoodCard";
 
 function RefrigeratorPage() {
-  const { data: foodsData, isLoading } = useGetFoods();
+  const { data: foodsData, isLoading } = useGetAllFood();
   const { data: foodsCategory } = useGetCategory();
   const openModal = useOpenModal();
 

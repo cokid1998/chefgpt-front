@@ -4,7 +4,7 @@ import API from "@/hooks/API/API";
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { type FoodType } from "@/types/refrigeratorType";
 
-const useGetFoods = () =>
+const useGetAllFood = () =>
   useQuery({
     queryKey: QUERY_KEYS.foods,
     queryFn: () => API.get<FoodType[]>(FOODS_API_URL),
@@ -41,4 +41,4 @@ const useGetFoods = () =>
     },
   });
 
-export default useGetFoods;
+export default useGetAllFood;
