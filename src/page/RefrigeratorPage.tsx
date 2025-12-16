@@ -3,24 +3,19 @@ import { Plus, Refrigerator } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
   InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Chatbot from "@/components/refrigerator/Chatbot";
 import useGetFoods from "@/hooks/API/food/GET/useGetFoods";
-import { useProfile } from "@/store/authStore";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import FoodCard from "@/components/refrigerator/FoodCard";
 
 function RefrigeratorPage() {
-  const profile = useProfile();
-  const { data: foodsData, isLoading } = useGetFoods(profile?.id!); // Todo: !를 써도 괜찮은걸까??
+  const { data: foodsData, isLoading } = useGetFoods();
   const { data: foodsCategory } = useGetCategory();
   const openModal = useOpenModal();
 
