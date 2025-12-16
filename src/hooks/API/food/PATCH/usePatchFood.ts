@@ -25,6 +25,7 @@ const usePatchFood = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.foods });
       closeModal();
+      toast.success("변경되었습니다.");
     },
     onError: (error: any) => {
       toast.error(error.response.data.message);

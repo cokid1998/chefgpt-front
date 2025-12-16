@@ -117,7 +117,7 @@ export default function FoodCard({ food }: FoodCardProps) {
       key={food.id}
       whileHover={{ scale: 1.01 }}
       className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor} flex cursor-pointer flex-col justify-between bg-white`}
-      onClick={() => openModal(<UpdateFoodModal />)}
+      onClick={() => openModal(<UpdateFoodModal foodId={food.id} />)}
     >
       <div className="mb-3 flex items-start justify-between">
         <div>

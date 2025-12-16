@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type LocationType } from "@/types/refrigeratorType";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +16,8 @@ import { useCloseModal } from "@/store/modalStore";
 import { switchLocationName } from "@/components/refrigerator/FoodCard";
 import usePatchFood from "@/hooks/API/food/PATCH/usePatchFood";
 import { toast } from "sonner";
+import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
+import dayjs from "dayjs";
 
 const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
 
@@ -26,7 +28,7 @@ const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
  *
  * Todo: CreateFoodModal 컴포넌트와 합칠수 있는 방법은 없을까
  */
-export default function UpdateFoodModal() {
+export default function UpdateFoodModal({ foodId }: { foodId: number }) {
   const [formData, setFormData] = useState({
     name: "",
     categoryId: "",
@@ -38,10 +40,37 @@ export default function UpdateFoodModal() {
   });
   const closeModal = useCloseModal();
 
+  const { data: food, isLoading } = useGetOneFood(foodId);
   const { data: foodsCategory } = useGetCategory();
   const { mutate: updateFood, isPending } = usePatchFood();
 
+  useEffect(() => {
+    if (food) {
+      const {
+        name,
+        category,
+        quantity,
+        unit,
+        expiration_date,
+        location,
+        memo,
+      } = food;
+
+      setFormData({
+        name: name,
+        categoryId: String(category.id),
+        quantity: String(quantity),
+        unit: unit ?? "",
+        expiration_date: dayjs(expiration_date).format("YYYY-MM-DD") ?? "",
+        location: location ?? "COLD",
+        memo: memo ?? "",
+      });
+    }
+  }, [food]);
+
   const handleUpdateFood = () => {
+    if (!food) return;
+
     if (!formData.name || !formData.categoryId) {
       toast.error("이름 또는 카테고리는 필수 입력값입니다.");
       return;
@@ -53,8 +82,10 @@ export default function UpdateFoodModal() {
       categoryId: Number(formData.categoryId),
       expiration_date: new Date(formData.expiration_date),
     };
-    updateFood({ foodId: 9, payload: formatPayload });
+    updateFood({ foodId: food?.id, payload: formatPayload });
   };
+
+  if (isLoading) return null;
 
   return (
     <div className="w-xl rounded-sm bg-white p-6">
