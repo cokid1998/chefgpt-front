@@ -11,3 +11,4 @@ export const FOODS_API_URL = "/food";
 export const FOODS_CATEGORY_API_URL = "/food/category";
 export const CREATE_FOOD_API_URL = "/food";
 export const UPDATE_FOOD_API_URL = (foodId: number) => `/food/${foodId}`;
+export const GET_ONE_FOOD_URL = (foodId: number) => `/food/${foodId}`;
