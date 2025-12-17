@@ -90,13 +90,10 @@ function RefrigeratorPage() {
             </div>
           </div>
 
-          <FoodList
-            foods={foodsData?.foods ?? []}
-            isFoodsLoading={isFoodsLoading}
-          />
+          <FoodList foods={foodsData ?? []} isFoodsLoading={isFoodsLoading} />
         </div>
 
-        <Chatbot foods={foodsData?.foods ?? []} />
+        <Chatbot foods={foodsData ?? []} />
       </div>
     </div>
   );
