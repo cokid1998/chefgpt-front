@@ -1,21 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Refrigerator, SearchIcon } from "lucide-react";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
-import { Badge } from "@/components/ui/badge";
+import { Plus, Refrigerator } from "lucide-react";
 import Chatbot from "@/components/refrigerator/Chatbot";
 import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
-import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import { useState } from "react";
 import FoodList from "@/components/refrigerator/foodList/FoodList";
 import FoodCount from "@/components/refrigerator/foodCount/FoodCount";
+import FoodSearchBar from "@/components/refrigerator/foodSearchBar/FoodSearchBar";
 
 function RefrigeratorPage() {
+  const openModal = useOpenModal();
+
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
 
@@ -23,9 +19,10 @@ function RefrigeratorPage() {
     category,
     search,
   );
-  const { data: foodsCategory = [], isLoading: isCategoryLoading } =
-    useGetCategory();
-  const openModal = useOpenModal();
+
+  const handleCategoryClick = (category: string) => {
+    setCategory(category === "전체" ? "" : category);
+  };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -63,32 +60,10 @@ function RefrigeratorPage() {
         <div className="flex w-full flex-col gap-8">
           <FoodCount />
 
-          <div className="rounded-2xl border p-6 shadow-sm">
-            <InputGroup className="mb-4 h-12">
-              <InputGroupInput
-                placeholder="식재료 검색..."
-                onKeyDown={handleSearchKeyDown}
-              />
-              <InputGroupAddon>
-                <SearchIcon />
-              </InputGroupAddon>
-            </InputGroup>
-
-            <div className="flex items-center gap-2 overflow-x-auto pb-2">
-              {[{ id: 0, name: "전체" }, ...foodsCategory]?.map((category) => (
-                <Badge
-                  key={category.id}
-                  variant={"outline"}
-                  className="w-14 cursor-pointer border-green-200 px-3 py-1 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
-                  onClick={() =>
-                    setCategory(category.name === "전체" ? "" : category.name)
-                  }
-                >
-                  {category.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          <FoodSearchBar
+            onSearchKeyDown={handleSearchKeyDown}
+            onCategoryClick={handleCategoryClick}
+          />
 
           <FoodList foods={foodsData ?? []} isFoodsLoading={isFoodsLoading} />
         </div>
