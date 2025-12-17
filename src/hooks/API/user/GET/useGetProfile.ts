@@ -17,7 +17,7 @@ const getProfile = () => {
 
 const useGetProfile = () => {
   return useQuery({
-    queryKey: QUERY_KEYS.profile,
+    queryKey: QUERY_KEYS.profile.all,
     queryFn: () => getProfile(),
     // enabled: !!userId,
     select: (data) => data.data,

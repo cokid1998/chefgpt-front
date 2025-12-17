@@ -12,7 +12,7 @@ interface GetFooodCountRes {
 
 const useGetFoodCount = () =>
   useQuery({
-    queryKey: QUERY_KEYS.foodsCount,
+    queryKey: QUERY_KEYS.count.food,
     queryFn: () => API.get<GetFooodCountRes>(GET_FOODS_COUNT_API_URL),
     select: (data) => {
       const count = data.data;

@@ -13,7 +13,7 @@ const useGetAllFood = (category: string = "", search: string = "") => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: QUERY_KEYS.foods(category, search),
+    queryKey: QUERY_KEYS.food.list(category, search),
     queryFn: () => {
       const formatCategory = category === "전체" ? "" : category;
       return API.get<FoodType[]>(FOODS_API_URL, {

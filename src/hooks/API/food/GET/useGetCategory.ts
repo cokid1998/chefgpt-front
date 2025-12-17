@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetCategory = () =>
   useQuery({
-    queryKey: QUERY_KEYS.foodsCategory,
+    queryKey: QUERY_KEYS.category.food,
     queryFn: () => API.get<FoodCategory[]>(FOODS_CATEGORY_API_URL),
     select: (data) => data.data,
     staleTime: 5 * 60 * 60 * 1000,

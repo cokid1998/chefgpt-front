@@ -23,7 +23,12 @@ const usePatchFood = () => {
       payload: PatchFoodReq;
     }) => API.patch(UPDATE_FOOD_API_URL(foodId), payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.foods });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.food.all });
+      /**
+       * 1. PATCH요청 성공
+       * 2. QUERY_KEYS.food.all무효화
+       * 3. category에 맞게 다시 refetch(useGetAllFood.ts)
+       */
       closeModal();
       toast.success("변경되었습니다.");
     },

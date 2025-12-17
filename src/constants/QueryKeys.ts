@@ -1,9 +1,25 @@
 export const QUERY_KEYS = {
-  profile: ["profile"],
+  profile: {
+    all: ["profile"],
+  },
 
-  foodsCategory: ["foods", "category"],
+  category: {
+    all: ["category"],
+    food: ["category", "food"],
+  },
 
-  foods: (category: string, search: string) => ["foods", category, search],
-  foodsById: (foodId: number) => ["foods", foodId],
-  foodsCount: ["foods", "count"],
-};
+  food: {
+    all: ["food"],
+    list: (category: string = "", search: string = "") => [
+      "food",
+      category,
+      search,
+    ],
+    byId: (foodId: number) => ["food", foodId],
+  },
+
+  count: {
+    all: ["count"],
+    food: ["count", "food"],
+  },
+} as const;

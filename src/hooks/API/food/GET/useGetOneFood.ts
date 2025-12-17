@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const useGetOneFood = (foodId: number) => {
   return useQuery({
-    queryKey: QUERY_KEYS.foodsById(foodId),
+    queryKey: QUERY_KEYS.food.byId(foodId),
     queryFn: () => API.get<FoodType>(UPDATE_FOOD_API_URL(foodId)),
     select: (data) => data.data,
     staleTime: 5 * 60 * 1000,

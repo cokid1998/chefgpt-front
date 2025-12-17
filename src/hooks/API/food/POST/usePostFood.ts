@@ -18,7 +18,7 @@ const usePostFood = () => {
       API.post(CREATE_FOOD_API_URL, payload),
     onSuccess: () => {
       // 원래 음식 캐시 무효화하고 refetch
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.foods });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.food.all });
       // 모달 닫기
       closeModal();
     },
