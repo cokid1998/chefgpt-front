@@ -1,4 +1,4 @@
-import FoodCard from "@/components/refrigerator/FoodCard";
+import FoodCard from "@/components/refrigerator/foodList/FoodCard";
 import type { FoodType } from "@/types/refrigeratorType";
 import { Package } from "lucide-react";
 

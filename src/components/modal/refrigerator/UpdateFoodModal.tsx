@@ -13,7 +13,7 @@ import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useCloseModal } from "@/store/modalStore";
-import { switchLocationName } from "@/components/refrigerator/FoodCard";
+import { switchLocationName } from "@/components/refrigerator/foodList/FoodCard";
 import usePatchFood from "@/hooks/API/food/PATCH/usePatchFood";
 import { toast } from "sonner";
 import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";

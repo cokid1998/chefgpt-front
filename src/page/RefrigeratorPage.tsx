@@ -13,7 +13,7 @@ import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import { useState } from "react";
 import useGetFoodCount from "@/hooks/API/food/GET/useGetFoodCount";
-import FoodList from "@/components/refrigerator/FoodList";
+import FoodList from "@/components/refrigerator/foodList/FoodList";
 
 function RefrigeratorPage() {
   const [category, setCategory] = useState("");
