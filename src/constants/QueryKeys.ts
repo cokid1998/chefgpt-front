@@ -5,4 +5,5 @@ export const QUERY_KEYS = {
 
   foods: (category: string, search: string) => ["foods", category, search],
   foodsById: (foodId: number) => ["foods", foodId],
+  foodsCount: ["foods", "count"],
 };

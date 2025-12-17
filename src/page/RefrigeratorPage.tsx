@@ -14,6 +14,7 @@ import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import FoodCard from "@/components/refrigerator/FoodCard";
 import { useState } from "react";
+import useGetFoodCount from "@/hooks/API/food/GET/useGetFoodCount";
 
 function RefrigeratorPage() {
   const [category, setCategory] = useState("");
@@ -25,6 +26,7 @@ function RefrigeratorPage() {
   );
   const { data: foodsCategory = [], isLoading: isCategoryLoading } =
     useGetCategory();
+  const { data: foodsCount } = useGetFoodCount();
   const openModal = useOpenModal();
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -62,7 +64,7 @@ function RefrigeratorPage() {
       <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
         <div className="flex w-full flex-col gap-8">
           <div className="grid min-h-22.5 grid-cols-4 gap-4">
-            {foodsData?.countConfig.map((count) => (
+            {foodsCount?.map((count) => (
               <div
                 key={count.key}
                 className="rounded-2xl border bg-white p-4 shadow-sm"
