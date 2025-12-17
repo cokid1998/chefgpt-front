@@ -13,13 +13,25 @@ import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import FoodCard from "@/components/refrigerator/FoodCard";
+import { useState } from "react";
 
 function RefrigeratorPage() {
-  const { data: foodsData, isLoading } = useGetAllFood();
-  const { data: foodsCategory } = useGetCategory();
+  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
+
+  const { data: foodsData, isLoading: isFoodLoding } = useGetAllFood(
+    category,
+    search,
+  );
+  const { data: foodsCategory = [], isLoading: isCategoryLoading } =
+    useGetCategory();
   const openModal = useOpenModal();
 
-  if (!foodsData || isLoading || !foodsCategory) return null; // Todo: 로딩처리
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearch(e.currentTarget.value);
+    }
+  };
 
   return (
     <div className="flex flex-col">
@@ -49,8 +61,8 @@ function RefrigeratorPage() {
 
       <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
         <div className="flex w-full flex-col gap-8">
-          <div className="grid grid-cols-4 gap-4">
-            {foodsData.countConfig.map((count) => (
+          <div className="grid min-h-22.5 grid-cols-4 gap-4">
+            {foodsData?.countConfig.map((count) => (
               <div
                 key={count.key}
                 className="rounded-2xl border bg-white p-4 shadow-sm"
@@ -65,18 +77,24 @@ function RefrigeratorPage() {
 
           <div className="rounded-2xl border p-6 shadow-sm">
             <InputGroup className="mb-4 h-12">
-              <InputGroupInput placeholder="식재료 검색..." />
+              <InputGroupInput
+                placeholder="식재료 검색..."
+                onKeyDown={handleSearchKeyDown}
+              />
               <InputGroupAddon>
                 <SearchIcon />
               </InputGroupAddon>
             </InputGroup>
 
             <div className="flex items-center gap-2 overflow-x-auto pb-2">
-              {foodsCategory?.map((category) => (
+              {[{ id: 0, name: "전체" }, ...foodsCategory]?.map((category) => (
                 <Badge
                   key={category.id}
                   variant={"outline"}
                   className="w-14 cursor-pointer border-green-200 px-3 py-1 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
+                  onClick={() =>
+                    setCategory(category.name === "전체" ? "" : category.name)
+                  }
                 >
                   {category.name}
                 </Badge>
@@ -91,7 +109,7 @@ function RefrigeratorPage() {
           </div>
         </div>
 
-        <Chatbot foods={foodsData.foods} />
+        <Chatbot foods={foodsData?.foods ?? []} />
       </div>
     </div>
   );

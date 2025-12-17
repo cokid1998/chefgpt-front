@@ -3,6 +3,6 @@ export const QUERY_KEYS = {
 
   foodsCategory: ["foods", "category"],
 
-  foods: ["foods"],
+  foods: (category: string, search: string) => ["foods", category, search],
   foodsById: (foodId: number) => ["foods", foodId],
 };
