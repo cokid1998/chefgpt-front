@@ -1,26 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Refrigerator } from "lucide-react";
+import { Plus, Refrigerator, SearchIcon } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { SearchIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Chatbot from "@/components/refrigerator/Chatbot";
 import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
-import FoodCard from "@/components/refrigerator/FoodCard";
 import { useState } from "react";
 import useGetFoodCount from "@/hooks/API/food/GET/useGetFoodCount";
+import FoodList from "@/components/refrigerator/FoodList";
 
 function RefrigeratorPage() {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
 
-  const { data: foodsData, isLoading: isFoodLoding } = useGetAllFood(
+  const { data: foodsData, isLoading: isFoodsLoading } = useGetAllFood(
     category,
     search,
   );
@@ -104,11 +103,10 @@ function RefrigeratorPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {foodsData?.foods.map((food) => (
-              <FoodCard key={food.id} food={food} />
-            ))}
-          </div>
+          <FoodList
+            foods={foodsData?.foods ?? []}
+            isFoodsLoading={isFoodsLoading}
+          />
         </div>
 
         <Chatbot foods={foodsData?.foods ?? []} />
