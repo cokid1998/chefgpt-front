@@ -24,11 +24,13 @@ function FilterBarSkeleton() {
 }
 
 interface FoodSearchBarProps {
+  selectCategory: string;
   onSearchKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onCategoryClick: (category: string) => void;
 }
 
 export default function FoodSearchBar({
+  selectCategory,
   onSearchKeyDown,
   onCategoryClick,
 }: FoodSearchBarProps) {
@@ -56,7 +58,7 @@ export default function FoodSearchBar({
           <Badge
             key={category.id}
             variant={"outline"}
-            className="w-14 cursor-pointer border-green-200 px-3 py-1 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
+            className={`w-14 cursor-pointer px-3 py-1 text-sm font-medium ${selectCategory === category.name ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg" : "border-green-200 text-gray-600 hover:border-green-400 hover:bg-green-50"} `}
             onClick={() => onCategoryClick(category.name)}
           >
             {category.name}

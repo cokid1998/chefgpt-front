@@ -14,8 +14,12 @@ const useGetAllFood = (category: string = "", search: string = "") => {
 
   return useQuery({
     queryKey: QUERY_KEYS.foods(category, search),
-    queryFn: () =>
-      API.get<FoodType[]>(FOODS_API_URL, { params: { category, search } }),
+    queryFn: () => {
+      const formatCategory = category === "전체" ? "" : category;
+      return API.get<FoodType[]>(FOODS_API_URL, {
+        params: { category: formatCategory, search },
+      });
+    },
     select: (data) => data.data,
   });
 };

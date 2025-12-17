@@ -11,17 +11,16 @@ import FoodSearchBar from "@/components/refrigerator/foodSearchBar/FoodSearchBar
 
 function RefrigeratorPage() {
   const openModal = useOpenModal();
-
-  const [category, setCategory] = useState("");
+  const [selectCategory, setSelectCategory] = useState("전체");
   const [search, setSearch] = useState("");
 
   const { data: foodsData, isLoading: isFoodsLoading } = useGetAllFood(
-    category,
+    selectCategory,
     search,
   );
 
   const handleCategoryClick = (category: string) => {
-    setCategory(category === "전체" ? "" : category);
+    setSelectCategory(category);
   };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -61,6 +60,7 @@ function RefrigeratorPage() {
           <FoodCount />
 
           <FoodSearchBar
+            selectCategory={selectCategory}
             onSearchKeyDown={handleSearchKeyDown}
             onCategoryClick={handleCategoryClick}
           />
