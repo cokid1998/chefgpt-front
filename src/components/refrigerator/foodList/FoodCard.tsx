@@ -13,6 +13,7 @@ import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import { motion } from "motion/react";
 import { useOpenModal } from "@/store/modalStore";
 import UpdateFoodModal from "@/components/modal/refrigerator/UpdateFoodModal";
+import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
 
 export const switchLocationName = (
   location: "COLD" | "FROZEN" | "ROOM_TEMP" | null,
@@ -104,20 +105,23 @@ const categoryBadgeColor = (category: CategoryKrString) => {
 };
 
 interface FoodCardProps {
-  food: FoodType;
+  foodId: number;
 }
 
-export default function FoodCard({ food }: FoodCardProps) {
+export default function FoodCard({ foodId }: FoodCardProps) {
+  const { data: food } = useGetOneFood(foodId);
   const openModal = useOpenModal();
-  const expireStatus = checkExpirationStatus(food.expiration_date);
+  const expireStatus = checkExpirationStatus(food?.expiration_date ?? null);
   const config = EXPIRE_STATUS_CONFIG[expireStatus];
+
+  if (!food) return null;
 
   return (
     <motion.div
-      key={food.id}
+      key={food?.id}
       whileHover={{ scale: 1.01 }}
       className={`rounded-xl border p-4 shadow transition-all hover:shadow-md ${config.borderColor} flex cursor-pointer flex-col justify-between bg-white`}
-      onClick={() => openModal(<UpdateFoodModal foodId={food.id} />)}
+      onClick={() => openModal(<UpdateFoodModal foodId={food?.id} />)}
     >
       <div className="mb-3 flex items-start justify-between">
         <div>

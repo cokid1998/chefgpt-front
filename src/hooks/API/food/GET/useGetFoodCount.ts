@@ -42,6 +42,8 @@ const useGetFoodCount = () =>
 
       return countConfig;
     },
+    staleTime: 1 * 60 * 1000,
+    gcTime: 1 * 60 * 1000,
   });
 
 export default useGetFoodCount;

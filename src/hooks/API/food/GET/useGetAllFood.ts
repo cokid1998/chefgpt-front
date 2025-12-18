@@ -9,18 +9,23 @@ import {
 import { type FoodType } from "@/types/refrigeratorType";
 
 const useGetAllFood = (category: string = "", search: string = "") => {
-  // Todo: 쿼리 정규화
   const queryClient = useQueryClient();
 
   return useQuery({
     queryKey: QUERY_KEYS.food.list(category, search),
-    queryFn: () => {
+    queryFn: async () => {
       const formatCategory = category === "전체" ? "" : category;
-      return API.get<FoodType[]>(FOODS_API_URL, {
+      const foods = await API.get<FoodType[]>(FOODS_API_URL, {
         params: { category: formatCategory, search },
       });
+      foods.data.forEach((food) => {
+        queryClient.setQueryData(QUERY_KEYS.food.byId(food.id), food);
+      });
+
+      return foods.data.map((food) => food.id);
     },
-    select: (data) => data.data,
+    staleTime: 1 * 60 * 1000,
+    gcTime: 1 * 60 * 1000,
   });
 };
 

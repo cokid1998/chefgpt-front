@@ -14,7 +14,7 @@ function RefrigeratorPage() {
   const [selectCategory, setSelectCategory] = useState("전체");
   const [search, setSearch] = useState("");
 
-  const { data: foodsData, isLoading: isFoodsLoading } = useGetAllFood(
+  const { data: foodIds = [], isLoading: isFoodsLoading } = useGetAllFood(
     selectCategory,
     search,
   );
@@ -65,10 +65,10 @@ function RefrigeratorPage() {
             onCategoryClick={handleCategoryClick}
           />
 
-          <FoodList foods={foodsData ?? []} isFoodsLoading={isFoodsLoading} />
+          <FoodList foodIds={foodIds} isFoodsLoading={isFoodsLoading} />
         </div>
 
-        <Chatbot foods={foodsData ?? []} />
+        {/* <Chatbot foods={foodsData ?? []} /> */}
       </div>
     </div>
   );

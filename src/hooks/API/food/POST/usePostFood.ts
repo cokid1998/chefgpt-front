@@ -19,6 +19,8 @@ const usePostFood = () => {
     onSuccess: () => {
       // 원래 음식 캐시 무효화하고 refetch
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.food.all });
+      // 음식 갯수 캐시 무효화하고 refretch
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.count.food });
       // 모달 닫기
       closeModal();
     },

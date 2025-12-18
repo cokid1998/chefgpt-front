@@ -1,4 +1,5 @@
 import FoodCard from "@/components/refrigerator/foodList/FoodCard";
+import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
 import type { FoodType } from "@/types/refrigeratorType";
 import { Package } from "lucide-react";
 
@@ -26,11 +27,12 @@ function CardSkeleton() {
 }
 
 interface FoodListProps {
-  foods: FoodType[];
+  // foods: FoodType[];
+  foodIds: number[];
   isFoodsLoading: boolean;
 }
 
-export default function FoodList({ foods, isFoodsLoading }: FoodListProps) {
+export default function FoodList({ foodIds, isFoodsLoading }: FoodListProps) {
   if (isFoodsLoading) {
     return (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -41,7 +43,7 @@ export default function FoodList({ foods, isFoodsLoading }: FoodListProps) {
     );
   }
 
-  if (foods.length === 0) {
+  if (foodIds.length === 0) {
     return (
       <div className="rounded-2xl border border-green-100 bg-white p-12 text-center shadow-sm">
         <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-green-100">
@@ -57,8 +59,8 @@ export default function FoodList({ foods, isFoodsLoading }: FoodListProps) {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      {foods.map((food) => (
-        <FoodCard key={food.id} food={food} />
+      {foodIds.map((foodId) => (
+        <FoodCard key={foodId} foodId={foodId} />
       ))}
     </div>
   );
