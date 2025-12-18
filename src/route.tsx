@@ -17,6 +17,7 @@ import {
   REFRIGERATOR,
   SIGNUP_URL,
 } from "@/constants/Url";
+import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
 
 export default function RootRouter() {
   return (
@@ -24,9 +25,13 @@ export default function RootRouter() {
       <Route element={<Layout />}>
         <Route path={HOME} element={<IndexPage />} />
         <Route path={RECIPE} element={<RecipePage />} />
-        <Route path={REFRIGERATOR} element={<RefrigeratorPage />} />
         <Route path={COMMUNITY} element={<CommunityPage />} />
         <Route path={INFO} element={<InfoPage />} />
+
+        {/* 로그인한 사용자만 볼 수 있는 페이지 */}
+        <Route element={<OnlyLoggedLayout />}>
+          <Route path={REFRIGERATOR} element={<RefrigeratorPage />} />
+        </Route>
       </Route>
 
       <Route path={LOGIN_URL} element={<LoginPage />} />
