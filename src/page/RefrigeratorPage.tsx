@@ -75,12 +75,3 @@ function RefrigeratorPage() {
 }
 
 export default RefrigeratorPage;
-
-/**
- * Todo:
- * 유통기한 필터링 하는 UI
- * 식재료 추가 모달
- * 식재료 수정 모달
- * queryKey 정규화
- * 분리시켜야할 컴포넌트의 기준을 정하고 분리
- */
