@@ -1,3 +1,8 @@
 export default function InfoPage() {
-  return <div>InfoPage</div>;
+  return (
+    <>
+      <title>ChefGPT | 요리 정보</title>
+      <div>InfoPage</div>
+    </>
+  );
 }

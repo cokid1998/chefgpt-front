@@ -1,3 +1,8 @@
 export default function RecipePage() {
-  return <div>RecipePage</div>;
+  return (
+    <>
+      <title>ChefGPT | 레시피 생성</title>
+      <div>RecipePage</div>
+    </>
+  );
 }
