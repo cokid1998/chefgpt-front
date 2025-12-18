@@ -5,12 +5,12 @@ import { Bot, Sparkles, User, Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion, AnimatePresence } from "motion/react";
+import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/QueryKeys";
 
-interface ChatbotProps {
-  foods: FoodType[];
-}
-
-export default function Chatbot({ foods }: ChatbotProps) {
+export default function Chatbot() {
+  const queryClient = useQueryClient();
   const [input, setInput] = useState("");
   const [chatContent, setChatContent] = useState([
     {
@@ -20,6 +20,11 @@ export default function Chatbot({ foods }: ChatbotProps) {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { data: foodIds = [] } = useGetAllFood();
+  const foods = foodIds
+    .map((id) => queryClient.getQueryData<FoodType>(QUERY_KEYS.food.byId(id)))
+    .filter((food): food is FoodType => food !== undefined);
 
   const quickPrompts = [
     "간단한 요리 추천해줘",
