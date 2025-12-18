@@ -7,6 +7,7 @@ import RecipePage from "@/page/RecipePage";
 import RefrigeratorPage from "@/page/RefrigeratorPage";
 import CommunityPage from "@/page/CommunityPage";
 import InfoPage from "@/page/InfoPage";
+import NotFoundPage from "@/page/404";
 import {
   COMMUNITY,
   HOME,
@@ -30,6 +31,8 @@ export default function RootRouter() {
 
       <Route path={LOGIN_URL} element={<LoginPage />} />
       <Route path={SIGNUP_URL} element={<SignupPage />} />
+
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
