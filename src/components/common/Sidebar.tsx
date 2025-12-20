@@ -54,7 +54,8 @@ const MENU = [
 export default function Sidebar() {
   const { pathname } = useLocation();
   const [curMenu, setCurMenu] = useState(pathname);
-
+  console.log(curMenu);
+  // Sidebar렌더링 최적화
   const isLogged = useIsLogged();
   const profile = useProfile();
   const userId = profile?.id;
