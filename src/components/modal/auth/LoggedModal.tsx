@@ -7,11 +7,9 @@ import { useNavigate } from "react-router";
 export default function LoggedModal() {
   const nav = useNavigate();
   const closeModal = useCloseModal();
-  console.log("login modal");
 
   const handleCloseModal = () => {
     closeModal();
-    nav(-1);
   };
 
   const handleLoginModal = () => {

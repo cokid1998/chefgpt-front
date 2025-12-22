@@ -20,32 +20,40 @@ import {
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
+import { useOpenModal } from "@/store/modalStore";
+import LoggedModal from "@/components/modal/auth/LoggedModal";
+import type { MouseEvent } from "react";
 
 const MENU = [
   {
     title: "홈",
     link: HOME,
     icon: <House size={16} />,
+    auth: false,
   },
   {
     title: "레시피 생성",
     link: RECIPE,
     icon: <Plus size={16} />,
+    auth: false,
   },
   {
     title: "내 냉장고",
     link: REFRIGERATOR,
     icon: <Refrigerator size={16} />,
+    auth: true,
   },
   {
     title: "커뮤니티",
     link: COMMUNITY,
     icon: <Users size={16} />,
+    auth: false,
   },
   {
     title: "요리 정보",
     link: INFO,
     icon: <BookOpen size={16} />,
+    auth: false,
   },
 ];
 
@@ -55,6 +63,7 @@ export default function Sidebar() {
   const profile = useProfile();
   const userId = profile?.id;
   const delAuth = useDelAuth();
+  const openModal = useOpenModal();
 
   const { mutate: logOut } = usePostLogout();
 
@@ -94,6 +103,16 @@ export default function Sidebar() {
               <Link
                 to={menu.link}
                 className="flex w-full items-center gap-2 px-4 py-3"
+                onClick={(e) => {
+                  /**
+                   * Todo: 현재 Sidebar의 메뉴를 눌렀을 때(지금 함수)와 주소창에 입력했을 때(OnlyLoggedLayout.tsx)를
+                   * 분리해서 처리하고있는데 통합할수있는 방법은 없을까?
+                   */
+                  if (menu.auth && !isLogged) {
+                    e.preventDefault(); // 페이지 이동 방지
+                    openModal(<LoggedModal />);
+                  }
+                }}
               >
                 {menu.icon}
                 {menu.title}
