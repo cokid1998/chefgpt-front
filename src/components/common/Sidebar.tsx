@@ -9,7 +9,7 @@ import {
   LogOut,
   LogIn,
 } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   HOME,
   RECIPE,
@@ -22,7 +22,6 @@ import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
 import { useOpenModal } from "@/store/modalStore";
 import LoggedModal from "@/components/modal/auth/LoggedModal";
-import type { MouseEvent } from "react";
 
 const MENU = [
   {
@@ -62,7 +61,6 @@ export default function Sidebar() {
   const isLogged = useIsLogged();
   const profile = useProfile();
   const userId = profile?.id;
-  const delAuth = useDelAuth();
   const openModal = useOpenModal();
 
   const { mutate: logOut } = usePostLogout();
@@ -70,9 +68,6 @@ export default function Sidebar() {
   const handleLogout = () => {
     if (!userId) return;
 
-    // 1. 로컬스토리지 데이터 삭제, zustand에서 데이터삭제
-    // 2. 쿠키에 refreshToken삭제
-    delAuth();
     logOut();
   };
 
