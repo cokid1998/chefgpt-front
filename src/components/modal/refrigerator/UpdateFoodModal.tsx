@@ -22,10 +22,6 @@ import dayjs from "dayjs";
 const location: LocationType[] = ["COLD", "FROZEN", "ROOM_TEMP"];
 
 /**
- * Todo: API를 요청해서 초기값을 세팅하지말고
- * 내 냉장고 페이지에서 캐싱한 food데이터를 활용하는방법을 찾기
- * keyword: 쿼리키 정규화?
- *
  * Todo: CreateFoodModal 컴포넌트와 합칠수 있는 방법은 없을까
  */
 export default function UpdateFoodModal({ foodId }: { foodId: number }) {

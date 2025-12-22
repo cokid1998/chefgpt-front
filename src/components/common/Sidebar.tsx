@@ -62,7 +62,6 @@ export default function Sidebar() {
   const delAuth = useDelAuth();
 
   const { mutate: logOut } = usePostLogout();
-  // const { data } = useGetProfile(); Todo: useGetProfile함수를 어디서 써야하는거지?
 
   const handleLogout = () => {
     if (!userId) return;
@@ -79,7 +78,6 @@ export default function Sidebar() {
         <Link
           to={HOME}
           className="flex w-full items-center gap-3 transition-transform hover:scale-105"
-          // Todo: curMenu리렌더링 트리거를 onClick이 아니라 useEffect로 url path로 하는게 나을려나?
           onClick={() => setCurMenu("/")}
         >
           <div className="bg-green-gradient flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg">
