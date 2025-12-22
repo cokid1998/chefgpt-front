@@ -20,8 +20,6 @@ import {
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
-import { useState } from "react";
-import useGetProfile from "@/hooks/API/user/GET/useGetProfile";
 
 const MENU = [
   {
@@ -53,9 +51,6 @@ const MENU = [
 
 export default function Sidebar() {
   const { pathname } = useLocation();
-  const [curMenu, setCurMenu] = useState(pathname);
-  console.log(curMenu);
-  // Sidebar렌더링 최적화
   const isLogged = useIsLogged();
   const profile = useProfile();
   const userId = profile?.id;
@@ -78,7 +73,6 @@ export default function Sidebar() {
         <Link
           to={HOME}
           className="flex w-full items-center gap-3 transition-transform hover:scale-105"
-          onClick={() => setCurMenu("/")}
         >
           <div className="bg-green-gradient flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg">
             <ChefHat color="white" size={28} />
@@ -95,8 +89,7 @@ export default function Sidebar() {
           {MENU.map((menu) => (
             <li
               key={menu.link}
-              className={`rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-50 hover:text-green-600 ${curMenu === menu.link ? "bg-linear-to-r from-green-400 to-emerald-500 text-white [&_a]:hover:text-black" : "text-gray-700"} `}
-              onClick={() => setCurMenu(menu.link)}
+              className={`rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-50 hover:text-green-600 ${pathname === menu.link ? "bg-linear-to-r from-green-400 to-emerald-500 text-white [&_a]:hover:text-black" : "text-gray-700"} `}
             >
               <Link
                 to={menu.link}
