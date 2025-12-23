@@ -14,7 +14,7 @@ import {
   HOME,
   RECIPE,
   REFRIGERATOR,
-  COMMUNITY,
+  VOTE,
   INFO,
   LOGIN_URL,
 } from "@/constants/Url";
@@ -43,8 +43,8 @@ const MENU = [
     auth: true,
   },
   {
-    title: "커뮤니티",
-    link: COMMUNITY,
+    title: "투표",
+    link: VOTE,
     icon: <Users size={16} />,
     auth: false,
   },

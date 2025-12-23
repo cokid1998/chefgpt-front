@@ -12,7 +12,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Link } from "react-router";
-import { RECIPE, COMMUNITY } from "@/constants/Url";
+import { RECIPE, VOTE } from "@/constants/Url";
 import { Button } from "@/components/ui/button";
 import {
   InputGroup,
@@ -73,7 +73,7 @@ export default function IndexPage() {
 
             <Link
               className="flex h-14 items-center rounded-xl bg-white px-8 transition-all duration-200 hover:bg-green-50 hover:text-green-500"
-              to={COMMUNITY}
+              to={VOTE}
             >
               커뮤니티 둘러보기
             </Link>

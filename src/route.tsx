@@ -5,11 +5,11 @@ import IndexPage from "@/page/IndexPage";
 import SignupPage from "@/page/auth/SignupPage";
 import RecipePage from "@/page/RecipePage";
 import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
-import CommunityPage from "@/page/CommunityPage";
+import VotePage from "@/page/Vote/VotePage";
 import InfoPage from "@/page/InfoPage";
 import NotFoundPage from "@/page/404";
 import {
-  COMMUNITY,
+  VOTE,
   HOME,
   INFO,
   LOGIN_URL,
@@ -25,7 +25,7 @@ export default function RootRouter() {
       <Route element={<Layout />}>
         <Route path={HOME} element={<IndexPage />} />
         <Route path={RECIPE} element={<RecipePage />} />
-        <Route path={COMMUNITY} element={<CommunityPage />} />
+        <Route path={VOTE} element={<VotePage />} />
         <Route path={INFO} element={<InfoPage />} />
 
         {/* 로그인한 사용자만 볼 수 있는 페이지 */}
