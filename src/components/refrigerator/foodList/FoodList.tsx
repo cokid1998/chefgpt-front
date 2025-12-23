@@ -1,6 +1,4 @@
 import FoodCard from "@/components/refrigerator/foodList/FoodCard";
-import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
-import type { FoodType } from "@/types/refrigeratorType";
 import { Package } from "lucide-react";
 
 function CardSkeleton() {

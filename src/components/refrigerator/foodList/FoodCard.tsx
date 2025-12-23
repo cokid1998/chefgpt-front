@@ -7,9 +7,8 @@ import {
   CircleQuestionMark,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import type { CategoryKrString, FoodType } from "@/types/refrigeratorType";
+import type { CategoryKrString } from "@/types/refrigeratorType";
 import dayjs from "dayjs";
-import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
 import { motion } from "motion/react";
 import { useOpenModal } from "@/store/modalStore";
 import UpdateFoodModal from "@/components/modal/refrigerator/UpdateFoodModal";
