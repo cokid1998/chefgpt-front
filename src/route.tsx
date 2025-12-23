@@ -4,7 +4,7 @@ import LoginPage from "@/page/auth/LoginPage";
 import IndexPage from "@/page/IndexPage";
 import SignupPage from "@/page/auth/SignupPage";
 import RecipePage from "@/page/RecipePage";
-import RefrigeratorPage from "@/page/RefrigeratorPage";
+import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
 import CommunityPage from "@/page/CommunityPage";
 import InfoPage from "@/page/InfoPage";
 import NotFoundPage from "@/page/404";

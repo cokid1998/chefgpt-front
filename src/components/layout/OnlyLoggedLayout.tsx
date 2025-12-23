@@ -34,4 +34,6 @@ export default function OnlyLoggedLayout() {
  *
  * Case 1: Sidebar에서 클릭해서 페이지가 전환
  * Case 2: 주소창에 직접 주소를 입력할 때
+ *
+ * 로그인한 상태에서 /refrigerator에서 로그아웃하면 '/'로 이동은 잘 되지만 모달이 나옴
  */
