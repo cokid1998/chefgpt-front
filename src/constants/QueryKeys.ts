@@ -22,4 +22,11 @@ export const QUERY_KEYS = {
     all: ["count"],
     food: ["count", "food"],
   },
+
+  vote: {
+    all: ["vote"],
+    list: ["vote", "list"],
+    active: ["vote", "active"],
+    close: ["vote", "close"],
+  },
 } as const;
