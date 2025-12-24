@@ -1,6 +1,20 @@
 import { CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VoteType } from "@/types/voteType";
+import dayjs from "dayjs";
+
+const formatDday = (endDate: string) => {
+  const formatEndDate = dayjs(endDate).startOf("day");
+  const diff = formatEndDate.diff(dayjs().startOf("day"), "day");
+
+  if (diff === 0) {
+    return "오늘";
+  } else if (diff < 0) {
+    return "종료";
+  } else {
+    return `D-${diff}`;
+  }
+};
 
 export default function VoteCard({
   title,
@@ -12,9 +26,12 @@ export default function VoteCard({
 }: VoteType) {
   return (
     <div className="rounded-xl border bg-white p-6 shadow transition-all hover:border-green-300 hover:shadow-xl">
-      <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">
-        {title}
-      </h3>
+      <div className="flex items-start justify-between">
+        <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">
+          {title}
+        </h3>
+        <Badge className="rounded-md bg-green-500">{formatDday(endDate)}</Badge>
+      </div>
       <p className="mb-4 line-clamp-2 text-sm text-gray-500">{description}</p>
 
       <div className="mb-4 space-y-3">
@@ -25,7 +42,7 @@ export default function VoteCard({
           />
           <div className="relative flex items-center justify-between p-4">
             <span className="font-medium text-gray-900">{optionA}</span>
-            <Badge className="rounded-md bg-green-500 text-white">
+            <Badge className="rounded-md bg-green-500">
               {/* {option.A.ratio}% */}
               3%
             </Badge>
@@ -43,7 +60,7 @@ export default function VoteCard({
               <CheckCircle2 className="size-5 text-green-600" />
               <span className="font-medium text-gray-900">{optionB}</span>
             </div>
-            <Badge className="rounded-md bg-green-500 text-white">
+            <Badge className="rounded-md bg-green-500">
               {/* {option.B.ratio}% */}
               3%
             </Badge>
