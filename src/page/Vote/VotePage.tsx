@@ -2,8 +2,12 @@ import { Users, Plus } from "lucide-react";
 import VoteCount from "@/components/vote/voteCount/VoteCount";
 import { Button } from "@/components/ui/button";
 import VoteList from "@/components/vote/voteList/VoteList";
+import { useOpenModal } from "@/store/modalStore";
+import CreateVoteModal from "@/components/modal/vote/CreateVoteModal";
 
 export default function VotePage() {
+  const openModal = useOpenModal();
+
   return (
     <>
       <title>ChefGPT | 투표</title>
@@ -24,6 +28,7 @@ export default function VotePage() {
               variant="outline"
               size={"lg"}
               className="text-green-600 hover:text-green-600"
+              onClick={() => openModal(<CreateVoteModal />)}
             >
               <Plus />
               투표 만들기
