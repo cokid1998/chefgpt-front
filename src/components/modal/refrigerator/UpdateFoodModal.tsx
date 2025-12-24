@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { Plus, Loader } from "lucide-react";
+import { Plus, Loader, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -85,9 +85,19 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
 
   return (
     <div className="w-xl rounded-sm bg-white p-6">
-      <div className="flex items-center gap-2 text-2xl">
-        <Plus className="h-6 w-6 text-green-500" />
-        식재료 수정
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-2xl">
+          <Plus className="h-6 w-6 text-green-500" />
+          식재료 수정
+        </div>
+        <Button
+          onClick={closeModal}
+          variant={"outline"}
+          size={"icon-sm"}
+          className="rounded-full"
+        >
+          <X />
+        </Button>
       </div>
 
       <div className="space-y-5 pt-4">
