@@ -13,6 +13,7 @@ export const CREATE_FOOD_API_URL = "/food";
 export const UPDATE_FOOD_API_URL = (foodId: number) => `/food/${foodId}`;
 export const GET_ONE_FOOD_URL = (foodId: number) => `/food/${foodId}`;
 export const GET_FOODS_COUNT_API_URL = "/food/count";
+export const DELETE_FOOD_API_URL = (foodId: number) => `/food/${foodId}`;
 
 // vote
 export const GET_VOTE_API_URL = "/vote";

@@ -5,6 +5,7 @@ import {
   CircleCheck,
   CircleAlert,
   CircleQuestionMark,
+  Trash2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { CategoryKrString } from "@/types/refrigeratorType";
@@ -13,6 +14,8 @@ import { motion } from "motion/react";
 import { useOpenModal } from "@/store/modalStore";
 import UpdateFoodModal from "@/components/modal/refrigerator/UpdateFoodModal";
 import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
+import { Button } from "@/components/ui/button";
+import useDeleteFood from "@/hooks/API/food/DELETE/useDeleteFood";
 
 export const switchLocationName = (
   location: "COLD" | "FROZEN" | "ROOM_TEMP" | null,
@@ -113,6 +116,8 @@ export default function FoodCard({ foodId }: FoodCardProps) {
   const expireStatus = checkExpirationStatus(food?.expiration_date ?? null);
   const config = EXPIRE_STATUS_CONFIG[expireStatus];
 
+  const { mutate: deleteFood } = useDeleteFood();
+
   if (!food) return null;
 
   return (
@@ -153,6 +158,17 @@ export default function FoodCard({ foodId }: FoodCardProps) {
           <span className="text-xs font-medium opacity-80">
             {config.textLabel}
           </span>
+
+          <Button
+            variant="ghost"
+            className="size-8 text-gray-400"
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteFood(foodId);
+            }}
+          >
+            <Trash2 className="size-4" />
+          </Button>
         </div>
       </div>
 
