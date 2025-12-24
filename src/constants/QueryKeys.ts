@@ -21,6 +21,7 @@ export const QUERY_KEYS = {
   count: {
     all: ["count"],
     food: ["count", "food"],
+    vote: ["count", "vote"],
   },
 
   vote: {

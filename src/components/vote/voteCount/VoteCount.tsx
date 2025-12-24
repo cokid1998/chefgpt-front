@@ -1,6 +1,12 @@
 import { Users, Vote, TrendingUp } from "lucide-react";
+import useGetVoteCount from "@/hooks/API/vote/GET/useGetVoteCount";
 
+/**
+ * Todo: 로딩처리
+ */
 export default function VoteCount() {
+  const { data: voteCount, isLoading } = useGetVoteCount();
+
   return (
     <div className="-mt-8 grid w-full grid-cols-3 gap-6">
       <div className="rounded-2xl bg-white p-6 shadow-md">
@@ -10,7 +16,9 @@ export default function VoteCount() {
           </div>
           <div>
             <p className="text-sm text-gray-500">전체 투표</p>
-            <p className="text-2xl font-bold text-gray-900">3개</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {voteCount?.totalVoteCount}개
+            </p>
           </div>
         </div>
       </div>
@@ -22,7 +30,9 @@ export default function VoteCount() {
           </div>
           <div>
             <p className="text-sm text-gray-500">진행 중</p>
-            <p className="text-2xl font-bold text-gray-900">3개</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {voteCount?.activeVoteCount}개
+            </p>
           </div>
         </div>
       </div>
@@ -33,7 +43,9 @@ export default function VoteCount() {
           </div>
           <div>
             <p className="text-sm text-gray-500">총 참여</p>
-            <p className="text-2xl font-bold text-gray-900">3</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {voteCount?.totalParticipants}명
+            </p>
           </div>
         </div>
       </div>

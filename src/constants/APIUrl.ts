@@ -20,3 +20,4 @@ export const GET_VOTE_API_URL = "/vote";
 export const GET_ACTIVE_VOTE_API_URL = "/vote/active";
 export const GET_CLOSE_VOTE_API_URL = "/vote/close";
 export const CREATE_VOTE_API_URL = "/vote";
+export const GET_VOTE_COUNT_API_URL = "/vote/count";

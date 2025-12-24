@@ -15,8 +15,8 @@ const usePostVote = () => {
     onSuccess: () => {
       // 새로운 투표가 생성되면 기존 캐싱된 데이터 refetch
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.vote.active });
-      // Todo: 투표 카운트 캐싱 데이터 refetch
-      // queryClient.invalidateQueries({queryKey: QUERY_KEYS.count.})
+      // 새로운 투표가 생성되면 투표 카운트 캐싱 데이터 refetch
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.count.vote });
       toast.success("투표가 생성됐습니다.");
     },
     onError: (error: any) => {
