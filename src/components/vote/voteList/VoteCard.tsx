@@ -1,4 +1,4 @@
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
@@ -66,6 +66,11 @@ export default function VoteCard({
             </Badge>
           </div>
         </button>
+      </div>
+
+      <div className="flex items-center gap-1">
+        <Users className="size-4 text-gray-500" />
+        <span className="text-sm text-gray-500">0 명 참여</span>
       </div>
     </div>
   );
