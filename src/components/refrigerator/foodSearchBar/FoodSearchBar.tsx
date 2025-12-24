@@ -28,7 +28,9 @@ interface FoodSearchBarProps {
   onSearchKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onCategoryClick: (category: string) => void;
 }
-
+/**
+ * Todo: 필터링 목록에 유통기한 종류도 추가해야함
+ */
 export default function FoodSearchBar({
   selectCategory,
   onSearchKeyDown,
@@ -54,16 +56,18 @@ export default function FoodSearchBar({
       </InputGroup>
 
       <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        {[{ id: 0, name: "전체" }, ...foodsCategory]?.map((category) => (
-          <Badge
-            key={category.id}
-            variant={"outline"}
-            className={`w-14 cursor-pointer px-3 py-1 text-sm font-medium ${selectCategory === category.name ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg" : "border-green-200 text-gray-600 hover:border-green-400 hover:bg-green-50"} `}
-            onClick={() => onCategoryClick(category.name)}
-          >
-            {category.name}
-          </Badge>
-        ))}
+        {[{ id: 0, name: "전체", icon: "" }, ...foodsCategory]?.map(
+          (category) => (
+            <Badge
+              key={category.id}
+              variant={"outline"}
+              className={`w-fit cursor-pointer px-3 py-1 text-sm font-medium ${selectCategory === category.name ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg" : "border-green-200 text-gray-600 hover:border-green-400 hover:bg-green-50"}`}
+              onClick={() => onCategoryClick(category.name)}
+            >
+              {category.name} {category.icon}
+            </Badge>
+          ),
+        )}
       </div>
     </div>
   );

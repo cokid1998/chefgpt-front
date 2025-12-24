@@ -16,6 +16,7 @@ import UpdateFoodModal from "@/components/modal/refrigerator/UpdateFoodModal";
 import useGetOneFood from "@/hooks/API/food/GET/useGetOneFood";
 import { Button } from "@/components/ui/button";
 import useDeleteFood from "@/hooks/API/food/DELETE/useDeleteFood";
+import { CATEGORY_EMOJI } from "@/hooks/API/food/GET/useGetCategory";
 
 export const switchLocationName = (
   location: "COLD" | "FROZEN" | "ROOM_TEMP" | null,
@@ -92,7 +93,7 @@ const categoryBadgeColor = (category: CategoryKrString) => {
     case "육류":
       return "bg-red-100 text-red-700";
     case "유제품":
-      return "bg-blue-100 text-blue-700";
+      return "bg-[#F3E9D2] text-slate-700";
     case "해산물":
       return "bg-sky-100 text-sky-700";
     case "과일":
@@ -134,7 +135,7 @@ export default function FoodCard({ foodId }: FoodCardProps) {
             <Badge
               className={`rounded-sm ${categoryBadgeColor(food.category.name)}`}
             >
-              {food.category.name}
+              {food.category.name} {CATEGORY_EMOJI[food.category.name]}
             </Badge>
           </div>
 
