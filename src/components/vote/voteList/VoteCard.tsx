@@ -1,6 +1,6 @@
 import { CheckCircle2, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import type { VoteType } from "@/types/voteType";
+import type { VoteOption, VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
 import usePostSubmitVote from "@/hooks/API/vote/POST/usePostSubmitVote";
 
@@ -25,10 +25,16 @@ export default function VoteCard({
   optionB,
   startDate,
   endDate,
+  selectedOptions,
+  participantsCount,
+  optionARatio,
+  optionBRatio,
 }: VoteType) {
   const { mutate: submitVote } = usePostSubmitVote();
 
-  const handleSubmitVote = (voteId: number, optionName: "A" | "B") => {
+  const handleSubmitVote = (voteId: number, optionName: VoteOption) => {
+    if (!optionName) return;
+
     submitVote({ voteId, optionName });
   };
 
@@ -45,46 +51,63 @@ export default function VoteCard({
       <div className="mb-4 space-y-3">
         <button
           onClick={() => handleSubmitVote(id, "A")}
-          className="relative w-full cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 bg-gray-50 transition-all hover:border-green-400 hover:bg-green-50"
+          className={`relative w-full cursor-pointer overflow-hidden rounded-xl border-2 transition-all hover:border-green-400 hover:bg-green-50 ${
+            selectedOptions === "A"
+              ? "border-green-500 bg-green-50"
+              : "border-gray-200 bg-gray-50"
+          }`}
         >
           <div
             className="absolute inset-y-0 left-0 bg-green-200"
-            // style={{ width: `${option.A.ratio}%` }}
+            style={{ width: `${optionARatio}%` }}
           />
           <div className="relative flex items-center justify-between p-4">
-            <span className="font-medium text-gray-900">{optionA}</span>
-            <Badge className="rounded-md bg-green-500">
-              {/* {option.A.ratio}% */}
-              3%
-            </Badge>
+            <div className="flex items-center gap-2">
+              {selectedOptions === "A" && (
+                <CheckCircle2
+                  className={`size-5 ${selectedOptions === "A" ? "text-green-600" : ""}`}
+                />
+              )}
+
+              <span className="font-medium text-gray-900">{optionA}</span>
+            </div>
+            <Badge className="rounded-md bg-green-500">{optionARatio}%</Badge>
           </div>
         </button>
 
         <button
           onClick={() => handleSubmitVote(id, "B")}
-          className="relative w-full overflow-hidden rounded-xl border-2 border-green-500 bg-green-50 transition-all"
+          className={`relative w-full cursor-pointer overflow-hidden rounded-xl border-2 transition-all hover:border-green-400 hover:bg-green-50 ${
+            selectedOptions === "B"
+              ? "border-green-500 bg-green-50"
+              : "border-gray-200 bg-gray-50"
+          }`}
         >
           <div
             className="absolute inset-y-0 left-0 bg-green-200"
-            // style={{ width: `${option.B.ratio}%` }}
+            style={{ width: `${optionBRatio}%` }}
           />
 
           <div className="relative flex items-center justify-between p-4">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="size-5 text-green-600" />
+              {selectedOptions === "B" && (
+                <CheckCircle2
+                  className={`size-5 ${selectedOptions === "B" ? "text-green-600" : ""}`}
+                />
+              )}
+
               <span className="font-medium text-gray-900">{optionB}</span>
             </div>
-            <Badge className="rounded-md bg-green-500">
-              {/* {option.B.ratio}% */}
-              3%
-            </Badge>
+            <Badge className="rounded-md bg-green-500">{optionBRatio}%</Badge>
           </div>
         </button>
       </div>
 
       <div className="flex items-center gap-1">
         <Users className="size-4 text-gray-500" />
-        <span className="text-sm text-gray-500">0 명 참여</span>
+        <span className="text-sm text-gray-500">
+          {participantsCount} 명 참여
+        </span>
       </div>
     </div>
   );
