@@ -2,6 +2,7 @@ import { CheckCircle2, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
+import usePostSubmitVote from "@/hooks/API/vote/POST/usePostSubmitVote";
 
 const formatDday = (endDate: string) => {
   const formatEndDate = dayjs(endDate).startOf("day");
@@ -17,6 +18,7 @@ const formatDday = (endDate: string) => {
 };
 
 export default function VoteCard({
+  id,
   title,
   description,
   optionA,
@@ -24,6 +26,12 @@ export default function VoteCard({
   startDate,
   endDate,
 }: VoteType) {
+  const { mutate: submitVote } = usePostSubmitVote();
+
+  const handleSubmitVote = (voteId: number, optionName: "A" | "B") => {
+    submitVote({ voteId, optionName });
+  };
+
   return (
     <div className="rounded-xl border bg-white p-6 shadow transition-all hover:border-green-300 hover:shadow-xl">
       <div className="flex items-start justify-between">
@@ -35,7 +43,10 @@ export default function VoteCard({
       <p className="mb-4 line-clamp-2 text-sm text-gray-500">{description}</p>
 
       <div className="mb-4 space-y-3">
-        <button className="relative w-full cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 bg-gray-50 transition-all hover:border-green-400 hover:bg-green-50">
+        <button
+          onClick={() => handleSubmitVote(id, "A")}
+          className="relative w-full cursor-pointer overflow-hidden rounded-xl border-2 border-gray-200 bg-gray-50 transition-all hover:border-green-400 hover:bg-green-50"
+        >
           <div
             className="absolute inset-y-0 left-0 bg-green-200"
             // style={{ width: `${option.A.ratio}%` }}
@@ -49,7 +60,10 @@ export default function VoteCard({
           </div>
         </button>
 
-        <button className="relative w-full overflow-hidden rounded-xl border-2 border-green-500 bg-green-50 transition-all">
+        <button
+          onClick={() => handleSubmitVote(id, "B")}
+          className="relative w-full overflow-hidden rounded-xl border-2 border-green-500 bg-green-50 transition-all"
+        >
           <div
             className="absolute inset-y-0 left-0 bg-green-200"
             // style={{ width: `${option.B.ratio}%` }}
