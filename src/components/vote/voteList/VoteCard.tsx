@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import type { VoteOption, VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
 import usePostSubmitVote from "@/hooks/API/vote/POST/usePostSubmitVote";
+import VoteButton from "@/components/vote/voteList/VoteButton";
 
 const formatDday = (endDate: string) => {
   const formatEndDate = dayjs(endDate).startOf("day");
@@ -17,6 +18,9 @@ const formatDday = (endDate: string) => {
   }
 };
 
+/**
+ * Todo: Skeleton UI
+ */
 export default function VoteCard({
   id,
   title,
@@ -40,8 +44,6 @@ export default function VoteCard({
 
   const now = dayjs();
   const isEndVote = dayjs(endDate).isBefore(now);
-  console.log(optionARatio);
-  console.log(optionBRatio);
 
   return (
     <div
@@ -64,74 +66,23 @@ export default function VoteCard({
       <p className="mb-4 line-clamp-2 text-sm text-gray-500">{description}</p>
 
       <div className="mb-4 space-y-3">
-        <button
+        <VoteButton
+          selectedOptions={selectedOptions}
+          optionType="A"
+          isEndVote={isEndVote}
+          optionRatio={optionARatio}
+          optionTitle={optionA}
           onClick={() => handleSubmitVote(id, "A")}
-          className={`relative w-full overflow-hidden rounded-xl border-2 transition-all hover:border-green-400 hover:bg-green-50 ${
-            selectedOptions === "A"
-              ? "border-green-500 bg-green-50"
-              : "border-gray-200 bg-gray-50"
-          } ${isEndVote ? "pointer-events-none border-gray-200! bg-gray-50!" : "cursor-pointer"}`}
-        >
-          <div
-            className={`absolute inset-y-0 left-0 ${
-              isEndVote ? "bg-gray-200" : "bg-green-200"
-            }`}
-            style={{ width: `${optionARatio}%` }}
-          />
-          <div className="relative flex items-center justify-between p-4">
-            <div className="flex items-center gap-2">
-              {selectedOptions === "A" && !isEndVote && (
-                <CheckCircle2
-                  className={`size-5 ${selectedOptions === "A" ? "text-green-600" : ""}`}
-                />
-              )}
+        />
 
-              <span className="font-medium text-gray-900">{optionA}</span>
-            </div>
-            <Badge
-              className={`rounded-md ${
-                isEndVote ? "bg-gray-500" : "bg-green-500"
-              }`}
-            >
-              {optionARatio}%
-            </Badge>
-          </div>
-        </button>
-
-        <button
+        <VoteButton
+          selectedOptions={selectedOptions}
+          optionType="B"
+          isEndVote={isEndVote}
+          optionRatio={optionBRatio}
+          optionTitle={optionB}
           onClick={() => handleSubmitVote(id, "B")}
-          className={`relative w-full cursor-pointer overflow-hidden rounded-xl border-2 transition-all hover:border-green-400 hover:bg-green-50 ${
-            selectedOptions === "B"
-              ? "border-green-500 bg-green-50"
-              : "border-gray-200 bg-gray-50"
-          } ${isEndVote ? "pointer-events-none border-gray-200! bg-gray-50!" : ""}`}
-        >
-          <div
-            className={`absolute inset-y-0 left-0 ${
-              isEndVote ? "bg-gray-200" : "bg-green-200"
-            }`}
-            style={{ width: `${optionBRatio}%` }}
-          />
-
-          <div className="relative flex items-center justify-between p-4">
-            <div className="flex items-center gap-2">
-              {selectedOptions === "B" && !isEndVote && (
-                <CheckCircle2
-                  className={`size-5 ${selectedOptions === "B" ? "text-green-600" : ""}`}
-                />
-              )}
-
-              <span className="font-medium text-gray-900">{optionB}</span>
-            </div>
-            <Badge
-              className={`rounded-md ${
-                isEndVote ? "bg-gray-500" : "bg-green-500"
-              }`}
-            >
-              {optionBRatio}%
-            </Badge>
-          </div>
-        </button>
+        />
       </div>
 
       <div className="flex items-center gap-1">
