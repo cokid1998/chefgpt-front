@@ -1,4 +1,4 @@
-import { CheckCircle2, Users } from "lucide-react";
+import { Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { VoteOption, VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
@@ -18,9 +18,6 @@ const formatDday = (endDate: string) => {
   }
 };
 
-/**
- * Todo: Skeleton UI
- */
 export default function VoteCard({
   id,
   title,

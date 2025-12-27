@@ -1,11 +1,11 @@
 import { Users, Vote, TrendingUp } from "lucide-react";
 import useGetVoteCount from "@/hooks/API/vote/GET/useGetVoteCount";
+import VoteCountSkeleton from "@/components/vote/voteCount/VoteCountSkeleton";
 
-/**
- * Todo: 로딩처리
- */
 export default function VoteCount() {
   const { data: voteCount, isLoading } = useGetVoteCount();
+
+  if (isLoading) return <VoteCountSkeleton />;
 
   return (
     <div className="-mt-8 grid w-full grid-cols-3 gap-6">
@@ -36,6 +36,7 @@ export default function VoteCount() {
           </div>
         </div>
       </div>
+
       <div className="rounded-2xl bg-white p-6 shadow-md">
         <div className="flex items-center gap-4">
           <div className="rounded-xl bg-purple-100 p-3">

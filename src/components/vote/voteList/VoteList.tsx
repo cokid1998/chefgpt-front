@@ -1,10 +1,13 @@
 import VoteCard from "@/components/vote/voteList/VoteCard";
 import useGetActiveVote from "@/hooks/API/vote/GET/useGetActiveVote";
 import useGetCloseVote from "@/hooks/API/vote/GET/useGetCloseVote";
+import VoteCardSkeleton from "@/components/vote/voteList/VoteCardSkeleton";
 
 export default function VoteList() {
-  const { data: activeVoteList } = useGetActiveVote();
-  const { data: closeVoteList } = useGetCloseVote();
+  const { data: activeVoteList, isLoading: activeVoteListLoading } =
+    useGetActiveVote();
+  const { data: closeVoteList, isLoading: closeVoteListLoading } =
+    useGetCloseVote();
 
   return (
     <div className="flex flex-col gap-10">
@@ -14,9 +17,11 @@ export default function VoteList() {
         </h2>
 
         <div className="grid grid-cols-3 gap-6">
-          {activeVoteList?.map((item) => (
-            <VoteCard key={item.title} {...item} />
-          ))}
+          {activeVoteListLoading
+            ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
+            : activeVoteList?.map((item) => (
+                <VoteCard key={item.title} {...item} />
+              ))}
         </div>
       </div>
 
@@ -24,9 +29,11 @@ export default function VoteList() {
         <h2 className="mb-6 text-2xl font-bold text-gray-900">지난 투표</h2>
 
         <div className="grid grid-cols-3 gap-6">
-          {closeVoteList?.map((item) => (
-            <VoteCard key={item.title} {...item} />
-          ))}
+          {closeVoteListLoading
+            ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
+            : closeVoteList?.map((item) => (
+                <VoteCard key={item.title} {...item} />
+              ))}
         </div>
       </div>
     </div>
