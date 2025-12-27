@@ -5,7 +5,14 @@ import type { VoteType } from "@/types/voteType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-type PostVotePayload = Omit<VoteType, "id">;
+type PostVotePayload = Omit<
+  VoteType,
+  | "id"
+  | "selectedOptions"
+  | "participantsCount"
+  | "optionARatio"
+  | "optionBRatio"
+>;
 
 const usePostVote = () => {
   const queryClient = useQueryClient();
@@ -14,7 +21,7 @@ const usePostVote = () => {
       API.post(CREATE_VOTE_API_URL, payload),
     onSuccess: () => {
       // 새로운 투표가 생성되면 기존 캐싱된 데이터 refetch
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.vote.active });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.vote.all });
       // 새로운 투표가 생성되면 투표 카운트 캐싱 데이터 refetch
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.count.vote });
       toast.success("투표가 생성됐습니다.");
