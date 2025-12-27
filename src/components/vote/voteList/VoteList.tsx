@@ -1,13 +1,12 @@
 import VoteCard from "@/components/vote/voteList/VoteCard";
-import useGetActiveVote from "@/hooks/API/vote/GET/useGetActiveVote";
-import useGetCloseVote from "@/hooks/API/vote/GET/useGetCloseVote";
 import VoteCardSkeleton from "@/components/vote/voteList/VoteCardSkeleton";
+import useGetAllVote from "@/hooks/API/vote/GET/useGetAllVote";
 
 export default function VoteList() {
   const { data: activeVoteList, isLoading: activeVoteListLoading } =
-    useGetActiveVote();
+    useGetAllVote("active");
   const { data: closeVoteList, isLoading: closeVoteListLoading } =
-    useGetCloseVote();
+    useGetAllVote("close");
 
   return (
     <div className="flex flex-col gap-10">

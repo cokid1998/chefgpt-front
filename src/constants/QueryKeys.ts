@@ -26,8 +26,6 @@ export const QUERY_KEYS = {
 
   vote: {
     all: ["vote"],
-    list: ["vote", "list"],
-    active: ["vote", "active"],
-    close: ["vote", "close"],
+    list: (status: "active" | "close") => ["vote", "list", status],
   },
 } as const;
