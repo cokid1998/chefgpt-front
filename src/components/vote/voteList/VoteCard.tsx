@@ -4,10 +4,12 @@ import type { VoteOption, VoteType } from "@/types/voteType";
 import dayjs from "dayjs";
 import usePostSubmitVote from "@/hooks/API/vote/POST/usePostSubmitVote";
 import VoteButton from "@/components/vote/voteList/VoteButton";
+import utc from "dayjs/plugin/utc";
 
 const formatDday = (endDate: string) => {
-  const formatEndDate = dayjs(endDate).startOf("day");
-  const diff = formatEndDate.diff(dayjs().startOf("day"), "day");
+  dayjs.extend(utc);
+  const formatEndDate = dayjs.utc(endDate).startOf("day");
+  const diff = formatEndDate.diff(dayjs.utc().startOf("day"), "day");
 
   if (diff === 0) {
     return "오늘";
