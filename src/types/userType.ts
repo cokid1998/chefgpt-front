@@ -3,6 +3,5 @@ export interface Profile {
   createdAt: Date;
   email: string;
   name: string;
-  password: string;
   thumbnail: string;
 }
