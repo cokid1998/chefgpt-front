@@ -9,6 +9,8 @@ import usePostLogin from "@/hooks/API/auth/POST/usePostLogin";
 import { SIGNUP_URL } from "@/constants/Url";
 import KAKAOLOGINBUTTON from "@/assets/image/kakao_login_button.png";
 
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${import.meta.env.VITE_KAKAO_REST_API_KEY}&redirect_uri=${import.meta.env.VITE_KAKAO_LOGIN_REDIRECT_URI}&response_type=code`;
+
 export default function LoginPage() {
   const [email, setEmail] = useState("test@naver.com"); // Todo: 추후 초기값 삭제
   const [password, setPassword] = useState("1234"); // Todo: 추후 초기값 삭제
@@ -37,9 +39,9 @@ export default function LoginPage() {
             로그인을 해주세요!
           </div>
 
-          <button className="mt-5 cursor-pointer">
+          <a className="mt-5 cursor-pointer" href={KAKAO_AUTH_URL}>
             <img src={KAKAOLOGINBUTTON} />
-          </button>
+          </a>
 
           {/* <button className="mt-5 flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl border border-slate-200 px-5 py-3.5 text-[16px] font-medium text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:shadow-sm">
             <Google className="size-6" />

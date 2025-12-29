@@ -16,8 +16,10 @@ import {
   RECIPE,
   REFRIGERATOR,
   SIGNUP_URL,
+  KAKAO_AUTH_CALLBACK_URL,
 } from "@/constants/Url";
 import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
+import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallbackPage";
 
 export default function RootRouter() {
   return (
@@ -36,6 +38,10 @@ export default function RootRouter() {
 
       <Route path={LOGIN_URL} element={<LoginPage />} />
       <Route path={SIGNUP_URL} element={<SignupPage />} />
+      <Route
+        path={KAKAO_AUTH_CALLBACK_URL}
+        element={<KAKAOAuthCallbackPage />}
+      />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

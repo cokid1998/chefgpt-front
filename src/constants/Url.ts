@@ -5,3 +5,5 @@ export const REFRIGERATOR = "/refrigerator";
 export const VOTE = "/vote";
 export const INFO = "/info";
 export const SIGNUP_URL = "/signup";
+
+export const KAKAO_AUTH_CALLBACK_URL = "/kakao/auth/callback";

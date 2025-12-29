@@ -2,6 +2,7 @@
 export const loginUrl = "/auth/login";
 export const signupAPIURL = "/auth/signup";
 export const logoutUrl = "/auth/logout";
+export const KAKAO_API_URL = "/auth/kakao";
 
 // user
 export const PROFILE_API_URL = "/profile";
