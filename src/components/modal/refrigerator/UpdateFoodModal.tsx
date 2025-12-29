@@ -76,7 +76,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
       ...formData,
       quantity: Number(formData.quantity),
       categoryId: Number(formData.categoryId),
-      expiration_date: new Date(formData.expiration_date),
+      expiration_date: formData.expiration_date,
     };
     updateFood({ foodId: food?.id, payload: formatPayload });
   };

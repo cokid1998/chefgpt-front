@@ -6,8 +6,10 @@ import type { FoodType } from "@/types/refrigeratorType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-interface PostFoodReq extends Omit<FoodType, "id" | "category"> {
+interface PostFoodReq
+  extends Omit<FoodType, "id" | "category" | "expiration_date"> {
   categoryId: number;
+  expiration_date: string;
 }
 
 const usePostFood = () => {

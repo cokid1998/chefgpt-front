@@ -43,8 +43,9 @@ export default function CreateFoodModal() {
       ...formData,
       quantity: Number(formData.quantity),
       categoryId: Number(formData.categoryId),
-      expiration_date: new Date(formData.expiration_date),
+      expiration_date: formData.expiration_date,
     };
+
     createFood(formatPayload);
   };
 

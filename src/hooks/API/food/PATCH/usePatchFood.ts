@@ -6,8 +6,10 @@ import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { toast } from "sonner";
 import type { FoodType } from "@/types/refrigeratorType";
 
-interface PatchFoodReq extends Omit<FoodType, "id" | "category"> {
+interface PatchFoodReq
+  extends Omit<FoodType, "id" | "category" | "expiration_date"> {
   categoryId: number;
+  expiration_date: string;
 }
 
 const usePatchFood = () => {
