@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { useOpenModal } from "@/store/modalStore";
 import ArticleSearchBar from "@/components/article/ArticleSerachBar";
 import useGetArticle from "@/hooks/API/article/GET/useGetArticle";
+import ArticleList from "@/components/article/ArticleList";
 
 export default function ArticlePage() {
   const openModal = useOpenModal();
 
-  const { data: articleList } = useGetArticle();
+  // Todo: 캐시 정규화?
+  const { data: articleList = [], isLoading: isArticleLoading } =
+    useGetArticle();
+
+  if (isArticleLoading) return null;
 
   return (
     <>
@@ -37,11 +42,11 @@ export default function ArticlePage() {
         </div>
 
         <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
-          <ArticleSearchBar />
-        </div>
+          <div className="flex w-full flex-col gap-8">
+            <ArticleSearchBar />
 
-        <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
-          asdf
+            <ArticleList articleList={articleList} />
+          </div>
         </div>
       </div>
     </>
