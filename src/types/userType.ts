@@ -4,4 +4,5 @@ export interface Profile {
   email: string;
   name: string;
   thumbnail: string;
+  authProvider: "KAKAO" | "LOCAL";
 }

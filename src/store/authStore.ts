@@ -17,7 +17,7 @@ type Auth = {
   isLogged: boolean;
 };
 
-interface SetAuthParameter {
+export interface SetAuthParameter {
   accessToken: string;
   profile: Profile;
 }
