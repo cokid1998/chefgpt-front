@@ -6,6 +6,7 @@ export const QUERY_KEYS = {
   category: {
     all: ["category"],
     food: ["category", "food"],
+    article: ["category", "article"],
   },
 
   food: {
@@ -27,5 +28,10 @@ export const QUERY_KEYS = {
   vote: {
     all: ["vote"],
     list: (status: "active" | "close") => ["vote", "list", status],
+  },
+
+  article: {
+    all: ["article"],
+    list: () => ["article"],
   },
 } as const;

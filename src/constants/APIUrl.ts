@@ -22,3 +22,7 @@ export const CREATE_VOTE_API_URL = "/vote";
 export const GET_VOTE_COUNT_API_URL = "/vote/count";
 export const CREATE_VOTE_SUBMIT_API_URL = (voteId: number) =>
   `/vote/${voteId}/submit`;
+
+// article
+export const GET_ARTICLE_CATEOGRY_API_URL = "/article/category";
+export const GET_ARTICLE = "/article";
