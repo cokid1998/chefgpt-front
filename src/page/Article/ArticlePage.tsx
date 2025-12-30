@@ -1,10 +1,13 @@
 import { Plus, BookAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOpenModal } from "@/store/modalStore";
-// import CookInfoSerachBar from "@/components/cook-info/CookInfoSerachBar";
+import ArticleSearchBar from "@/components/article/ArticleSerachBar";
+import useGetArticle from "@/hooks/API/article/GET/useGetArticle";
 
-export default function CookInfoPage() {
+export default function ArticlePage() {
   const openModal = useOpenModal();
+
+  const { data: articleList } = useGetArticle();
 
   return (
     <>
@@ -34,7 +37,11 @@ export default function CookInfoPage() {
         </div>
 
         <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
-          {/* <CookInfoSerachBar /> */}
+          <ArticleSearchBar />
+        </div>
+
+        <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
+          asdf
         </div>
       </div>
     </>

@@ -6,7 +6,7 @@ import SignupPage from "@/page/auth/SignupPage";
 import RecipePage from "@/page/RecipePage";
 import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
 import VotePage from "@/page/Vote/VotePage";
-import CookInfoPage from "@/page/CookInfo/CookInfoPage";
+import ArticlePage from "@/page/Article/ArticlePage";
 import NotFoundPage from "@/page/404";
 import {
   VOTE,
@@ -28,7 +28,7 @@ export default function RootRouter() {
         <Route path={HOME} element={<IndexPage />} />
         <Route path={RECIPE} element={<RecipePage />} />
         <Route path={VOTE} element={<VotePage />} />
-        <Route path={INFO} element={<CookInfoPage />} />
+        <Route path={INFO} element={<ArticlePage />} />
 
         {/* 로그인한 사용자만 볼 수 있는 페이지 */}
         <Route element={<OnlyLoggedLayout />}>
