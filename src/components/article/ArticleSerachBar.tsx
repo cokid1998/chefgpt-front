@@ -7,13 +7,27 @@ import {
 import { Badge } from "@/components/ui/badge";
 import useGetArticleCategory from "@/hooks/API/article/GET/useGetArticleCategory";
 
-// Todo: Skeleton
+function ArticleSearchBarSkeleton() {
+  return (
+    <div>
+      <div className="mb-4 h-12 animate-pulse rounded-lg bg-gray-200" />
+      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        {[...Array(7)].map((_, i) => (
+          <div
+            key={i}
+            className="h-9.5 w-16.5 shrink-0 animate-pulse rounded-full bg-gray-200"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function ArticleSearchBar() {
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetArticleCategory();
 
-  if (isCategoryLoading) return null;
+  if (isCategoryLoading) return <ArticleSearchBarSkeleton />;
 
   return (
     <div className="w-full">
@@ -33,7 +47,7 @@ export default function ArticleSearchBar() {
           return (
             <Badge
               variant={"outline"}
-              className={`w-fit cursor-pointer border-green-200 px-3 py-1 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50`}
+              className={`w-fit cursor-pointer border-green-200 px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50`}
               key={cat.id}
             >
               {cat.name}
