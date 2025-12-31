@@ -8,6 +8,7 @@ export default function ArticleCard({
   summary,
   content,
   category,
+  readingTime,
 }: Article) {
   return (
     <div className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl">
@@ -26,7 +27,7 @@ export default function ArticleCard({
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
             {/* Todo: 예상시간 */}
-            <span>3</span>
+            <span>{readingTime}</span>
           </div>
 
           <div className="flex items-center gap-1">
