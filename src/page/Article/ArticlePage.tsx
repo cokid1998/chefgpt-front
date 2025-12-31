@@ -2,17 +2,10 @@ import { Plus, BookAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOpenModal } from "@/store/modalStore";
 import ArticleSearchBar from "@/components/article/ArticleSerachBar";
-import useGetArticle from "@/hooks/API/article/GET/useGetArticle";
 import ArticleList from "@/components/article/ArticleList";
 
 export default function ArticlePage() {
   const openModal = useOpenModal();
-
-  // Todo: 캐시 정규화?
-  const { data: articleList = [], isLoading: isArticleLoading } =
-    useGetArticle();
-
-  if (isArticleLoading) return null;
 
   return (
     <>
@@ -45,7 +38,7 @@ export default function ArticlePage() {
           <div className="flex w-full flex-col gap-8">
             <ArticleSearchBar />
 
-            <ArticleList articleList={articleList} />
+            <ArticleList />
           </div>
         </div>
       </div>
