@@ -10,4 +10,5 @@ export interface Article {
   content: string;
   category: ArticleCategory;
   readingTime: number;
+  viewCount: number;
 }

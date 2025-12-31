@@ -9,6 +9,7 @@ export default function ArticleCard({
   content,
   category,
   readingTime,
+  viewCount,
 }: Article) {
   return (
     <div className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl">
@@ -33,7 +34,7 @@ export default function ArticleCard({
           <div className="flex items-center gap-1">
             <Eye className="h-4 w-4" />
             {/* Todo: viewCount */}
-            <span>3</span>
+            <span>{viewCount}</span>
           </div>
         </div>
 
