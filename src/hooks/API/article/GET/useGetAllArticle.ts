@@ -4,7 +4,7 @@ import API from "@/hooks/API/API";
 import { useQuery } from "@tanstack/react-query";
 import type { Article } from "@/types/articleType";
 
-const useGetArticle = () => {
+const useGetAllArticle = () => {
   return useQuery({
     queryKey: QUERY_KEYS.article.list(),
     queryFn: () => API.get<Article[]>(GET_ARTICLE),
@@ -14,4 +14,4 @@ const useGetArticle = () => {
   });
 };
 
-export default useGetArticle;
+export default useGetAllArticle;
