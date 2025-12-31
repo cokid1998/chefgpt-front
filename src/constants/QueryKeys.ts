@@ -34,5 +34,6 @@ export const QUERY_KEYS = {
   article: {
     all: ["article"],
     list: () => ["article"],
+    byId: (articleId: number) => ["article", articleId],
   },
 } as const;

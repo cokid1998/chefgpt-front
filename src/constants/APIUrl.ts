@@ -27,3 +27,4 @@ export const CREATE_VOTE_SUBMIT_API_URL = (voteId: number) =>
 export const GET_ARTICLE_CATEOGRY_API_URL = "/article/category";
 export const GET_ARTICLE = "/article";
 export const GET_ARTICLE_COUNT = "/article/count";
+export const GET_ONE_ARTICLE = (articleId: number) => `/article/${articleId}`;
