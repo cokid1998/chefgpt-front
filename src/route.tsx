@@ -11,7 +11,7 @@ import NotFoundPage from "@/page/404";
 import {
   VOTE,
   HOME,
-  INFO,
+  ARTICLE,
   LOGIN_URL,
   RECIPE,
   REFRIGERATOR,
@@ -28,7 +28,7 @@ export default function RootRouter() {
         <Route path={HOME} element={<IndexPage />} />
         <Route path={RECIPE} element={<RecipePage />} />
         <Route path={VOTE} element={<VotePage />} />
-        <Route path={INFO} element={<ArticlePage />} />
+        <Route path={ARTICLE} element={<ArticlePage />} />
 
         {/* 로그인한 사용자만 볼 수 있는 페이지 */}
         <Route element={<OnlyLoggedLayout />}>

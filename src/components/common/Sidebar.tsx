@@ -15,7 +15,7 @@ import {
   RECIPE,
   REFRIGERATOR,
   VOTE,
-  INFO,
+  ARTICLE,
   LOGIN_URL,
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
@@ -50,7 +50,7 @@ const MENU = [
   },
   {
     title: "요리 정보",
-    link: INFO,
+    link: ARTICLE,
     icon: <BookOpen size={16} />,
     auth: false,
   },
