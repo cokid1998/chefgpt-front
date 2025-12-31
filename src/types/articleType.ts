@@ -5,6 +5,7 @@ export interface ArticleCategory {
 
 export interface Article {
   id: number;
+  createdAt: string;
   title: string;
   summary: string;
   content: string;

@@ -17,9 +17,11 @@ import {
   REFRIGERATOR,
   SIGNUP_URL,
   KAKAO_AUTH_CALLBACK_URL,
+  ARTICLE_DETAIL_URL,
 } from "@/constants/Url";
 import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
 import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallbackPage";
+import ArticleDetailPage from "@/page/Article/ArticleDetailPage";
 
 export default function RootRouter() {
   return (
@@ -29,6 +31,7 @@ export default function RootRouter() {
         <Route path={RECIPE} element={<RecipePage />} />
         <Route path={VOTE} element={<VotePage />} />
         <Route path={ARTICLE} element={<ArticlePage />} />
+        <Route path={ARTICLE_DETAIL_URL} element={<ArticleDetailPage />} />
 
         {/* 로그인한 사용자만 볼 수 있는 페이지 */}
         <Route element={<OnlyLoggedLayout />}>
