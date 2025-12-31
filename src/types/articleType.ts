@@ -11,4 +11,5 @@ export interface Article {
   category: ArticleCategory;
   readingTime: number;
   viewCount: number;
+  tags: string[];
 }
