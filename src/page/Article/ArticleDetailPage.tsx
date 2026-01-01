@@ -1,7 +1,7 @@
 import useGetOneArticle from "@/hooks/API/article/GET/useGetOneArticle";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, Eye, Calendar } from "lucide-react";
+import { ArrowLeft, Clock, Eye, Calendar, Tag } from "lucide-react";
 import { ARTICLE } from "@/constants/Url";
 import { Badge } from "@/components/ui/badge";
 import dayjs from "dayjs";
@@ -68,6 +68,21 @@ export default function ArticleDetailPage() {
 
             <div>
               <div dangerouslySetInnerHTML={{ __html: safeContentHTML }} />
+            </div>
+
+            <div className="mt-8 border-t border-gray-200 pt-6">
+              <div className="flex flex-wrap items-center gap-2">
+                <Tag className="h-4 w-4 text-gray-400" />
+                {article?.tags.map((tag, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className="rounded-md border-green-200 text-green-600"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
         </article>
