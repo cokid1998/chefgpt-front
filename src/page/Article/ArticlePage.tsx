@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 import { useOpenModal } from "@/store/modalStore";
 import ArticleSearchBar from "@/components/article/ArticleSerachBar";
 import ArticleList from "@/components/article/ArticleList";
+import { useNavigate } from "react-router";
+import { ARTICLE_CREATE_URL } from "@/constants/Url";
 
 export default function ArticlePage() {
-  const openModal = useOpenModal();
+  const nav = useNavigate();
 
   return (
     <>
@@ -27,7 +29,7 @@ export default function ArticlePage() {
               variant="outline"
               size={"lg"}
               className="text-green-600 hover:text-green-600"
-              // onClick={() => openModal(<CreateFoodModal />)}
+              onClick={() => nav(ARTICLE_CREATE_URL)}
             >
               <Plus />글 작성
             </Button>

@@ -17,6 +17,7 @@ import {
   VOTE,
   ARTICLE,
   LOGIN_URL,
+  ARTICLE_CREATE_URL,
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
@@ -53,8 +54,21 @@ const MENU = [
     link: ARTICLE,
     icon: <BookOpen size={16} />,
     auth: false,
+    child: [
+      {
+        link: ARTICLE_CREATE_URL,
+      },
+    ],
   },
 ];
+
+const isActiveMenu = (menu: (typeof MENU)[number], pathname: string) => {
+  if (menu.link === pathname) return true;
+
+  if (!menu.link) return false;
+
+  return menu.child?.some((child) => child.link === pathname);
+};
 
 export default function Sidebar() {
   const { pathname } = useLocation();
@@ -90,30 +104,34 @@ export default function Sidebar() {
 
       <div className="flex-1 p-2">
         <ul>
-          {MENU.map((menu) => (
-            <li
-              key={menu.link}
-              className={`rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-50 hover:text-green-600 ${pathname === menu.link ? "bg-linear-to-r from-green-400 to-emerald-500 text-white [&_a]:hover:text-black" : "text-gray-700"} `}
-            >
-              <Link
-                to={menu.link}
-                className="flex w-full items-center gap-2 px-4 py-3"
-                onClick={(e) => {
-                  /**
-                   * Todo: 현재 Sidebar의 메뉴를 눌렀을 때(지금 함수)와 주소창에 입력했을 때(OnlyLoggedLayout.tsx)를
-                   * 분리해서 처리하고있는데 통합할수있는 방법은 없을까?
-                   */
-                  if (menu.auth && !isLogged) {
-                    e.preventDefault(); // 페이지 이동 방지
-                    openModal(<LoggedModal />);
-                  }
-                }}
+          {MENU.map((menu) => {
+            const isActive = isActiveMenu(menu, pathname);
+
+            return (
+              <li
+                key={menu.link}
+                className={`rounded-md text-sm font-medium transition-all duration-200 hover:bg-green-50 hover:text-green-600 ${isActive ? "bg-linear-to-r from-green-400 to-emerald-500 text-white [&_a]:hover:text-black" : "text-gray-700"} `}
               >
-                {menu.icon}
-                {menu.title}
-              </Link>
-            </li>
-          ))}
+                <Link
+                  to={menu.link}
+                  className="flex w-full items-center gap-2 px-4 py-3"
+                  onClick={(e) => {
+                    /**
+                     * Todo: 현재 Sidebar의 메뉴를 눌렀을 때(지금 함수)와 주소창에 입력했을 때(OnlyLoggedLayout.tsx)를
+                     * 분리해서 처리하고있는데 통합할수있는 방법은 없을까?
+                     */
+                    if (menu.auth && !isLogged) {
+                      e.preventDefault(); // 페이지 이동 방지
+                      openModal(<LoggedModal />);
+                    }
+                  }}
+                >
+                  {menu.icon}
+                  {menu.title}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
