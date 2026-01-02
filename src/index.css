@@ -126,3 +126,14 @@
     background: linear-gradient(to bottom right, var(--color-green-400), var(--color-emerald-500));
   }
 }
+
+/* tailwind css초기화로 인한 에디터 heading스타일 이슈를 해결하기 위한 css */
+.ProseMirror h1 {
+  @apply my-2 text-4xl font-bold;
+}
+.ProseMirror h2 {
+  @apply my-2 text-3xl font-bold;
+}
+.ProseMirror h3 {
+  @apply my-2 text-2xl font-bold;
+}
