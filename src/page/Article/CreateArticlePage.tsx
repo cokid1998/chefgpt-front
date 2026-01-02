@@ -3,9 +3,24 @@ import { ARTICLE } from "@/constants/Url";
 import { ArrowLeft, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router";
 import ArticleEditorContent from "@/components/article/ArticleEditorContent";
+import { useState } from "react";
+import EditorViewer from "@/components/article/editor/EditorViewer";
 
 export default function CreateArticlePage() {
   const nav = useNavigate();
+  const [form, setForm] = useState({
+    title: "",
+    summary: "",
+    category: null,
+    content: "",
+  });
+
+  const handleSetForm = (key: keyof typeof form, value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
@@ -35,9 +50,9 @@ export default function CreateArticlePage() {
         </div>
 
         <div className="flex gap-3">
-          <ArticleEditorContent />
+          <ArticleEditorContent handleSetForm={handleSetForm} />
 
-          <div className="w-1/2 bg-blue-400">right</div>
+          <EditorViewer content={form.content} />
         </div>
 
         <div className="flex justify-end gap-3 pt-8">

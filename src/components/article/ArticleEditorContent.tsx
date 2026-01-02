@@ -15,8 +15,18 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Editor from "@/components/article/editor/Editor";
 
-export default function ArticleEditorContent() {
+interface ArticleEditorContentProps {
+  handleSetForm: (
+    key: "category" | "summary" | "title" | "content",
+    value: string,
+  ) => void;
+}
+
+export default function ArticleEditorContent({
+  handleSetForm,
+}: ArticleEditorContentProps) {
   const { data: categories } = useGetArticleCategory();
 
   return (
@@ -30,45 +40,54 @@ export default function ArticleEditorContent() {
             </h1>
           </AccordionTrigger>
 
-          <AccordionContent className="space-y-6 p-6">
+          <AccordionContent className="space-y-6 bg-white p-6">
             <div>
               <div className="text-base font-semibold">제목 *</div>
               <Input
                 placeholder="아티클 제목을 입력하세요"
                 className="mt-2 h-12"
                 required
+                onChange={(e) => handleSetForm("title", e.target.value)}
               />
             </div>
 
             <div>
-              <div className="text-base font-semibold">요약 *</div>
+              <div className="text-base font-semibold">요약</div>
               <Textarea
                 placeholder="아티클의 간단한 요약을 입력하세요 (2-3문장)"
                 className="mt-2 h-24 resize-none"
                 required
+                onChange={(e) => handleSetForm("summary", e.target.value)}
               />
             </div>
 
             <div>
               <div className="text-base font-semibold">카테고리 *</div>
-              <Select>
+              <Select
+                onValueChange={(value) => handleSetForm("category", value)}
+              >
                 <SelectTrigger className="mt-2 h-12 w-full">
                   <SelectValue placeholder="카테고리 선택" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories?.map((cat) => (
-                    <SelectItem key={cat.id} value={cat.name}>
+                    <SelectItem key={cat.id} value={String(cat.id)}>
                       {cat.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
+
+            <div>
+              <div className="text-base font-semibold">태그</div>
+              <Input className="mt-2 w-1/2" />
+            </div>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
 
-      <div>asdf</div>
+      <Editor handleSetForm={handleSetForm} />
     </div>
   );
 }
