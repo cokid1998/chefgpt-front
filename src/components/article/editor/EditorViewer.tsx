@@ -2,6 +2,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import type { JSONContent } from "@tiptap/react";
 import { useEffect } from "react";
+import { Placeholder } from "@tiptap/extensions";
 
 interface EditorViewerProps {
   content: JSONContent | null;
@@ -10,11 +11,23 @@ interface EditorViewerProps {
 export default function EditorViewer({ content }: EditorViewerProps) {
   const viewer = useEditor({
     editable: false,
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        bulletList: {
+          HTMLAttributes: {
+            class: "pl-4 min-h-96 [&_li_p]:inline list-disc",
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: "pl-4 min-h-96 [&_li_p]:inline list-decimal",
+          },
+        },
+      }),
+    ],
     editorProps: {
       attributes: {
-        class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none p-4 min-h-96",
+        class: "p-4 min-h-96",
       },
     },
   });

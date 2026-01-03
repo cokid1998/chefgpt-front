@@ -31,7 +31,18 @@ export default function CreateArticlePage() {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: {
+          HTMLAttributes: {
+            class: "pl-4 min-h-96 [&_li_p]:inline list-disc",
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: "pl-4 min-h-96 [&_li_p]:inline list-decimal",
+          },
+        },
+      }),
       Placeholder.configure({
         placeholder: "내용을 입력해주세요",
         emptyEditorClass:
@@ -40,8 +51,7 @@ export default function CreateArticlePage() {
     ],
     editorProps: {
       attributes: {
-        class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none p-4 min-h-96",
+        class: "focus:outline-none p-4 min-h-96",
       },
     },
 
