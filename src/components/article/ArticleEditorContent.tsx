@@ -16,16 +16,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Editor from "@/components/article/editor/Editor";
+import { type Editor as EditorType } from "@tiptap/react";
 
 interface ArticleEditorContentProps {
-  handleSetForm: (
-    key: "category" | "summary" | "title" | "content",
-    value: string,
-  ) => void;
+  handleSetForm: (key: "category" | "summary" | "title", value: string) => void;
+  editor: EditorType;
 }
 
 export default function ArticleEditorContent({
   handleSetForm,
+  editor,
 }: ArticleEditorContentProps) {
   const { data: categories } = useGetArticleCategory();
 
@@ -87,7 +87,7 @@ export default function ArticleEditorContent({
         </AccordionItem>
       </Accordion>
 
-      <Editor handleSetForm={handleSetForm} />
+      <Editor editor={editor} />
     </div>
   );
 }

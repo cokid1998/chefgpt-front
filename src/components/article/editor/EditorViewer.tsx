@@ -1,24 +1,33 @@
-import DOMPurify from "dompurify";
+import { EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import type { JSONContent } from "@tiptap/react";
+import { useEffect } from "react";
 
 interface EditorViewerProps {
-  content: string;
+  content: JSONContent | null;
 }
 
 export default function EditorViewer({ content }: EditorViewerProps) {
-  const safeContentHTML = DOMPurify.sanitize(content ?? "");
+  const viewer = useEditor({
+    editable: false,
+    extensions: [StarterKit],
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none p-4 min-h-96",
+      },
+    },
+  });
 
-  const isEmpty =
-    !safeContentHTML ||
-    safeContentHTML === "<p></p>" ||
-    safeContentHTML === "<p><br></p>";
+  useEffect(() => {
+    if (viewer && content) {
+      viewer.commands.setContent(content);
+    }
+  }, [content, viewer]);
+
   return (
-    <div className="flex-1 border bg-white p-4">
-      {isEmpty && (
-        <div className="pointer-events-none float-left h-0 text-[#adb5bd]">
-          내용을 입력해주세요
-        </div>
-      )}
-      <div dangerouslySetInnerHTML={{ __html: safeContentHTML }} className="" />
+    <div className="flex-1 rounded-lg border bg-white p-4">
+      <EditorContent editor={viewer} />
     </div>
   );
 }

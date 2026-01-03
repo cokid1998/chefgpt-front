@@ -5,6 +5,10 @@ import { useNavigate } from "react-router";
 import ArticleEditorContent from "@/components/article/ArticleEditorContent";
 import { useState } from "react";
 import EditorViewer from "@/components/article/editor/EditorViewer";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { Placeholder } from "@tiptap/extensions";
+import type { JSONContent } from "@tiptap/react";
 
 export default function CreateArticlePage() {
   const nav = useNavigate();
@@ -12,15 +16,39 @@ export default function CreateArticlePage() {
     title: "",
     summary: "",
     category: null,
-    content: "",
+    contentJSON: null,
   });
 
-  const handleSetForm = (key: keyof typeof form, value: string) => {
+  const handleSetForm = (
+    key: keyof typeof form,
+    value: string | JSONContent,
+  ) => {
     setForm((prev) => ({
       ...prev,
       [key]: value,
     }));
   };
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder: "내용을 입력해주세요",
+        emptyEditorClass:
+          "before:content-[attr(data-placeholder)] before:float-left before:text-[#adb5bd] before:h-0 before:pointer-events-none",
+      }),
+    ],
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none p-4 min-h-96",
+      },
+    },
+
+    onUpdate: ({ editor }) => {
+      handleSetForm("contentJSON", editor.getJSON());
+    },
+  });
 
   return (
     <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
@@ -50,9 +78,9 @@ export default function CreateArticlePage() {
         </div>
 
         <div className="flex gap-3">
-          <ArticleEditorContent handleSetForm={handleSetForm} />
+          <ArticleEditorContent editor={editor} handleSetForm={handleSetForm} />
 
-          <EditorViewer content={form.content} />
+          <EditorViewer content={form.contentJSON} />
         </div>
 
         <div className="flex justify-end gap-3 pt-8">
