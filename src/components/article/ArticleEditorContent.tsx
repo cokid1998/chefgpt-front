@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+import { BookOpen, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -16,18 +16,31 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import Editor from "@/components/article/editor/Editor";
-import { type Editor as EditorType } from "@tiptap/react";
+import { type Editor as EditorType, type JSONContent } from "@tiptap/react";
+import { Badge } from "@/components/ui/badge";
+import type { ArticleFormType } from "@/page/Article/CreateArticlePage";
 
 interface ArticleEditorContentProps {
-  handleSetForm: (key: "category" | "summary" | "title", value: string) => void;
+  form: ArticleFormType;
+  handleSetForm: (
+    key: keyof ArticleFormType,
+    value: string | JSONContent,
+  ) => void;
   editor: EditorType;
 }
 
 export default function ArticleEditorContent({
+  form,
   handleSetForm,
   editor,
 }: ArticleEditorContentProps) {
   const { data: categories } = useGetArticleCategory();
+
+  const handleRemoveTag = (targetTag: string) => {
+    const removeTag = form.tags.filter((tag) => tag !== targetTag);
+
+    handleSetForm("tags", removeTag);
+  };
 
   return (
     <div className="w-1/2 space-y-6">
@@ -81,7 +94,36 @@ export default function ArticleEditorContent({
 
             <div>
               <div className="text-base font-semibold">태그</div>
-              <Input className="mt-2 w-1/2" />
+              <Input
+                className="mt-2 w-1/2"
+                placeholder="태그를 입력하세요"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.nativeEvent.isComposing) {
+                    e.preventDefault();
+                    handleSetForm("tags", [
+                      ...form.tags,
+                      e.currentTarget.value,
+                    ]);
+                    e.currentTarget.value = "";
+                  }
+                }}
+              />
+            </div>
+
+            <div className="flex gap-1">
+              {form?.tags?.map((tag) => (
+                <div
+                  key={tag}
+                  className="group relative cursor-pointer transition-all"
+                  onClick={() => handleRemoveTag(tag)}
+                >
+                  <Badge className="bg-green-100 px-2.5 font-semibold text-green-600 shadow">
+                    {tag}
+                  </Badge>
+
+                  <X className="borde absolute -top-1 -right-1 size-3.5 rounded-full bg-rose-500 text-[10px] text-white opacity-0 group-hover:opacity-100" />
+                </div>
+              ))}
             </div>
           </AccordionContent>
         </AccordionItem>

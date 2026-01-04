@@ -9,15 +9,26 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Placeholder } from "@tiptap/extensions";
 import type { JSONContent } from "@tiptap/react";
+import usePostArticle from "@/hooks/API/article/POST/usePostArticle";
+
+export interface ArticleFormType {
+  title: string;
+  summary: string;
+  category: null | string;
+  contentJSON: null | JSONContent;
+  tags: string[];
+}
 
 export default function CreateArticlePage() {
   const nav = useNavigate();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ArticleFormType>({
     title: "",
     summary: "",
     category: null,
     contentJSON: null,
+    tags: [],
   });
+  const { mutate: articleSubmit } = usePostArticle();
 
   const handleSetForm = (
     key: keyof typeof form,
@@ -60,6 +71,17 @@ export default function CreateArticlePage() {
     },
   });
 
+  const handleArticleSubmit = () => {
+    const formatArticle = {
+      ...form,
+      contentJSON: JSON.stringify(form.contentJSON),
+      categoryId: Number(form.category),
+      tags: [],
+    };
+    // console.log(formatArticle);
+    articleSubmit(formatArticle);
+  };
+
   return (
     <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
       <div className="mx-auto flex-col p-6">
@@ -88,7 +110,11 @@ export default function CreateArticlePage() {
         </div>
 
         <div className="flex gap-3">
-          <ArticleEditorContent editor={editor} handleSetForm={handleSetForm} />
+          <ArticleEditorContent
+            form={form}
+            editor={editor}
+            handleSetForm={handleSetForm}
+          />
 
           <EditorViewer content={form.contentJSON} />
         </div>
@@ -104,9 +130,9 @@ export default function CreateArticlePage() {
             취소
           </Button>
           <Button
-            type="submit"
             // disabled={createMutation.isPending}
             className="h-12 bg-linear-to-r from-green-500 to-emerald-500 px-8 hover:from-green-600 hover:to-emerald-600"
+            onClick={handleArticleSubmit}
           >
             {/* {createMutation.isPending ? (
               <>
