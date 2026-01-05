@@ -1,6 +1,8 @@
 import type { Article } from "@/types/articleType";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Tag } from "lucide-react";
+import { Link } from "react-router";
+import { ARTICLE } from "@/constants/Url";
 
 export default function ArticleCard({
   id,
@@ -13,7 +15,10 @@ export default function ArticleCard({
   tags,
 }: Article) {
   return (
-    <div className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl">
+    <Link
+      to={`${ARTICLE}/${id}`}
+      className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl"
+    >
       <Badge className="mb-3 rounded-md bg-green-100 px-2.5 font-semibold text-green-600 shadow">
         {category.name}
       </Badge>
@@ -42,6 +47,6 @@ export default function ArticleCard({
           <span className="text-xs">{tags.length}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
