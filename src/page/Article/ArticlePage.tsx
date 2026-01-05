@@ -12,7 +12,7 @@ export default function ArticlePage() {
   return (
     <>
       <title>ChefGPT | 요리 정보</title>
-      <div className="flex flex-col">
+      <div className="bg-soft-green flex flex-col">
         <div className="bg-green-gradient">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-12">
             <div className="flex flex-col">

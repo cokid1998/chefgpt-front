@@ -80,7 +80,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="top-4 flex h-[calc(100vh-120px)] min-w-96 flex-col overflow-hidden rounded-xl border shadow-lg">
+    <div className="top-4 flex h-[calc(100vh-120px)] min-w-96 flex-col overflow-hidden rounded-xl border bg-white shadow-lg">
       {/* Header */}
       <div className="flex flex-col border-b p-6 pb-4">
         <div className="mb-1.5 flex items-center gap-2 text-xl font-semibold tracking-tight">

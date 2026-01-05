@@ -46,7 +46,7 @@ export default function IndexPage() {
   return (
     <>
       <title>ChefGPT | 홈</title>
-      <div className="flex flex-col scroll-auto">
+      <div className="bg-soft-green flex flex-col scroll-auto">
         <div className="bg-green-gradient flex flex-col items-center justify-center px-8 py-28">
           <Badge className="mb-6 flex gap-2 rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
             <Sparkles />
@@ -117,7 +117,7 @@ export default function IndexPage() {
           </div>
 
           <div className="mb-6 flex justify-between">
-            <InputGroup className="h-12 max-w-2xl">
+            <InputGroup className="h-12 max-w-2xl bg-white">
               <InputGroupInput placeholder="레시피 검색..." />
               <InputGroupAddon>
                 <SearchIcon />

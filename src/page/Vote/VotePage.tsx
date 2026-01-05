@@ -11,7 +11,7 @@ export default function VotePage() {
   return (
     <>
       <title>ChefGPT | 투표</title>
-      <div className="flex flex-col">
+      <div className="bg-soft-green flex flex-col">
         <div className="bg-green-gradient">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-16">
             <div className="flex flex-col">

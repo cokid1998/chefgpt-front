@@ -44,7 +44,7 @@ export default function FoodSearchBar({
   }
 
   return (
-    <div className="rounded-2xl border p-6 shadow-sm">
+    <div className="rounded-2xl border bg-white p-6 shadow-sm">
       <InputGroup className="mb-4 h-12">
         <InputGroupInput
           placeholder="식재료 검색..."

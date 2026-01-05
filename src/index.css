@@ -125,6 +125,10 @@
   .bg-green-gradient {
     background: linear-gradient(to bottom right, var(--color-green-400), var(--color-emerald-500));
   }
+
+  .bg-soft-green {
+    @apply bg-linear-to-b from-green-50 to-white;
+  }
 }
 
 /* tailwind css초기화로 인한 에디터 heading스타일 이슈를 해결하기 위한 css */

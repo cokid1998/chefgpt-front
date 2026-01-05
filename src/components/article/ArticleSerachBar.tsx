@@ -31,7 +31,7 @@ export default function ArticleSearchBar() {
 
   return (
     <div className="w-full">
-      <InputGroup className="mb-4 h-12">
+      <InputGroup className="mb-4 h-12 bg-white">
         <InputGroupInput
           placeholder="아티클 검색..."
           // onKeyDown={onSearchKeyDown}
@@ -47,7 +47,7 @@ export default function ArticleSearchBar() {
           return (
             <Badge
               variant={"outline"}
-              className={`w-fit cursor-pointer border-green-200 px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50`}
+              className={`w-fit cursor-pointer border-green-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50`}
               key={cat.id}
             >
               {cat.name}
