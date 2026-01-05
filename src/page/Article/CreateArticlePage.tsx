@@ -77,8 +77,9 @@ export default function CreateArticlePage() {
       contentJSON: JSON.stringify(form.contentJSON),
       categoryId: Number(form.category),
       tags: [],
+      contentText: editor.getText(),
     };
-    // console.log(formatArticle);
+
     articleSubmit(formatArticle);
   };
 

@@ -8,6 +8,7 @@ export interface PostArticleReq {
   categoryId: number;
   tags: string[];
   contentJSON: string;
+  contentText: string;
 }
 
 const usePostArticle = () => {
