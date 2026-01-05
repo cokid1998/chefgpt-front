@@ -29,3 +29,5 @@ export const GET_ARTICLE = "/article";
 export const GET_ARTICLE_COUNT = "/article/count";
 export const GET_ONE_ARTICLE = (articleId: number) => `/article/${articleId}`;
 export const POST_ARTICLE = "/article";
+export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
+  `/article/${articleId}`;

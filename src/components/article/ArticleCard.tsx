@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Tag } from "lucide-react";
 import { Link } from "react-router";
 import { ARTICLE } from "@/constants/Url";
+import usePatchViewCount from "@/hooks/API/article/PATCH/usePatchViewCount";
 
 export default function ArticleCard({
   id,
@@ -14,10 +15,13 @@ export default function ArticleCard({
   viewCount,
   tags,
 }: Article) {
+  const { mutate: articleViewCountSubmit } = usePatchViewCount();
+
   return (
     <Link
       to={`${ARTICLE}/${id}`}
       className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl"
+      onClick={() => articleViewCountSubmit(id)}
     >
       <Badge className="mb-3 rounded-md bg-green-100 px-2.5 font-semibold text-green-600 shadow">
         {category.name}
