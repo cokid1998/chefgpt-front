@@ -5,6 +5,7 @@ import { ArrowLeft, Clock, Eye, Calendar, Tag } from "lucide-react";
 import { ARTICLE } from "@/constants/Url";
 import { Badge } from "@/components/ui/badge";
 import dayjs from "dayjs";
+import EditorViewer from "@/components/article/editor/EditorViewer";
 
 export default function ArticleDetailPage() {
   const nav = useNavigate();
@@ -13,6 +14,9 @@ export default function ArticleDetailPage() {
   const { data: article, isLoading: isArticleLoading } = useGetOneArticle(
     Number(articleId),
   );
+
+  // Skeleton처리
+  if (!article || isArticleLoading) return null;
 
   return (
     <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
@@ -64,9 +68,7 @@ export default function ArticleDetailPage() {
             </div>
 
             <div>
-              {/* Todo: HTML에서 JSON으로 렌더링 하는 방식으로 변경됐기 때문에 추후 수정필요
-              <div dangerouslySetInnerHTML={{ __html: safeContentHTML }} />
-               */}
+              <EditorViewer content={article?.contentJSON} />
             </div>
 
             <div className="mt-8 border-t border-gray-200 pt-6">

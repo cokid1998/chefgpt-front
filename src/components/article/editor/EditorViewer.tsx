@@ -2,10 +2,9 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import type { JSONContent } from "@tiptap/react";
 import { useEffect } from "react";
-import { Placeholder } from "@tiptap/extensions";
 
 interface EditorViewerProps {
-  content: JSONContent | null;
+  content: JSONContent | null | string;
 }
 
 export default function EditorViewer({ content }: EditorViewerProps) {
@@ -34,7 +33,10 @@ export default function EditorViewer({ content }: EditorViewerProps) {
 
   useEffect(() => {
     if (viewer && content) {
-      viewer.commands.setContent(content);
+      // 생성페이지와 상세페이지에서 받아오는 content타입에 따라 파싱
+      const parsedContent =
+        typeof content === "string" ? JSON.parse(content) : content;
+      viewer.commands.setContent(parsedContent);
     }
   }, [content, viewer]);
 

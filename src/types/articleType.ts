@@ -13,4 +13,5 @@ export interface Article {
   readingTime: number;
   viewCount: number;
   tags: string[];
+  contentJSON: string;
 }
