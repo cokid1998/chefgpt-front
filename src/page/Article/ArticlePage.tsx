@@ -1,13 +1,25 @@
 import { Plus, BookAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useOpenModal } from "@/store/modalStore";
-import ArticleSearchBar from "@/components/article/ArticleSerachBar";
+import ArticleSearchBar from "@/components/article/ArticleSearchBar";
 import ArticleList from "@/components/article/ArticleList";
 import { useNavigate } from "react-router";
 import { ARTICLE_CREATE_URL } from "@/constants/Url";
+import { useState } from "react";
 
 export default function ArticlePage() {
   const nav = useNavigate();
+  const [search, setSearch] = useState("");
+  const [selectCategory, setSelectCategory] = useState("전체");
+
+  const handleCategoryClick = (category: string) => {
+    setSelectCategory(category);
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearch(e.currentTarget.value);
+    }
+  };
 
   return (
     <>
@@ -38,7 +50,11 @@ export default function ArticlePage() {
 
         <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-8 py-8">
           <div className="flex w-full flex-col gap-8">
-            <ArticleSearchBar />
+            <ArticleSearchBar
+              selectCategory={selectCategory}
+              onSearchKeyDown={handleSearchKeyDown}
+              onCategoryClick={handleCategoryClick}
+            />
 
             <ArticleList />
           </div>
