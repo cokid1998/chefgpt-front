@@ -56,7 +56,7 @@ export default function ArticlePage() {
               onCategoryClick={handleCategoryClick}
             />
 
-            <ArticleList />
+            <ArticleList categogry={selectCategory} search={search} />
           </div>
         </div>
       </div>

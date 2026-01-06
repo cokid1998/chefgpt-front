@@ -2,10 +2,15 @@ import ArticleCard from "@/components/article/ArticleCard";
 import useGetArticleCount from "@/hooks/API/article/GET/useGetArticleCount";
 import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
 
-export default function ArticleList() {
+interface ArticleListProps {
+  categogry: string;
+  search: string;
+}
+
+export default function ArticleList({ categogry, search }: ArticleListProps) {
   // Todo: 캐시 정규화?
   const { data: articleList = [], isLoading: isArticleLoading } =
-    useGetAllArticle();
+    useGetAllArticle(categogry, search);
 
   const { data: articleCount } = useGetArticleCount();
 

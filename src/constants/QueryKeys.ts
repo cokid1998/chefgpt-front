@@ -33,7 +33,11 @@ export const QUERY_KEYS = {
 
   article: {
     all: ["article"],
-    list: () => ["article"],
+    list: (category: string = "", search: string = "") => [
+      "article",
+      category,
+      search,
+    ],
     byId: (articleId: number) => ["article", articleId],
   },
 } as const;
