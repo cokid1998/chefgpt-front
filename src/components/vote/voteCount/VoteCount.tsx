@@ -1,6 +1,6 @@
 import { Users, Vote, TrendingUp } from "lucide-react";
 import useGetVoteCount from "@/hooks/API/vote/GET/useGetVoteCount";
-import VoteCountSkeleton from "@/components/vote/voteCount/VoteCountSkeleton";
+import VoteCountSkeleton from "@/components/vote/skeleton/VoteCountSkeleton";
 
 export default function VoteCount() {
   const { data: voteCount, isLoading } = useGetVoteCount();

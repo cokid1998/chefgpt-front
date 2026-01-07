@@ -6,22 +6,7 @@ import {
 } from "@/components/ui/input-group";
 import { Badge } from "@/components/ui/badge";
 import useGetCategory from "@/hooks/API/food/GET/useGetCategory";
-
-function FilterBarSkeleton() {
-  return (
-    <div className="rounded-2xl border p-6 shadow-sm">
-      <div className="mb-4 h-12 animate-pulse rounded-lg bg-gray-200" />
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
-        {[...Array(9)].map((_, i) => (
-          <div
-            key={i}
-            className="h-8 w-14 shrink-0 animate-pulse rounded-full bg-gray-200"
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+import FoodFilterBarSkeleton from "@/components/refrigerator/skeleton/FoodFilterBarSkeleton";
 
 interface FoodSearchBarProps {
   selectCategory: string;
@@ -40,7 +25,7 @@ export default function FoodSearchBar({
     useGetCategory();
 
   if (isCategoryLoading) {
-    return <FilterBarSkeleton />;
+    return <FoodFilterBarSkeleton />;
   }
 
   return (

@@ -1,6 +1,7 @@
 import ArticleCard from "@/components/article/ArticleCard";
 import useGetArticleCount from "@/hooks/API/article/GET/useGetArticleCount";
 import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
+import ArticleCardSkeleton from "@/components/article/skeleton/ArticleCardSkeleton";
 
 interface ArticleListProps {
   categogry: string;
@@ -13,8 +14,6 @@ export default function ArticleList({ categogry, search }: ArticleListProps) {
     useGetAllArticle(categogry, search);
 
   const { data: articleCount } = useGetArticleCount();
-
-  if (isArticleLoading) return null;
 
   return (
     <div>
@@ -29,9 +28,11 @@ export default function ArticleList({ categogry, search }: ArticleListProps) {
       </div>
 
       <div className="grid grid-cols-3 gap-6">
-        {articleList.map((item) => {
-          return <ArticleCard key={item.id} {...item} />;
-        })}
+        {isArticleLoading
+          ? [...Array(3)].map((_, i) => <ArticleCardSkeleton key={i} />)
+          : articleList.map((item) => {
+              return <ArticleCard key={item.id} {...item} />;
+            })}
       </div>
     </div>
   );

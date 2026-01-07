@@ -1,5 +1,5 @@
 import VoteCard from "@/components/vote/voteList/VoteCard";
-import VoteCardSkeleton from "@/components/vote/voteList/VoteCardSkeleton";
+import VoteCardSkeleton from "@/components/vote/skeleton/VoteCardSkeleton";
 import useGetAllVote from "@/hooks/API/vote/GET/useGetAllVote";
 
 export default function VoteList() {
