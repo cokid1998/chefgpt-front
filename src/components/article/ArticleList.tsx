@@ -1,18 +1,16 @@
 import ArticleCard from "@/components/article/ArticleCard";
 import useGetArticleCount from "@/hooks/API/article/GET/useGetArticleCount";
-import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
 import ArticleCardSkeleton from "@/components/article/skeleton/ArticleCardSkeleton";
 
 interface ArticleListProps {
-  categogry: string;
-  search: string;
+  articleIds: number[];
+  isArticleLoading: boolean;
 }
 
-export default function ArticleList({ categogry, search }: ArticleListProps) {
-  // Todo: 캐시 정규화?
-  const { data: articleList = [], isLoading: isArticleLoading } =
-    useGetAllArticle(categogry, search);
-
+export default function ArticleList({
+  articleIds,
+  isArticleLoading,
+}: ArticleListProps) {
   const { data: articleCount } = useGetArticleCount();
 
   return (
@@ -30,8 +28,8 @@ export default function ArticleList({ categogry, search }: ArticleListProps) {
       <div className="grid grid-cols-3 gap-6">
         {isArticleLoading
           ? [...Array(3)].map((_, i) => <ArticleCardSkeleton key={i} />)
-          : articleList.map((item) => {
-              return <ArticleCard key={item.id} {...item} />;
+          : articleIds.map((id) => {
+              return <ArticleCard key={id} articleId={id} />;
             })}
       </div>
     </div>

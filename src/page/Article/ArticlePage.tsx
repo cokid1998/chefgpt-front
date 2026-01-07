@@ -5,11 +5,15 @@ import ArticleList from "@/components/article/ArticleList";
 import { useNavigate } from "react-router";
 import { ARTICLE_CREATE_URL } from "@/constants/Url";
 import { useState } from "react";
+import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
 
 export default function ArticlePage() {
   const nav = useNavigate();
   const [search, setSearch] = useState("");
   const [selectCategory, setSelectCategory] = useState("전체");
+
+  const { data: articleIds = [], isLoading: isArticleLoading } =
+    useGetAllArticle(selectCategory, search);
 
   const handleCategoryClick = (category: string) => {
     setSelectCategory(category);
@@ -56,7 +60,10 @@ export default function ArticlePage() {
               onCategoryClick={handleCategoryClick}
             />
 
-            <ArticleList categogry={selectCategory} search={search} />
+            <ArticleList
+              articleIds={articleIds}
+              isArticleLoading={isArticleLoading}
+            />
           </div>
         </div>
       </div>
