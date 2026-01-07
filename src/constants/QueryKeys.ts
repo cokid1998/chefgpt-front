@@ -11,10 +11,11 @@ export const QUERY_KEYS = {
 
   food: {
     all: ["food"],
-    list: (category: string = "", search: string = "") => [
+    list: (category: string = "", search: string = "", expire: string = "") => [
       "food",
       category,
       search,
+      expire,
     ],
     byId: (foodId: number) => ["food", foodId],
   },

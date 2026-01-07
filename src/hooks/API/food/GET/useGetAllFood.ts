@@ -8,15 +8,19 @@ import {
 } from "@tanstack/react-query";
 import { type FoodType } from "@/types/refrigeratorType";
 
-const useGetAllFood = (category: string = "", search: string = "") => {
+const useGetAllFood = (
+  category: string = "",
+  search: string = "",
+  expire: string = "",
+) => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: QUERY_KEYS.food.list(category, search),
+    queryKey: QUERY_KEYS.food.list(category, search, expire),
     queryFn: async () => {
       const formatCategory = category === "전체" ? "" : category;
       const foods = await API.get<FoodType[]>(FOODS_API_URL, {
-        params: { category: formatCategory, search },
+        params: { category: formatCategory, search, expire },
       });
       foods.data.forEach((food) => {
         queryClient.setQueryData(QUERY_KEYS.food.byId(food.id), food);

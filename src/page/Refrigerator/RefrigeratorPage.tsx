@@ -13,10 +13,12 @@ function RefrigeratorPage() {
   const openModal = useOpenModal();
   const [selectCategory, setSelectCategory] = useState("전체");
   const [search, setSearch] = useState("");
+  const [selectExpire, setSelectExpire] = useState("ALL");
 
   const { data: foodIds = [], isLoading: isFoodsLoading } = useGetAllFood(
     selectCategory,
     search,
+    selectExpire,
   );
 
   const handleCategoryClick = (category: string) => {
@@ -27,6 +29,10 @@ function RefrigeratorPage() {
     if (e.key === "Enter") {
       setSearch(e.currentTarget.value);
     }
+  };
+
+  const handleExpireClick = (expire: string) => {
+    setSelectExpire(expire);
   };
 
   return (
@@ -62,9 +68,11 @@ function RefrigeratorPage() {
             <FoodCount />
 
             <FoodSearchBar
+              selectExpire={selectExpire}
               selectCategory={selectCategory}
               onSearchKeyDown={handleSearchKeyDown}
               onCategoryClick={handleCategoryClick}
+              onExpireClick={handleExpireClick}
             />
 
             <FoodList foodIds={foodIds} isFoodsLoading={isFoodsLoading} />
