@@ -15,10 +15,7 @@ export default function OnlyLoggedLayout() {
   useEffect(() => {
     if (!isLogged) {
       openModal(<LoggedModal />);
-      // Todo: nav(-1)을 사용하게 되면 full page reload가 되는데 이유를 찾아야함.
-      // 일단 차선책으로 무조건 index경로로 리다이렉트하도록 구현
-      // nav(-1);
-      nav(HOME, { replace: true });
+      nav(-1);
     }
   }, [isLogged, openModal, nav]);
 
