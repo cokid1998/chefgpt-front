@@ -157,7 +157,7 @@ export default function Sidebar() {
         ) : null}
 
         <button
-          onClick={isLogged ? handleLogout : () => {}}
+          onClick={isLogged ? handleLogout : () => nav(LOGIN_URL)}
           className={`mt-3 flex w-full cursor-pointer items-center gap-2 rounded-md px-4 py-2 text-sm text-gray-600 transition-colors duration-200 hover:bg-green-50 hover:text-green-600 ${isLogged ? "" : "m-4"}`}
         >
           {isLogged ? (
@@ -166,13 +166,10 @@ export default function Sidebar() {
               로그아웃
             </>
           ) : (
-            <Link
-              to={LOGIN_URL}
-              className={`flex w-full cursor-pointer items-center gap-2 rounded-md text-sm text-gray-600 transition-colors duration-200 hover:bg-green-50 hover:text-green-600 ${isLogged ? "" : ""}`}
-            >
+            <>
               <LogIn size={16} />
               로그인
-            </Link>
+            </>
           )}
         </button>
       </div>
