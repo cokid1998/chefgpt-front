@@ -76,6 +76,7 @@ export default function Sidebar() {
   const profile = useProfile();
   const userId = profile?.id;
   const openModal = useOpenModal();
+  const nav = useNavigate();
 
   const { mutate: logOut } = usePostLogout();
 

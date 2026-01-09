@@ -28,6 +28,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const CATEGORY = [
   "전체",
@@ -43,6 +46,20 @@ const CATEGORY = [
 ];
 
 export default function IndexPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
+    if (location.state?.fromLogout) {
+      toast.success("로그아웃 완료.");
+      window.history.replaceState({}, document.title);
+    }
+    // if (location.state?.Unauthorized) {
+    //   toast.error("세션만료");
+    //   window.history.replaceState({}, document.title);
+    // }
+  }, [location]);
+
   return (
     <>
       <title>ChefGPT | 홈</title>

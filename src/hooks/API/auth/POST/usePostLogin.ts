@@ -1,10 +1,9 @@
 import API from "@/hooks/API/API";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { loginUrl } from "@/constants/APIUrl";
 import { useSetAuth } from "@/store/authStore";
 import { useNavigate } from "react-router";
 import type { Profile } from "@/types/userType";
-import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { toast } from "sonner";
 
 interface PostLoginReq {
@@ -23,15 +22,13 @@ const postLogin = (payload: PostLoginReq) => {
 
 const usePostLogin = () => {
   const setAuth = useSetAuth();
-  const queryClient = useQueryClient();
   const nav = useNavigate();
 
   return useMutation({
     mutationFn: (payload: PostLoginReq) => postLogin(payload),
     onSuccess: (res) => {
-      const profile = res.data.profile;
       setAuth(res.data);
-      nav("/");
+      nav(-1);
     },
     onError: (error: any) => {
       toast.error(error.response.data.message); // Todo: 에러타입정의
