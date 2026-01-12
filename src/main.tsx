@@ -5,7 +5,13 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
@@ -13,5 +19,5 @@ createRoot(document.getElementById("root")!).render(
       <ReactQueryDevtools />
       <App />
     </QueryClientProvider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
