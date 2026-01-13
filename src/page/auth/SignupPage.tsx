@@ -32,6 +32,12 @@ export default function SignupPage() {
     });
   };
 
+  const onPressKeyDownLogin = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSignup();
+    }
+  };
+
   return (
     <>
       <title>ChefGPT | 회원가입</title>
@@ -60,6 +66,7 @@ export default function SignupPage() {
                 placeholder="you@example.com"
                 id="email"
                 required
+                onKeyDown={onPressKeyDownLogin}
               />
               <Mail
                 className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
@@ -77,6 +84,7 @@ export default function SignupPage() {
                 placeholder="비밀번호 입력(문자, 숫자, 특수문자 포함 8~20자)"
                 id="password"
                 required
+                onKeyDown={onPressKeyDownLogin}
               />
               <Lock
                 className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
@@ -94,6 +102,7 @@ export default function SignupPage() {
                 placeholder="비밀번호 재입력"
                 id="password"
                 required
+                onKeyDown={onPressKeyDownLogin}
               />
               <Lock
                 className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
