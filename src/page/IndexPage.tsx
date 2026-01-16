@@ -12,7 +12,7 @@ import {
   Heart,
 } from "lucide-react";
 import { Link } from "react-router";
-import { RECIPE, VOTE } from "@/constants/Url";
+import { CREATE_RECIPE, VOTE } from "@/constants/Url";
 import { Button } from "@/components/ui/button";
 import {
   InputGroup,
@@ -82,7 +82,7 @@ export default function IndexPage() {
           <div className="flex justify-center gap-4">
             <Link
               className="flex h-14 items-center gap-2 rounded-xl bg-white px-8 transition-all duration-200 hover:bg-green-50 hover:text-green-500"
-              to={RECIPE}
+              to={CREATE_RECIPE}
             >
               <ChefHat size={20} />
               레시피 만들기
@@ -142,7 +142,7 @@ export default function IndexPage() {
             </InputGroup>
 
             <Button className="bg-green-gradient h-12" asChild>
-              <Link to={RECIPE}>
+              <Link to={CREATE_RECIPE}>
                 <Plus />
                 레시피 생성
               </Link>

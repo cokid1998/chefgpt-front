@@ -3,7 +3,7 @@ import Layout from "@/components/layout/Layout";
 import LoginPage from "@/page/auth/LoginPage";
 import IndexPage from "@/page/IndexPage";
 import SignupPage from "@/page/auth/SignupPage";
-import RecipePage from "@/page/RecipePage";
+import CreateRecipePage from "@/page/Recipe/CreateRecipePage";
 import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
 import VotePage from "@/page/Vote/VotePage";
 import ArticlePage from "@/page/Article/ArticlePage";
@@ -13,7 +13,7 @@ import {
   HOME,
   ARTICLE,
   LOGIN_URL,
-  RECIPE,
+  CREATE_RECIPE,
   REFRIGERATOR,
   SIGNUP_URL,
   KAKAO_AUTH_CALLBACK_URL,
@@ -30,7 +30,7 @@ export default function RootRouter() {
     <Routes>
       <Route element={<Layout />}>
         <Route path={HOME} element={<IndexPage />} />
-        <Route path={RECIPE} element={<RecipePage />} />
+        <Route path={CREATE_RECIPE} element={<CreateRecipePage />} />
         <Route path={VOTE} element={<VotePage />} />
         <Route path={ARTICLE} element={<ArticlePage />} />
         <Route path={ARTICLE_DETAIL_URL} element={<ArticleDetailPage />} />

@@ -12,7 +12,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router";
 import {
   HOME,
-  RECIPE,
+  CREATE_RECIPE,
   REFRIGERATOR,
   VOTE,
   ARTICLE,
@@ -33,7 +33,7 @@ const MENU = [
   },
   {
     title: "레시피 생성",
-    link: RECIPE,
+    link: CREATE_RECIPE,
     icon: <Plus size={16} />,
     auth: false,
   },
