@@ -123,7 +123,7 @@
 
 @layer utilities {
   .bg-green-gradient {
-    background: linear-gradient(to bottom right, var(--color-green-400), var(--color-emerald-500));
+    @apply bg-linear-to-b from-green-400 to-emerald-500
   }
 
   .bg-soft-green {
