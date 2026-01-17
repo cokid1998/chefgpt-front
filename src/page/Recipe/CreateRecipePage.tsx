@@ -10,7 +10,7 @@ export default function CreateRecipePage() {
   return (
     <>
       <title>ChefGPT | 레시피 생성</title>
-      <div className="min-h-screen bg-linear-to-b from-green-50 to-white p-4">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-green-50 to-white p-4">
         <div className="mx-auto flex max-w-3xl flex-col items-center">
           <Badge className="mb-4 bg-green-200 px-4 py-2 text-green-600">
             <Bot className="size-4!" />
