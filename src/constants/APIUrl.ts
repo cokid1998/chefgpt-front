@@ -31,3 +31,6 @@ export const GET_ONE_ARTICLE = (articleId: number) => `/article/${articleId}`;
 export const POST_ARTICLE = "/article";
 export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
   `/article/${articleId}`;
+
+// recipe
+export const GET_RECIPE_SCRIPT = "/recipe";

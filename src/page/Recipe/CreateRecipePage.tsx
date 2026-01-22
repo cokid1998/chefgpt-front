@@ -2,10 +2,16 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, Youtube, Sparkles, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeScript";
+import { useOpenModal } from "@/store/modalStore";
 
 export default function CreateRecipePage() {
+  const openModal = useOpenModal();
   const [youtubeUrl, setYoutubeUrl] = useState("");
+
+  const { data: recipeScript, refetch: recipeScriptFetch } =
+    useGetRecipeScript(youtubeUrl);
 
   return (
     <>
@@ -103,6 +109,7 @@ export default function CreateRecipePage() {
                   type="submit"
                   // disabled={isProcessing || !youtubeUrl}
                   className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
+                  onClick={() => recipeScriptFetch()}
                 >
                   {/* {isProcessing ? (
                     <>
