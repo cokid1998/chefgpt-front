@@ -1,17 +1,31 @@
 import { Badge } from "@/components/ui/badge";
-import { Bot, Youtube, Sparkles, ArrowRight } from "lucide-react";
+import {
+  Bot,
+  Youtube,
+  Sparkles,
+  ArrowRight,
+  Loader2,
+  CookingPot,
+  AlertCircle,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeScript";
 import { useOpenModal } from "@/store/modalStore";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export default function CreateRecipePage() {
   const openModal = useOpenModal();
   const [youtubeUrl, setYoutubeUrl] = useState("");
 
-  const { data: recipeScript, refetch: recipeScriptFetch } =
-    useGetRecipeScript(youtubeUrl);
+  const {
+    data: recipeScript,
+    refetch: recipeScriptFetch,
+    isLoading,
+    isError,
+    error,
+  } = useGetRecipeScript(youtubeUrl);
 
   return (
     <>
@@ -64,21 +78,27 @@ export default function CreateRecipePage() {
                   </p>
                 </div>
 
-                {/* {error && (
-                  <Alert variant="destructive" className="rounded-xl">
+                {/* Todo: 에러 케이스 서버에서 구현 */}
+                {isError && (
+                  <Alert
+                    variant="destructive"
+                    className="rounded-xl border-red-500"
+                  >
                     <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
+                    <AlertDescription>
+                      알수없는 에러가 발생했습니다. 다시 시도해주세요
+                    </AlertDescription>
                   </Alert>
                 )}
 
-                {progress && (
+                {isLoading && (
                   <Alert className="rounded-xl border-green-200 bg-green-50">
                     <Loader2 className="h-4 w-4 animate-spin text-green-600" />
                     <AlertDescription className="text-green-800">
-                      {progress}
+                      AI가 영상을 분석하고 있습니다...
                     </AlertDescription>
                   </Alert>
-                )} */}
+                )}
 
                 <div className="rounded-2xl border border-green-100 bg-linear-to-br from-green-50 to-emerald-50 p-6">
                   <h3 className="mb-3 flex items-center gap-2 font-semibold text-gray-900">
@@ -106,28 +126,22 @@ export default function CreateRecipePage() {
                 </div>
 
                 <Button
-                  type="submit"
-                  // disabled={isProcessing || !youtubeUrl}
-                  className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
+                  disabled={isLoading || !youtubeUrl}
+                  className="bg-green-gradient h-14 w-full rounded-xl text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
                   onClick={() => recipeScriptFetch()}
                 >
-                  {/* {isProcessing ? (
+                  {isLoading ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       생성 중...
                     </>
                   ) : (
                     <>
-                      <Sparkles className="mr-2 h-5 w-5" />
+                      <CookingPot className="mr-2 h-5 w-5" />
                       레시피 생성하기
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </>
-                  )} */}
-                  <>
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    레시피 생성하기
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
+                  )}
                 </Button>
               </div>
             </div>
