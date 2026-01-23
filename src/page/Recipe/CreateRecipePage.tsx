@@ -14,18 +14,34 @@ import { useEffect, useState } from "react";
 import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeScript";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";
 
 export default function CreateRecipePage() {
   const openModal = useOpenModal();
-  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState(
+    "https://www.youtube.com/shorts/2KoUycJinko",
+  );
 
   const {
     data: recipeScript,
     refetch: recipeScriptFetch,
     isLoading,
+    isPending,
+    isFetching,
     isError,
     error,
   } = useGetRecipeScript(youtubeUrl);
+
+  useEffect(() => {
+    if (recipeScript && !isFetching) {
+      openModal(
+        <CreateRecipeModal
+          recipeScript={recipeScript}
+          youtubeUrl={youtubeUrl}
+        />,
+      );
+    }
+  }, [recipeScript, isFetching]);
 
   return (
     <>
@@ -91,7 +107,7 @@ export default function CreateRecipePage() {
                   </Alert>
                 )}
 
-                {isLoading && (
+                {isFetching && (
                   <Alert className="rounded-xl border-green-200 bg-green-50">
                     <Loader2 className="h-4 w-4 animate-spin text-green-600" />
                     <AlertDescription className="text-green-800">
@@ -126,11 +142,11 @@ export default function CreateRecipePage() {
                 </div>
 
                 <Button
-                  disabled={isLoading || !youtubeUrl}
+                  disabled={isFetching || !youtubeUrl}
                   className="bg-green-gradient h-14 w-full rounded-xl text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
                   onClick={() => recipeScriptFetch()}
                 >
-                  {isLoading ? (
+                  {isFetching ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                       생성 중...
