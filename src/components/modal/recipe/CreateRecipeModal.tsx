@@ -6,10 +6,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
-import { Clock, Users, ShoppingCart } from "lucide-react";
+import { Clock, Users, ShoppingCart, Check } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useState } from "react";
 
 const dummy = [
   { name: "스파게티", amount: "200g" },
@@ -30,8 +37,20 @@ export default function CreateRecipeModal({
   recipeScript,
   youtubeUrl,
 }: CreateRecipeModalProps) {
+  const [checkedIngredient, setCheckedIngredient] = useState<number[]>([]);
+  // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
+
+  const ingredientToggle = (index: number) => {
+    // checkedIngredient에 index가 포함되어있는지 확인, 이 경우는 체크 해제
+    if (checkedIngredient.includes(index)) {
+      setCheckedIngredient(checkedIngredient.filter((i) => i !== index));
+    } else {
+      setCheckedIngredient([...checkedIngredient, index]);
+    }
+  };
+
   return (
-    <div className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
+    <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
       <div className="w-full rounded-xl border bg-gray-100 p-8">
         <div className="grid w-full grid-cols-2 gap-8">
           <div className="space-y-6">
@@ -83,39 +102,76 @@ export default function CreateRecipeModal({
 
         <Separator className="my-4 w-full" />
 
-        <div>
-          <div className="mb-8 flex items-center gap-3">
-            <div className="flex w-fit rounded-xl bg-green-400/20 p-3">
-              <ShoppingCart className="text-green-400" />
-            </div>
-            {/* Todo 내 냉장고에 있는 재료면 확인표시 기능 */}
-            <div className="flex items-center">
-              <h1 className="text-3xl font-bold">필요한 재료</h1>
-              <span>(0/7)</span>
-            </div>
-          </div>
-
-          <div className="grid gap-3 px-10">
-            {dummy.map((ingredient) => (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="flex cursor-pointer justify-between rounded-xl border-2 bg-red-200 p-4 text-left"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-white/30" />
-                  <span className="text-lg">{ingredient.name}</span>
-                </div>
-                <Badge
-                  className="rounded-md border-0 bg-orange-500 text-orange-300"
-                  variant="outline"
+        <Accordion type="single" defaultValue="recipe-item" collapsible>
+          <AccordionItem value="recipe-item">
+            <AccordionTrigger
+              className="mb-8 flex w-full cursor-pointer items-center"
+              headerClassName="block w-full"
+              chevronIconClassName="text-black"
+            >
+              <div className="flex gap-3">
+                <div
+                  className={`flex w-fit rounded-xl p-3 ${
+                    checkedIngredient.length === dummy.length
+                      ? "bg-green-400/20"
+                      : "bg-orange-400/20"
+                  }`}
                 >
-                  {ingredient.amount}
-                </Badge>
-              </motion.button>
-            ))}
-          </div>
-        </div>
+                  <ShoppingCart
+                    className={`${
+                      checkedIngredient.length === dummy.length
+                        ? "text-green-400"
+                        : "text-orange-400"
+                    }`}
+                  />
+                </div>
+                {/* Todo 내 냉장고에 있는 재료면 확인표시 기능 */}
+                <div className="flex items-center">
+                  <h1 className="text-3xl font-bold">필요한 재료&nbsp;</h1>
+                  <span>{`${checkedIngredient.length} / ${dummy.length}`}</span>
+                </div>
+              </div>
+            </AccordionTrigger>
+
+            <AccordionContent className="grid gap-3 px-10">
+              {dummy.map((ingredient, index) => {
+                const isChecked = checkedIngredient.includes(index);
+                return (
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 1 }}
+                    className={`flex cursor-pointer justify-between rounded-xl border-2 p-4 text-left ${
+                      isChecked
+                        ? "border-green-500/30 bg-green-500/20"
+                        : "border-white bg-white hover:border-white"
+                    }`}
+                    onClick={() => ingredientToggle(index)}
+                    key={ingredient.name}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`flex h-6 w-6 items-center justify-center rounded-full border-2 ${
+                          isChecked ? "border-green-500 bg-green-500" : ""
+                        }`}
+                      >
+                        {isChecked && <Check className="h-4 w-4 text-white" />}
+                      </div>
+                      <span className="text-lg">{ingredient.name}</span>
+                    </div>
+                    <Badge
+                      className={`rounded-md border-0 text-white ${
+                        isChecked ? "bg-green-500" : "bg-orange-500"
+                      }`}
+                      variant="outline"
+                    >
+                      {ingredient.amount}
+                    </Badge>
+                  </motion.button>
+                );
+              })}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
 
       {/* <Carousel className="relative left-1/2 w-200 -translate-1/2">
@@ -127,6 +183,6 @@ export default function CreateRecipeModal({
         <CarouselPrevious />
         <CarouselNext />
       </Carousel> */}
-    </div>
+    </ScrollArea>
   );
 }
