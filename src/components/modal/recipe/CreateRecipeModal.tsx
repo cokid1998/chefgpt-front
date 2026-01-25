@@ -169,7 +169,11 @@ export default function CreateRecipeModal({
                       >
                         {isChecked && <Check className="h-4 w-4 text-white" />}
                       </div>
-                      <span className="text-lg">{ingredient.name}</span>
+                      <span
+                        className={`text-lg ${isChecked ? "text-gray-400 line-through" : ""}`}
+                      >
+                        {ingredient.name}
+                      </span>
                     </div>
                     <Badge
                       className={`rounded-md border-0 text-white ${
