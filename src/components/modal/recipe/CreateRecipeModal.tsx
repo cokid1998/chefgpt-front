@@ -117,7 +117,7 @@ export default function CreateRecipeModal({
         <Accordion type="single" value={accordionValue} collapsible>
           <AccordionItem value={accordionValue ?? ""}>
             <AccordionTrigger
-              className="mb-8 flex w-full cursor-pointer items-center"
+              className="mb-4 flex w-full cursor-pointer items-center"
               headerClassName="block w-full"
               chevronIconClassName="text-black"
               onClick={accordionToggle}
