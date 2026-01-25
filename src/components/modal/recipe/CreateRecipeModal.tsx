@@ -1,10 +1,3 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
 import { Clock, Users, ShoppingCart, Check } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -16,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const dummy = [
   { name: "스파게티", amount: "200g" },
@@ -38,6 +31,9 @@ export default function CreateRecipeModal({
   youtubeUrl,
 }: CreateRecipeModalProps) {
   const [checkedIngredient, setCheckedIngredient] = useState<number[]>([]);
+  const [accordionValue, setAccordionValue] = useState<string | undefined>(
+    "recepe-item",
+  );
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
 
   const ingredientToggle = (index: number) => {
@@ -48,6 +44,22 @@ export default function CreateRecipeModal({
       setCheckedIngredient([...checkedIngredient, index]);
     }
   };
+
+  const accordionToggle = () => {
+    if (!accordionValue) {
+      setAccordionValue("recepe-item");
+    } else {
+      setAccordionValue("");
+    }
+  };
+
+  useEffect(() => {
+    if (dummy.length === checkedIngredient.length) {
+      setAccordionValue("");
+    } else {
+      setAccordionValue("recipe-item");
+    }
+  }, [checkedIngredient]);
 
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
@@ -102,12 +114,13 @@ export default function CreateRecipeModal({
 
         <Separator className="my-4 w-full" />
 
-        <Accordion type="single" defaultValue="recipe-item" collapsible>
-          <AccordionItem value="recipe-item">
+        <Accordion type="single" value={accordionValue} collapsible>
+          <AccordionItem value={accordionValue ?? ""}>
             <AccordionTrigger
               className="mb-8 flex w-full cursor-pointer items-center"
               headerClassName="block w-full"
               chevronIconClassName="text-black"
+              onClick={accordionToggle}
             >
               <div className="flex gap-3">
                 <div
@@ -173,16 +186,6 @@ export default function CreateRecipeModal({
           </AccordionItem>
         </Accordion>
       </div>
-
-      {/* <Carousel className="relative left-1/2 w-200 -translate-1/2">
-        <CarouselContent>
-          {recipeScript.map((script) => (
-            <CarouselItem>{script}</CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel> */}
     </ScrollArea>
   );
 }
