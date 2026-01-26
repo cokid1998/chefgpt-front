@@ -18,7 +18,7 @@ export default function CreateRecipeModal({
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
 
-  console.log(recipeInfo);
+  console.log(youtubeUrl);
 
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
@@ -26,6 +26,7 @@ export default function CreateRecipeModal({
         <RecipeHeader
           title={recipeInfo.title}
           description={recipeInfo.description}
+          youtubeUrl={youtubeUrl}
         />
 
         <Separator className="my-4 w-full" />

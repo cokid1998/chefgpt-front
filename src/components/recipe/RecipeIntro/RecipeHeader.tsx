@@ -1,15 +1,31 @@
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
+import YouTube from "react-youtube";
 
 interface RecipeHeaderProps {
   title: string;
   description: string;
+  youtubeUrl: string;
 }
+
+const extractVideoId = (url: string) => {
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+  );
+
+  if (!match) {
+    throw new Error("Invalid YouTube URL");
+  }
+
+  return match[1];
+};
 
 export default function RecipeHeader({
   title,
   description,
+  youtubeUrl,
 }: RecipeHeaderProps) {
+  console.log(youtubeUrl);
   return (
     <div className="grid w-full grid-cols-2 gap-8">
       <div className="space-y-6">
@@ -29,13 +45,12 @@ export default function RecipeHeader({
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-2xl">
-        <img
-          src="https://img.youtube.com/vi/sMFjET_qDLc/maxresdefault.jpg"
-          alt="스파게티 알리오 올리오"
-          className="h-full w-full object-cover"
+      <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+        <YouTube
+          videoId={extractVideoId(youtubeUrl)}
+          className="h-full w-full"
+          iframeClassName="w-full h-full"
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
       </div>
     </div>
   );
