@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeScript";
+import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeInfo";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";
@@ -23,8 +23,8 @@ export default function CreateRecipePage() {
   );
 
   const {
-    data: recipeScript,
-    refetch: recipeScriptFetch,
+    data: recipeInfo,
+    refetch: recipeInfoFetch,
     isLoading,
     isPending,
     isFetching,
@@ -33,15 +33,12 @@ export default function CreateRecipePage() {
   } = useGetRecipeScript(youtubeUrl);
 
   useEffect(() => {
-    if (recipeScript && !isFetching) {
+    if (recipeInfo && !isFetching) {
       openModal(
-        <CreateRecipeModal
-          recipeScript={recipeScript}
-          youtubeUrl={youtubeUrl}
-        />,
+        <CreateRecipeModal recipeInfo={recipeInfo} youtubeUrl={youtubeUrl} />,
       );
     }
-  }, [recipeScript, isFetching]);
+  }, [recipeInfo, isFetching]);
 
   return (
     <>
@@ -144,7 +141,7 @@ export default function CreateRecipePage() {
                 <Button
                   disabled={isFetching || !youtubeUrl}
                   className="bg-green-gradient h-14 w-full rounded-xl text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
-                  onClick={() => recipeScriptFetch()}
+                  onClick={() => recipeInfoFetch()}
                 >
                   {isFetching ? (
                     <>

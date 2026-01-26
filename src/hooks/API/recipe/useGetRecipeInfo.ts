@@ -2,12 +2,13 @@ import { GET_RECIPE_SCRIPT } from "@/constants/APIUrl";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import API from "@/hooks/API/API";
 import { useQuery } from "@tanstack/react-query";
+import type { RecipeInfoType } from "@/types/recipeType";
 
-const useGetRecipeScript = (youtubeUrl: string) => {
+const useGetRecipeInfo = (youtubeUrl: string) => {
   return useQuery({
     queryKey: QUERY_KEYS.recipe.byUrl(youtubeUrl),
     queryFn: () =>
-      API.get(GET_RECIPE_SCRIPT, {
+      API.get<RecipeInfoType>(GET_RECIPE_SCRIPT, {
         params: {
           youtubeUrl: youtubeUrl,
         },
@@ -17,4 +18,4 @@ const useGetRecipeScript = (youtubeUrl: string) => {
   });
 };
 
-export default useGetRecipeScript;
+export default useGetRecipeInfo;

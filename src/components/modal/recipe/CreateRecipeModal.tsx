@@ -4,23 +4,29 @@ import RecipeHeader from "@/components/recipe/RecipeIntro/RecipeHeader";
 import RecipeIngredientAccordion from "@/components/recipe/RecipeIntro/RecipeIngredientAccordion";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
+import type { RecipeInfoType } from "@/types/recipeType";
 
 interface CreateRecipeModalProps {
-  recipeScript: string[];
+  recipeInfo: RecipeInfoType;
   youtubeUrl: string;
 }
 
 export default function CreateRecipeModal({
-  recipeScript,
+  recipeInfo,
   youtubeUrl,
 }: CreateRecipeModalProps) {
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
 
+  console.log(recipeInfo);
+
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
       <div className="w-full rounded-xl border bg-gray-100 p-8">
-        <RecipeHeader />
+        <RecipeHeader
+          title={recipeInfo.title}
+          description={recipeInfo.description}
+        />
 
         <Separator className="my-4 w-full" />
 
@@ -31,7 +37,7 @@ export default function CreateRecipeModal({
         <RecipeModalNavigate
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
-          totalLength={recipeScript.length}
+          totalLength={recipeInfo.steps.length}
         />
       </div>
     </ScrollArea>
