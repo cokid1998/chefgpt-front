@@ -45,8 +45,8 @@ export default function RecipeModalNavigate({
           {[...Array(totalLength + 1)].map((_, i) => (
             <div
               key={i}
-              className={`h-1 rounded-full transition-all ${
-                i === currentStep ? "w-8 bg-green-500" : "w-1 bg-black/30"
+              className={`h-2 rounded-full transition-all ${
+                i === currentStep ? "w-8 bg-green-500" : "w-2 bg-black/30"
               }`}
             />
           ))}
