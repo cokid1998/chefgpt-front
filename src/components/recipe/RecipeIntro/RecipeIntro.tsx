@@ -6,12 +6,20 @@ interface RecipeIntroProps {
   title: string;
   description: string;
   youtubeUrl: string;
+  checkedIngredient: number[];
+  setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
+  accordionValue: string | undefined;
+  setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export default function RecipeIntro({
   title,
   description,
   youtubeUrl,
+  checkedIngredient,
+  setCheckedIngredient,
+  accordionValue,
+  setAccordionValue,
 }: RecipeIntroProps) {
   return (
     <>
@@ -21,7 +29,12 @@ export default function RecipeIntro({
         youtubeUrl={youtubeUrl}
       />
       <Separator className="my-4 w-full" />
-      <RecipeIngredientAccordion />
+      <RecipeIngredientAccordion
+        checkedIngredient={checkedIngredient}
+        setCheckedIngredient={setCheckedIngredient}
+        accordionValue={accordionValue}
+        setAccordionValue={setAccordionValue}
+      />
     </>
   );
 }

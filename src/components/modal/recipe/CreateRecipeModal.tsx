@@ -18,6 +18,13 @@ export default function CreateRecipeModal({
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
 
+  // 아코디언의 식재료 체크여부와 닫힘 여부를 다음 슬라이드로 넘어갔다가 다시 되돌아와도
+  // 유지되도록 하기 위해 모달파일에서 관리
+  const [checkedIngredient, setCheckedIngredient] = useState<number[]>([]);
+  const [accordionValue, setAccordionValue] = useState<string | undefined>(
+    "recepe-item",
+  );
+
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
       <div className="w-full rounded-xl border bg-gray-100 p-8">
@@ -26,6 +33,10 @@ export default function CreateRecipeModal({
             title={recipeInfo.title}
             description={recipeInfo.description}
             youtubeUrl={youtubeUrl}
+            checkedIngredient={checkedIngredient}
+            setCheckedIngredient={setCheckedIngredient}
+            accordionValue={accordionValue}
+            setAccordionValue={setAccordionValue}
           />
         )}
         {currentStep !== 0 && (

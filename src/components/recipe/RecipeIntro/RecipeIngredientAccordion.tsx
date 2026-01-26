@@ -19,11 +19,19 @@ const dummy = [
   { name: "후추", amount: "적당량" },
 ];
 
-export default function RecipeIngredientAccordion() {
-  const [checkedIngredient, setCheckedIngredient] = useState<number[]>([]);
-  const [accordionValue, setAccordionValue] = useState<string | undefined>(
-    "recepe-item",
-  );
+interface RecipeIngredientAccordionProps {
+  checkedIngredient: number[];
+  setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
+  accordionValue: string | undefined;
+  setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+export default function RecipeIngredientAccordion({
+  checkedIngredient,
+  setCheckedIngredient,
+  accordionValue,
+  setAccordionValue,
+}: RecipeIngredientAccordionProps) {
   const ingredientToggle = (index: number) => {
     // checkedIngredient에 index가 포함되어있는지 확인, 이 경우는 체크 해제
     if (checkedIngredient.includes(index)) {
@@ -41,13 +49,14 @@ export default function RecipeIngredientAccordion() {
     }
   };
 
+  // RecipeIngredientAccordion.tsx
   useEffect(() => {
+    // 모든 재료를 체크했을 때만 자동으로 닫기
     if (dummy.length === checkedIngredient.length) {
       setAccordionValue("");
-    } else {
-      setAccordionValue("recipe-item");
     }
-  }, [checkedIngredient]);
+  }, [checkedIngredient, setAccordionValue]);
+
   return (
     <Accordion type="single" value={accordionValue} collapsible>
       <AccordionItem value={accordionValue ?? ""}>
