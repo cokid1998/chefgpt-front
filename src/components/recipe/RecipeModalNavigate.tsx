@@ -35,7 +35,7 @@ export default function RecipeModalNavigate({
         size="lg"
         className="bg-green-500 text-white hover:bg-green-600 disabled:opacity-30"
       >
-        <ChevronLeft className="mr-2 h-5 w-5" />
+        <ChevronLeft className="h-5 w-5" />
         이전
       </Button>
 
@@ -62,7 +62,7 @@ export default function RecipeModalNavigate({
         className="bg-green-500 text-white hover:bg-green-600 disabled:opacity-30"
       >
         다음
-        <ChevronRight className="ml-2 h-5 w-5" />
+        <ChevronRight className="h-5 w-5" />
       </Button>
     </div>
   );
