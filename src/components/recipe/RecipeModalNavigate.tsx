@@ -13,8 +13,6 @@ export default function RecipeModalNavigate({
   currentStep,
   setCurrentStep,
 }: RecipeModalNavigateProps) {
-  console.log(currentStep);
-
   const nextStep = () => {
     if (currentStep < totalLength) {
       setCurrentStep((prev) => prev + 1);

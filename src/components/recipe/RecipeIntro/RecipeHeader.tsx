@@ -8,7 +8,7 @@ interface RecipeHeaderProps {
   youtubeUrl: string;
 }
 
-const extractVideoId = (url: string) => {
+export const extractVideoId = (url: string) => {
   const match = url.match(
     /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
   );
@@ -25,7 +25,6 @@ export default function RecipeHeader({
   description,
   youtubeUrl,
 }: RecipeHeaderProps) {
-  console.log(youtubeUrl);
   return (
     <div className="grid w-full grid-cols-2 gap-8">
       <div className="space-y-6">
