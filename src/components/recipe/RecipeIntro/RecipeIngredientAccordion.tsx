@@ -7,23 +7,15 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useEffect, useState } from "react";
-
-const dummy = [
-  { name: "스파게티", amount: "200g" },
-  { name: "마늘", amount: "5쪽" },
-  { name: "올리브 오일", amount: "3큰술" },
-  { name: "고추", amount: "1개" },
-  { name: "파슬리", amount: "약간" },
-  { name: "소금", amount: "적당량" },
-  { name: "후추", amount: "적당량" },
-];
+import { useEffect } from "react";
+import type { IngredientType } from "@/types/recipeType";
 
 interface RecipeIngredientAccordionProps {
   checkedIngredient: number[];
   setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
   accordionValue: string | undefined;
   setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  ingredients: IngredientType[];
 }
 
 export default function RecipeIngredientAccordion({
@@ -31,6 +23,7 @@ export default function RecipeIngredientAccordion({
   setCheckedIngredient,
   accordionValue,
   setAccordionValue,
+  ingredients,
 }: RecipeIngredientAccordionProps) {
   const ingredientToggle = (index: number) => {
     // checkedIngredient에 index가 포함되어있는지 확인, 이 경우는 체크 해제
@@ -49,10 +42,9 @@ export default function RecipeIngredientAccordion({
     }
   };
 
-  // RecipeIngredientAccordion.tsx
   useEffect(() => {
     // 모든 재료를 체크했을 때만 자동으로 닫기
-    if (dummy.length === checkedIngredient.length) {
+    if (ingredients.length === checkedIngredient.length) {
       setAccordionValue("");
     }
   }, [checkedIngredient, setAccordionValue]);
@@ -69,14 +61,14 @@ export default function RecipeIngredientAccordion({
           <div className="flex gap-3">
             <div
               className={`flex w-fit rounded-xl p-3 ${
-                checkedIngredient.length === dummy.length
+                checkedIngredient.length === ingredients.length
                   ? "bg-green-400/20"
                   : "bg-orange-400/20"
               }`}
             >
               <ShoppingCart
                 className={`${
-                  checkedIngredient.length === dummy.length
+                  checkedIngredient.length === ingredients.length
                     ? "text-green-400"
                     : "text-orange-400"
                 }`}
@@ -85,13 +77,13 @@ export default function RecipeIngredientAccordion({
             {/* Todo 내 냉장고에 있는 재료면 확인표시 기능 */}
             <div className="flex items-center">
               <h1 className="text-3xl font-bold">필요한 재료&nbsp;</h1>
-              <span>{`${checkedIngredient.length} / ${dummy.length}`}</span>
+              <span>{`${checkedIngredient.length} / ${ingredients.length}`}</span>
             </div>
           </div>
         </AccordionTrigger>
 
         <AccordionContent className="grid gap-3 px-10">
-          {dummy.map((ingredient, index) => {
+          {ingredients.map((ingredient, index) => {
             const isChecked = checkedIngredient.includes(index);
             return (
               <motion.button

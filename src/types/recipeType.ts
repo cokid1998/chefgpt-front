@@ -4,9 +4,15 @@ export interface StepType {
   tip: string;
 }
 
+export interface IngredientType {
+  name: string;
+  amount: string;
+}
+
 export interface RecipeInfoType {
   title: string;
   description: string;
   cookingTime: string;
   steps: StepType[];
+  ingredients: IngredientType[];
 }

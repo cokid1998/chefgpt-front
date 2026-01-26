@@ -1,6 +1,7 @@
 import RecipeHeader from "@/components/recipe/RecipeIntro/RecipeHeader";
 import { Separator } from "@/components/ui/separator";
 import RecipeIngredientAccordion from "@/components/recipe/RecipeIntro/RecipeIngredientAccordion";
+import type { IngredientType } from "@/types/recipeType";
 
 interface RecipeIntroProps {
   title: string;
@@ -10,6 +11,7 @@ interface RecipeIntroProps {
   setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
   accordionValue: string | undefined;
   setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  ingredients: IngredientType[];
 }
 
 export default function RecipeIntro({
@@ -20,6 +22,7 @@ export default function RecipeIntro({
   setCheckedIngredient,
   accordionValue,
   setAccordionValue,
+  ingredients,
 }: RecipeIntroProps) {
   return (
     <>
@@ -34,6 +37,7 @@ export default function RecipeIntro({
         setCheckedIngredient={setCheckedIngredient}
         accordionValue={accordionValue}
         setAccordionValue={setAccordionValue}
+        ingredients={ingredients}
       />
     </>
   );

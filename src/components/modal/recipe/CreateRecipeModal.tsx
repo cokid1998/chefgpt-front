@@ -37,6 +37,7 @@ export default function CreateRecipeModal({
             setCheckedIngredient={setCheckedIngredient}
             accordionValue={accordionValue}
             setAccordionValue={setAccordionValue}
+            ingredients={recipeInfo.ingredients}
           />
         )}
         {currentStep !== 0 && (
