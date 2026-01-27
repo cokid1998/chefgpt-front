@@ -18,6 +18,7 @@ import {
   ARTICLE,
   LOGIN_URL,
   ARTICLE_CREATE_URL,
+  MY_INFO,
 } from "@/constants/Url";
 import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
@@ -140,10 +141,13 @@ export default function Sidebar() {
         className={`border-t ${isLogged ? "h-[121px] p-4" : "flex h-fit items-center"}`}
       >
         {isLogged ? (
-          <div className="flex items-center gap-3">
+          <Link
+            to={MY_INFO}
+            className="flex items-center gap-3 rounded-md p-1 transition-colors duration-200 hover:bg-green-50"
+          >
             <User
               className="bg-green-gradient rounded-full bg-slate-300 p-2"
-              size={40}
+              size={36}
               color="white"
             />
             <div>
@@ -154,7 +158,7 @@ export default function Sidebar() {
                 {profile?.email}
               </div>
             </div>
-          </div>
+          </Link>
         ) : null}
 
         <button

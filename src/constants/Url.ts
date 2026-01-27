@@ -13,3 +13,5 @@ export const ARTICLE_DETAIL_URL = "/article/:articleId";
 export const ARTICLE_CREATE_URL = "/article/create";
 
 export const CREATE_RECIPE = "/create/recipe";
+
+export const MY_INFO = "/MyInfo";

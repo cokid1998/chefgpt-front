@@ -19,11 +19,13 @@ import {
   KAKAO_AUTH_CALLBACK_URL,
   ARTICLE_DETAIL_URL,
   ARTICLE_CREATE_URL,
+  MY_INFO,
 } from "@/constants/Url";
 import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
 import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallbackPage";
 import ArticleDetailPage from "@/page/Article/ArticleDetailPage";
 import CreateArticlePage from "@/page/Article/CreateArticlePage";
+import MyInfoPage from "@/page/MyInfo/MyInfoPage";
 
 export default function RootRouter() {
   return (
@@ -39,6 +41,7 @@ export default function RootRouter() {
         <Route element={<OnlyLoggedLayout />}>
           <Route path={REFRIGERATOR} element={<RefrigeratorPage />} />
           <Route path={ARTICLE_CREATE_URL} element={<CreateArticlePage />} />
+          <Route path={MY_INFO} element={<MyInfoPage />} />
         </Route>
       </Route>
 
