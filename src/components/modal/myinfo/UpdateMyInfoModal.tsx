@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { User } from "lucide-react";
 import { useProfile } from "@/store/authStore";
 import { useRef, useState } from "react";
+import DefaultThumbnail from "@/components/common/DefaultThumbnail";
 
 export default function UpdateMyInfoModal() {
   const profile = useProfile();
@@ -47,15 +48,18 @@ export default function UpdateMyInfoModal() {
 
         <div>
           <div className="text-sm leading-none font-medium">프로필 사진</div>
-          <img
-            className="mt-2 size-24 cursor-pointer rounded-sm border"
+
+          <div
+            className="mt-2 w-fit cursor-pointer rounded-xl border p-2"
             onClick={() => imageRef.current?.click()}
-            src={profile?.thumbnail} // Todo: 빈 프로필사진을 처리해야함
-          />
+          >
+            <DefaultThumbnail className="size-28" iconClassName="size-16" />
+            <img src={imageFile} />
+          </div>
           <input
             type="file"
             accept="image/*"
-            className="mt-2 hidden"
+            className="hidden"
             ref={imageRef}
             onChange={handleFileChange}
           />

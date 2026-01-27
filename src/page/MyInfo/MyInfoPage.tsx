@@ -6,18 +6,7 @@ import { useOpenModal } from "@/store/modalStore";
 import UpdateMyInfoModal from "@/components/modal/myinfo/UpdateMyInfoModal";
 import { Badge } from "@/components/ui/badge";
 import { useProfile } from "@/store/authStore";
-
-function DefaultThumbnail() {
-  const profile = useProfile();
-
-  return (
-    <div className="flex size-28 items-center justify-center rounded-3xl bg-white shadow-2xl">
-      <span className="text-5xl font-bold text-green-500">
-        {profile?.thumbnail || profile?.nickname.slice(0, 1)}
-      </span>
-    </div>
-  );
-}
+import DefaultThumbnail from "@/components/common/DefaultThumbnail";
 
 export default function MyInfoPage() {
   const openModal = useOpenModal();
@@ -31,7 +20,9 @@ export default function MyInfoPage() {
         <div className="bg-green-gradient">
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-16">
             <div className="flex gap-6">
-              {profile?.thumbnail ? null : <DefaultThumbnail />}
+              {profile?.thumbnail ? null : (
+                <DefaultThumbnail className="size-28" iconClassName="size-16" />
+              )}
 
               <div className="flex flex-col justify-between text-white/90">
                 <h1 className="text-4xl font-bold">{profile?.nickname}</h1>

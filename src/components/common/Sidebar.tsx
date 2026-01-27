@@ -23,6 +23,7 @@ import { useIsLogged, useProfile } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
 import { useOpenModal } from "@/store/modalStore";
 import LoggedModal from "@/components/modal/auth/LoggedModal";
+import DefaultThumbnail from "@/components/common/DefaultThumbnail";
 
 const MENU = [
   {
@@ -69,16 +70,6 @@ const isActiveMenu = (menu: (typeof MENU)[number], pathname: string) => {
 
   return menu.child?.some((child) => child.link === pathname);
 };
-
-function DefaultThumbnail() {
-  const profile = useProfile();
-
-  return (
-    <div className="bg-green-gradient flex size-10 items-center justify-center rounded-full text-white">
-      {profile?.thumbnail || profile?.nickname.slice(0, 1)}
-    </div>
-  );
-}
 
 export default function Sidebar() {
   const { pathname } = useLocation();
