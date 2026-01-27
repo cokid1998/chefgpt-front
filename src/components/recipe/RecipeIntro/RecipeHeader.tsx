@@ -6,6 +6,7 @@ interface RecipeHeaderProps {
   title: string;
   description: string;
   youtubeUrl: string;
+  category: string;
 }
 
 export const extractVideoId = (url: string) => {
@@ -24,12 +25,13 @@ export default function RecipeHeader({
   title,
   description,
   youtubeUrl,
+  category,
 }: RecipeHeaderProps) {
   return (
     <div className="grid w-full grid-cols-2 gap-8">
       <div className="space-y-6">
         <div>
-          <Badge className="mb-3 rounded-md bg-green-500">양식</Badge>
+          <Badge className="mb-3 rounded-md bg-green-500">{category}</Badge>
 
           <h1 className="mb-4 text-4xl leading-tight font-bold">{title}</h1>
           <p className="text-lg leading-relaxed">{description}</p>

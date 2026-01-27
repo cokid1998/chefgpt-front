@@ -30,14 +30,12 @@ export default function CreateRecipeModal({
       <div className="w-full rounded-xl border bg-gray-100 p-8">
         {currentStep === 0 && (
           <RecipeIntro
-            title={recipeInfo.title}
-            description={recipeInfo.description}
             youtubeUrl={youtubeUrl}
             checkedIngredient={checkedIngredient}
             setCheckedIngredient={setCheckedIngredient}
             accordionValue={accordionValue}
             setAccordionValue={setAccordionValue}
-            ingredients={recipeInfo.ingredients}
+            recipeInfo={recipeInfo}
           />
         )}
         {currentStep !== 0 && (

@@ -10,6 +10,7 @@ export interface IngredientType {
 }
 
 export interface RecipeInfoType {
+  category: string;
   title: string;
   description: string;
   cookingTime: string;
