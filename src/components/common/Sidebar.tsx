@@ -5,7 +5,6 @@ import {
   Users,
   BookOpen,
   Refrigerator,
-  User,
   LogOut,
   LogIn,
 } from "lucide-react";
@@ -20,7 +19,7 @@ import {
   ARTICLE_CREATE_URL,
   MY_INFO,
 } from "@/constants/Url";
-import { useIsLogged, useProfile, useDelAuth } from "@/store/authStore";
+import { useIsLogged, useProfile } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
 import { useOpenModal } from "@/store/modalStore";
 import LoggedModal from "@/components/modal/auth/LoggedModal";
@@ -70,6 +69,16 @@ const isActiveMenu = (menu: (typeof MENU)[number], pathname: string) => {
 
   return menu.child?.some((child) => child.link === pathname);
 };
+
+function DefaultThumbnail() {
+  const profile = useProfile();
+
+  return (
+    <div className="bg-green-gradient flex size-10 items-center justify-center rounded-full text-white">
+      {profile?.thumbnail || profile?.nickname.slice(0, 1)}
+    </div>
+  );
+}
 
 export default function Sidebar() {
   const { pathname } = useLocation();
@@ -145,14 +154,11 @@ export default function Sidebar() {
             to={MY_INFO}
             className="flex items-center gap-3 rounded-md p-1 transition-colors duration-200 hover:bg-green-50"
           >
-            <User
-              className="bg-green-gradient rounded-full bg-slate-300 p-2"
-              size={36}
-              color="white"
-            />
+            {profile?.thumbnail ? null : <DefaultThumbnail />}
+
             <div>
               <div className="truncate text-sm font-medium text-gray-900">
-                {profile?.name}
+                {profile?.nickname}
               </div>
               <div className="truncate text-xs text-gray-500">
                 {profile?.email}
