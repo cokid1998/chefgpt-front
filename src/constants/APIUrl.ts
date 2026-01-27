@@ -5,7 +5,7 @@ export const logoutUrl = "/auth/logout";
 export const KAKAO_API_URL = "/auth/kakao";
 
 // user
-export const PROFILE_API_URL = "/profile";
+export const UPDATE_USER_INFO = "/user";
 
 // foods
 export const FOODS_API_URL = "/food";

@@ -1,27 +1,54 @@
 import { Input } from "@/components/ui/input";
 import { User } from "lucide-react";
 import { useProfile } from "@/store/authStore";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DefaultThumbnail from "@/components/common/DefaultThumbnail";
+import { Button } from "@/components/ui/button";
+import { useCloseModal } from "@/store/modalStore";
+import usePatchUserInfo from "@/hooks/API/user/usePatchUserInfo";
 
 export default function UpdateMyInfoModal() {
+  const closeModal = useCloseModal();
   const profile = useProfile();
+  const imageRef = useRef<HTMLInputElement>(null);
 
   const [nickname, setNickName] = useState(profile?.nickname);
-  const [imageFile, setImageFile] = useState();
-  const imageRef = useRef<HTMLInputElement>(null);
+  // 서버에 보낼 image파일
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  // 미리보기용 임시 blob url
+  const [preview, setPreview] = useState("");
+
+  const { mutate: updateUserInfo } = usePatchUserInfo();
 
   // 이미지는 url string과 FileType으로 나뉘어짐
   // 이미지가 DB에 저장돼있으면 url string이고 없다면 빈 문자열임
   // 프론트에서 서버에 요청을 보내기 전까지는 FileType임
+  // Todo: 이미지 파일을 어떤 순서로 처리할지 정해야함
+  // 1. 프론트에서 storage에 저장하고 그 url을 서버로 보내는 방법
+  // 2. 프론트에서 formdata를 서버에 보내고 서버에서 storage에 저장하고 프론트에 storage에 썸네일 url을 전달해주는 방법
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(file);
+
+    if (!file) return;
+    setImageFile(file);
+  };
+
+  useEffect(() => {
+    if (!imageFile) return;
+
+    const blobUrl = URL.createObjectURL(imageFile);
+    setPreview(blobUrl);
+    return () => URL.revokeObjectURL(preview);
+    // 사용자가 파일을 첨부할 때 마다 blob url을 해제시켜줘야하기 때문에 종속성 배열에 imageFile을 넣음
+  }, [imageFile]);
+
+  const handleSubmit = () => {
+    updateUserInfo({ nickname, thumbnail: imageFile });
   };
 
   return (
-    <div className="flex w-xl flex-col rounded-sm bg-white p-6">
+    <div className="flex w-md flex-col rounded-sm bg-white p-6">
       <div className="mb-4 flex gap-2">
         <User className="text-green-500" />
         <span className="text-lg font-semibold">프로필 수정</span>
@@ -53,8 +80,19 @@ export default function UpdateMyInfoModal() {
             className="mt-2 w-fit cursor-pointer rounded-xl border p-2"
             onClick={() => imageRef.current?.click()}
           >
-            <DefaultThumbnail className="size-28" iconClassName="size-16" />
-            <img src={imageFile} />
+            {preview ? (
+              <img
+                src={preview}
+                className="size-28 rounded-full object-cover"
+              />
+            ) : profile?.thumbnail ? (
+              <img
+                src={profile.thumbnail}
+                className="size-28 rounded-lg object-cover"
+              />
+            ) : (
+              <DefaultThumbnail className="size-28" iconClassName="size-16" />
+            )}
           </div>
           <input
             type="file"
@@ -64,6 +102,18 @@ export default function UpdateMyInfoModal() {
             onChange={handleFileChange}
           />
         </div>
+      </div>
+
+      <div className="flex justify-end gap-3">
+        <Button onClick={closeModal} variant={"outline"}>
+          취소
+        </Button>
+        <Button
+          onClick={handleSubmit}
+          className="bg-green-500 hover:bg-green-600"
+        >
+          저장
+        </Button>
       </div>
     </div>
   );
