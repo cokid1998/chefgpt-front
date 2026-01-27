@@ -21,7 +21,7 @@ export default function RecipeIntro({
   recipeInfo,
 }: RecipeIntroProps) {
   return (
-    <>
+    <div className="min-h-153">
       <RecipeHeader
         title={recipeInfo.title}
         description={recipeInfo.description}
@@ -36,6 +36,6 @@ export default function RecipeIntro({
         setAccordionValue={setAccordionValue}
         ingredients={recipeInfo.ingredients}
       />
-    </>
+    </div>
   );
 }
