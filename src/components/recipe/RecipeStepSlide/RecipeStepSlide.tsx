@@ -3,6 +3,7 @@ import type { StepType } from "@/types/recipeType";
 import { Lightbulb } from "lucide-react";
 import YouTube from "react-youtube";
 import { extractVideoId } from "@/components/recipe/RecipeIntro/RecipeHeader";
+import { Button } from "@/components/ui/button";
 
 interface RecipeStepSlideProps {
   step: StepType;
@@ -39,18 +40,26 @@ export default function RecipeStepSlide({
         />
       </div>
 
-      <TipBox tip={step.tip} />
+      <div className="flex flex-col gap-3">
+        <TipBox tip={step.tip} />
+        <Button
+          variant="outline"
+          className="border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
+        >
+          레시피 생성하기
+        </Button>
+      </div>
     </div>
   );
 }
 
 function TipBox({ tip }: { tip: string }) {
   return (
-    <div className="rounded-2xl border border-green-500/20 bg-green-500/10 p-6">
+    <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-6">
       <div className="flex items-start gap-3">
         <div>
           <h3 className="mb-2 flex items-center gap-1.5 font-semibold">
-            <Lightbulb className="text-green-500" />
+            <Lightbulb className="text-yellow-500" />
             <span className="text-lg">팁</span>
           </h3>
           <p className="leading-relaxed text-gray-600">{tip}</p>
