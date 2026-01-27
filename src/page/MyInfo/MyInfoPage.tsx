@@ -1,12 +1,16 @@
-import { Users, Plus, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import VoteCount from "@/components/vote/voteCount/VoteCount";
 import { Button } from "@/components/ui/button";
 import VoteList from "@/components/vote/voteList/VoteList";
 import { useOpenModal } from "@/store/modalStore";
-import CreateVoteModal from "@/components/modal/vote/CreateVoteModal";
+import UpdateMyInfoModal from "@/components/modal/myinfo/UpdateMyInfoModal";
 import { Badge } from "@/components/ui/badge";
+import { useProfile } from "@/store/authStore";
 
 export default function MyInfoPage() {
+  const openModal = useOpenModal();
+  const profile = useProfile();
+
   return (
     <>
       <title>ChefGPT | 내 정보</title>
@@ -18,8 +22,8 @@ export default function MyInfoPage() {
               <div className="size-28 rounded-3xl bg-red-200 shadow-2xl" />
 
               <div className="text-white/90">
-                <h1 className="mb-2 text-4xl font-bold">이태관</h1>
-                <p className="mb-4 text-lg">cokid98@gmail.com</p>
+                <h1 className="mb-2 text-4xl font-bold">{profile?.nickname}</h1>
+                <p className="mb-4 text-lg">{profile?.email}</p>
                 <Badge className="rounded-md border-0 bg-white/20 px-4 py-1 text-xs font-semibold text-white shadow">
                   초보 요리사
                 </Badge>
@@ -30,7 +34,7 @@ export default function MyInfoPage() {
               variant="outline"
               size={"lg"}
               className="text-green-600 hover:text-green-600"
-              // onClick={() => openModal(<CreateVoteModal />)}
+              onClick={() => openModal(<UpdateMyInfoModal />)}
             >
               <Pencil />
               프로필 수정
@@ -39,9 +43,9 @@ export default function MyInfoPage() {
         </div>
 
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-8 pb-8">
-          {/* <VoteCount />
+          <VoteCount />
 
-          <VoteList /> */}
+          <VoteList />
         </div>
       </div>
     </>
