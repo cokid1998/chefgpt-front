@@ -33,7 +33,7 @@ export default function CreateRecipePage() {
   } = useGetRecipeScript(youtubeUrl);
 
   useEffect(() => {
-    if (recipeInfo && !isFetching) {
+    if (recipeInfo && !isFetching && !isError) {
       openModal(
         <CreateRecipeModal recipeInfo={recipeInfo} youtubeUrl={youtubeUrl} />,
       );
