@@ -15,7 +15,9 @@ export default function UpdateMyInfoModal() {
   const [nickname, setNickName] = useState(profile?.nickname);
   const [password, setPassword] = useState("");
   // 서버에 보낼 image파일
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [thumbnailImageFile, SetThumbnailImageFile] = useState<File | null>(
+    null,
+  );
   // 미리보기용 임시 blob url
   const [preview, setPreview] = useState("");
 
@@ -32,20 +34,24 @@ export default function UpdateMyInfoModal() {
     const file = e.target.files?.[0];
 
     if (!file) return;
-    setImageFile(file);
+    SetThumbnailImageFile(file);
   };
 
   useEffect(() => {
-    if (!imageFile) return;
+    if (!thumbnailImageFile) return;
 
-    const blobUrl = URL.createObjectURL(imageFile);
+    const blobUrl = URL.createObjectURL(thumbnailImageFile);
     setPreview(blobUrl);
     return () => URL.revokeObjectURL(preview);
     // 사용자가 파일을 첨부할 때 마다 blob url을 해제시켜줘야하기 때문에 종속성 배열에 imageFile을 넣음
-  }, [imageFile]);
+  }, [thumbnailImageFile]);
 
   const handleSubmit = () => {
-    updateUserInfo({ nickname, thumbnail: imageFile });
+    updateUserInfo({
+      nickname,
+      thumbnailImageFile: thumbnailImageFile,
+      password,
+    });
   };
 
   return (
