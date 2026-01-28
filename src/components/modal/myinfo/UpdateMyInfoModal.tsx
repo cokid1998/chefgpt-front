@@ -13,6 +13,7 @@ export default function UpdateMyInfoModal() {
   const imageRef = useRef<HTMLInputElement>(null);
 
   const [nickname, setNickName] = useState(profile?.nickname);
+  const [password, setPassword] = useState("");
   // 서버에 보낼 image파일
   const [imageFile, setImageFile] = useState<File | null>(null);
   // 미리보기용 임시 blob url
@@ -71,6 +72,22 @@ export default function UpdateMyInfoModal() {
           <p className="mt-1 text-xs text-gray-500">
             이메일은 변경할 수 없습니다
           </p>
+        </div>
+
+        <div>
+          <div className="text-sm leading-none font-medium">비밀번호</div>
+          <Input
+            value={password}
+            disabled={profile?.authProvider === "KAKAO"}
+            className={`mt-2 ${profile?.authProvider === "KAKAO" ? "bg-gray-50" : ""}`}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="*******"
+          />
+          {profile?.authProvider === "KAKAO" && (
+            <p className="mt-1 text-xs text-gray-500">
+              SNS 로그인은 비밀번호를 변경할 수 없습니다.
+            </p>
+          )}
         </div>
 
         <div>
