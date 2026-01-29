@@ -38,6 +38,9 @@ export const useAuthStore = create(
           set({ accessToken: null, profile: null, isLogged: false });
           localStorage.removeItem("auth");
         },
+        updateProfile: (profile: Profile) => {
+          set({ profile });
+        },
       },
     })),
     {
@@ -57,6 +60,10 @@ export const useSetAuth = () => {
 
 export const useDelAuth = () => {
   return useAuthStore((store) => store.actions.delAuth);
+};
+
+export const useUpdateProfile = () => {
+  return useAuthStore((store) => store.actions.updateProfile);
 };
 
 export const useIsLogged = () => {

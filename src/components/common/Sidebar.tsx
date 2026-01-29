@@ -145,7 +145,11 @@ export default function Sidebar() {
             to={MY_INFO}
             className="flex items-center gap-3 rounded-md p-1 transition-colors duration-200 hover:bg-green-50"
           >
-            {profile?.thumbnail ? null : <DefaultThumbnail />}
+            {profile?.thumbnail ? (
+              <img src={profile.thumbnail} className="size-10 rounded-full" />
+            ) : (
+              <DefaultThumbnail />
+            )}
 
             <div>
               <div className="truncate text-sm font-medium text-gray-900">
