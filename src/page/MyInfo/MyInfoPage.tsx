@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useProfile } from "@/store/authStore";
 import DefaultThumbnail from "@/components/common/DefaultThumbnail";
 import MyInfoCount from "@/components/myInfo/MyInfoCount";
+import MyInfoContent from "@/components/myInfo/myInfoContent/MyInfoContent";
 
 export default function MyInfoPage() {
   const openModal = useOpenModal();
@@ -53,7 +54,7 @@ export default function MyInfoPage() {
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-8 pb-8">
           <MyInfoCount />
 
-          <VoteList />
+          <MyInfoContent />
         </div>
       </div>
     </>
