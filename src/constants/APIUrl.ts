@@ -34,3 +34,6 @@ export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
 
 // recipe
 export const GET_RECIPE_SCRIPT = "/recipe";
+
+// myInfo
+export const GET_MYINFO_COUNT = "/myinfo/count";

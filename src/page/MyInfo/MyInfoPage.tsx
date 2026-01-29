@@ -6,6 +6,7 @@ import UpdateMyInfoModal from "@/components/modal/myInfo/UpdateMyInfoModal";
 import { Badge } from "@/components/ui/badge";
 import { useProfile } from "@/store/authStore";
 import DefaultThumbnail from "@/components/common/DefaultThumbnail";
+import MyInfoCount from "@/components/myInfo/MyInfoCount";
 
 export default function MyInfoPage() {
   const openModal = useOpenModal();
@@ -50,7 +51,7 @@ export default function MyInfoPage() {
         </div>
 
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-8 pb-8">
-          <VoteCount />
+          <MyInfoCount />
 
           <VoteList />
         </div>
