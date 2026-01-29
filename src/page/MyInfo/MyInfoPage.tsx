@@ -21,7 +21,10 @@ export default function MyInfoPage() {
           <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-16">
             <div className="flex gap-6">
               {profile?.thumbnail ? (
-                <img src={profile.thumbnail} className="size-28 rounded-full" />
+                <img
+                  src={profile.thumbnail}
+                  className="size-28 rounded-full object-cover"
+                />
               ) : (
                 <DefaultThumbnail className="size-28" iconClassName="size-16" />
               )}
