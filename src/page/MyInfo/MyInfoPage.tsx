@@ -1,9 +1,8 @@
 import { Pencil } from "lucide-react";
-import VoteCount from "@/components/vote/voteCount/VoteCount";
 import { Button } from "@/components/ui/button";
 import VoteList from "@/components/vote/voteList/VoteList";
 import { useOpenModal } from "@/store/modalStore";
-import UpdateMyInfoModal from "@/components/modal/myinfo/UpdateMyInfoModal";
+import UpdateMyInfoModal from "@/components/modal/myInfo/UpdateMyInfoModal";
 import { Badge } from "@/components/ui/badge";
 import { useProfile } from "@/store/authStore";
 import DefaultThumbnail from "@/components/common/DefaultThumbnail";
