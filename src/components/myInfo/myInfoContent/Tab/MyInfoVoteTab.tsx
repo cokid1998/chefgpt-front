@@ -39,9 +39,11 @@ const dummy = [
   },
 ];
 
-export default function MyInfoVoteHistoryTab() {
+export default function MyInfoVoteTab() {
   return (
     <div className="border-none shadow-lg">
+      {/* Todo: 내가 만든 투표 리스트도 보여줘야함 */}
+      내가 만든 투표 리스트도 보여줘야함
       <div>
         <div>내 투표 기록 (4444개)</div>
       </div>

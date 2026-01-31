@@ -45,7 +45,7 @@ const MENU = [
     auth: true,
   },
   {
-    title: "투표",
+    title: "요리 투표",
     link: VOTE,
     icon: <Users size={16} />,
     auth: false,
