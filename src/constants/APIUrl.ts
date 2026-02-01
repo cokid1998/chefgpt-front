@@ -33,7 +33,7 @@ export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
   `/article/${articleId}`;
 
 // recipe
-export const GET_RECIPE_SCRIPT = "/recipe";
+export const GET_YOUTUBE_RECIPE_SCRIPT = "/recipe/youtube-script";
 
 // myInfo
 export const GET_MYINFO_COUNT = "/myinfo/count";
