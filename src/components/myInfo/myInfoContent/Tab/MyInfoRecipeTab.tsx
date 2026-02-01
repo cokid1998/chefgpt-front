@@ -14,14 +14,20 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
+import useGetRecipe from "@/hooks/API/recipe/useGetRecipe";
 
 export default function MyInfoRecipeTab() {
+  const { data: recipeList } = useGetRecipe();
+
+  console.log(recipeList);
+
   return (
-    <div className="border-none shadow-lg">
-      <div>
-        <div>내가 만든 레시피 (444개)</div>
+    <div className="rounded-lg border-none bg-white shadow-lg">
+      <div className="flex flex-col space-y-1.5 p-6 leading-none font-semibold tracking-tight">
+        내가 만든 레시피 ({recipeList?.length}개)
       </div>
-      <div>
+
+      <div className="p-6 pt-0">
         {/* {recipes.length === 0 ? (
             <div className="py-12 text-center">
               <ChefHat className="mx-auto mb-4 h-16 w-16 text-gray-300" />
@@ -39,7 +45,8 @@ export default function MyInfoRecipeTab() {
               ))}
             </div>
           )} */}
-        {[Array(3)].map((_, index) => (
+
+        {recipeList?.map((recipe, index) => (
           <div
             key={index}
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
@@ -53,31 +60,29 @@ export default function MyInfoRecipeTab() {
                   src={youtubeDefaultImage}
                   className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
                 />
-                <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
-                  쉬움
-                </Badge>
-                <Badge className="absolute top-3 right-3 rounded-md bg-white text-green-500">
-                  한식
+                <Badge className="absolute top-3 left-3 rounded-md bg-white text-green-500">
+                  {recipe.category.name}
                 </Badge>
               </div>
               <div className="p-5">
                 <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
-                  김치찌개 만들기
+                  {recipe.title}
                 </h1>
                 <span className="mb-4 line-clamp-2 text-sm text-gray-500">
-                  매콤하고 깊은 맛의 김치찌개 레시피입니다.
+                  {recipe.description}
                 </span>
 
                 <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-1">
-                    <Clock size={16} /> 30분
+                    <Clock size={16} /> {recipe.cookingTime}분
                   </div>
                   <div className="flex items-center gap-3">
                     <button className="flex items-center gap-1">
-                      <Eye size={16} />6
+                      <Eye size={16} />
+                      {recipe.viewCount}
                     </button>
                     <button className="flex items-center gap-1">
-                      <Heart size={16} /> 1
+                      <Heart size={16} /> Todo: 1
                     </button>
                   </div>
                 </div>

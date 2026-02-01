@@ -17,3 +17,12 @@ export interface RecipeInfoType {
   steps: StepType[];
   ingredients: IngredientType[];
 }
+
+export interface RecipeType {
+  category: { id: number; name: string };
+  cookingTime: number;
+  description: string;
+  id: number;
+  title: string;
+  viewCount: number;
+}
