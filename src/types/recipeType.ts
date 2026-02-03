@@ -26,3 +26,8 @@ export interface RecipeType {
   title: string;
   viewCount: number;
 }
+
+export interface RecipeCategoryType {
+  id: number;
+  name: string;
+}

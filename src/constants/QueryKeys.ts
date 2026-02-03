@@ -7,6 +7,7 @@ export const QUERY_KEYS = {
     all: ["category"],
     food: ["category", "food"],
     article: ["category", "article"],
+    recipe: ["category", "recipe"],
   },
 
   food: {
