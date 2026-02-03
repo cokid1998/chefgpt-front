@@ -20,12 +20,14 @@ import {
   ARTICLE_DETAIL_URL,
   ARTICLE_CREATE_URL,
   MY_INFO,
+  RECIPE_DETAIL,
 } from "@/constants/Url";
 import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
 import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallbackPage";
 import ArticleDetailPage from "@/page/Article/ArticleDetailPage";
 import CreateArticlePage from "@/page/Article/CreateArticlePage";
 import MyInfoPage from "@/page/MyInfo/MyInfoPage";
+import RecipeDetailPage from "@/page/Recipe/RecipeDetailPage";
 
 export default function RootRouter() {
   return (
@@ -33,6 +35,7 @@ export default function RootRouter() {
       <Route element={<Layout />}>
         <Route path={HOME} element={<IndexPage />} />
         <Route path={CREATE_RECIPE} element={<CreateRecipePage />} />
+        <Route path={RECIPE_DETAIL} element={<RecipeDetailPage />} />
         <Route path={VOTE} element={<VotePage />} />
         <Route path={ARTICLE} element={<ArticlePage />} />
         <Route path={ARTICLE_DETAIL_URL} element={<ArticleDetailPage />} />

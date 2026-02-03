@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 import useGetRecipe from "@/hooks/API/recipe/useGetRecipe";
+import { RECIPE_DETAIL } from "@/constants/Url";
 
 export default function MyInfoRecipeTab() {
   const { data: recipeList } = useGetRecipe();
@@ -52,7 +53,7 @@ export default function MyInfoRecipeTab() {
             className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
           >
             <Link
-              to={"/id"}
+              to={`/recipe/${recipe.id}`}
               className="group h-fit overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
             >
               <div className="relative h-48 overflow-hidden">
