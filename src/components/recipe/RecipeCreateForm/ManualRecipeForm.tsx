@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import useGetRecipeCategory from "@/hooks/API/recipe/useGetRecipeCategory";
+import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 
 export default function ManualRecipeForm() {
   const [formData, setFormData] = useState({

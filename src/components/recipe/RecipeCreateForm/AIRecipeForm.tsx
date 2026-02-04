@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import useGetRecipeScript from "@/hooks/API/recipe/useGetRecipeInfo";
+import useGetRecipeScript from "@/hooks/API/recipe/GET/useGetRecipeInfo";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";

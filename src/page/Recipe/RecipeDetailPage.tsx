@@ -3,7 +3,7 @@ import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide
 import { Separator } from "@/components/ui/separator";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
-import useGetRecipe from "@/hooks/API/recipe/useGetRecipe";
+import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 
 export default function RecipeDetailPage() {
   const [currentStep, setCurrentStep] = useState();

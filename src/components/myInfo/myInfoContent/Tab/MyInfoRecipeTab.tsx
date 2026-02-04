@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
-import useGetRecipe from "@/hooks/API/recipe/useGetRecipe";
+import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 import { RECIPE_DETAIL } from "@/constants/Url";
 
 export default function MyInfoRecipeTab() {
