@@ -29,12 +29,9 @@ export default function MyInfoPage() {
                 <DefaultThumbnail className="size-28" iconClassName="size-16" />
               )}
 
-              <div className="flex flex-col justify-between text-white/90">
+              <div className="flex flex-col justify-evenly text-white/90">
                 <h1 className="text-4xl font-bold">{profile?.nickname}</h1>
                 <p className="text-lg">{profile?.email}</p>
-                <Badge className="rounded-md border-0 bg-white/20 px-4 py-1 text-xs font-semibold text-white shadow">
-                  초보 요리사
-                </Badge>
               </div>
             </div>
 

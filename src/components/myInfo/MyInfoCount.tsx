@@ -1,8 +1,11 @@
 import useGetMyInfoBannerData from "@/hooks/API/myInfo/useGetMyInfoBannerData";
 import { ChefHat, TrendingUp, Heart, CheckCircle2 } from "lucide-react";
+import MyInfoCountSkeleton from "@/components/myInfo/skeleton/MyInfoCountSkeleton";
 
 export default function MyInfoCount() {
-  const { data: myInfoCount } = useGetMyInfoBannerData();
+  const { data: myInfoCount, isLoading } = useGetMyInfoBannerData();
+
+  if (isLoading) return <MyInfoCountSkeleton />;
 
   return (
     <div className="-mt-8 grid w-full grid-cols-4 gap-6">

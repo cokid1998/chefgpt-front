@@ -16,11 +16,12 @@ import { Link } from "react-router";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 import { RECIPE_DETAIL } from "@/constants/Url";
+import MyInfoRecipeTabSkeleton from "@/components/myInfo/skeleton/MyInfoRecipeTabSkeleton";
 
 export default function MyInfoRecipeTab() {
-  const { data: recipeList } = useGetRecipe();
+  const { data: recipeList, isLoading } = useGetRecipe();
 
-  console.log(recipeList);
+  if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
@@ -47,14 +48,12 @@ export default function MyInfoRecipeTab() {
             </div>
           )} */}
 
-        {recipeList?.map((recipe, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-          >
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {recipeList?.map((recipe, index) => (
             <Link
+              key={index}
               to={`/recipe/${recipe.id}`}
-              className="group h-fit overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
+              className="group overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
             >
               <div className="relative h-48 overflow-hidden">
                 <img
@@ -89,8 +88,8 @@ export default function MyInfoRecipeTab() {
                 </div>
               </div>
             </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
