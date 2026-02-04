@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Tag } from "lucide-react";
 import { Link } from "react-router";
 import { ARTICLE } from "@/constants/Url";
-import usePatchViewCount from "@/hooks/API/article/PATCH/usePatchViewCount";
+import usePatchArticleViewCount from "@/hooks/API/article/PATCH/usePatchViewCount";
 import useGetOneArticle from "@/hooks/API/article/GET/useGetOneArticle";
 
 interface ArticleCardProps {
@@ -10,7 +10,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ articleId }: ArticleCardProps) {
-  const { mutate: articleViewCountSubmit } = usePatchViewCount();
+  const { mutate: articleViewCountSubmit } = usePatchArticleViewCount();
 
   const { data: article } = useGetOneArticle(articleId);
 
