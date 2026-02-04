@@ -75,7 +75,7 @@ export default function MyInfoRecipeTab() {
 
                 <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-1">
-                    <Clock size={16} /> {recipe.cookingTime}분
+                    <Clock size={16} /> {recipe.cookingTime}
                   </div>
                   <div className="flex items-center gap-3">
                     <button className="flex items-center gap-1">

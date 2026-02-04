@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { PenLine, ArrowRight, Loader2 } from "lucide-react";
+import { PenLine, ArrowRight, Loader2, CookingPotIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -10,12 +10,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
+import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 
 export default function ManualRecipeForm() {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    category: "",
+    categoryId: "",
     cookingTime: "",
     ingredients: [{ name: "", amount: "" }],
     steps: [{ stepNumber: 1, stepTitle: "", tip: "", description: "" }],
@@ -92,6 +93,15 @@ export default function ManualRecipeForm() {
   };
 
   const { data: categories } = useGetRecipeCategory();
+  const { mutate: createRecipe, isPending } = usePostCreateRecipe();
+
+  const handleCreateRecipe = () => {
+    const formatData = {
+      ...formData,
+      categoryId: Number(formData.categoryId),
+    };
+    createRecipe(formatData);
+  };
 
   return (
     <div className="min-w-3xl overflow-hidden rounded-3xl border-none bg-white shadow-2xl">
@@ -136,7 +146,7 @@ export default function ManualRecipeForm() {
               </label>
               <Select
                 onValueChange={(value) =>
-                  handleChangeFormData("category", value)
+                  handleChangeFormData("categoryId", value)
                 }
               >
                 <SelectTrigger className="h-9! w-full">
@@ -181,7 +191,7 @@ export default function ManualRecipeForm() {
           </div>
           <div className="space-y-3">
             {formData.ingredients.map((ingredient, index) => (
-              <div className="flex gap-3" key={ingredient.name + index}>
+              <div className="flex gap-3" key={index}>
                 <>
                   <Input
                     placeholder="재료명"
@@ -271,10 +281,11 @@ export default function ManualRecipeForm() {
             ))}
           </div>
           <Button
-            // disabled={isSubmitting || !formData.title}
+            disabled={isPending || !formData.title}
             className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
+            onClick={handleCreateRecipe}
           >
-            {/* {isSubmitting ? (
+            {isPending ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 저장 중...
@@ -284,9 +295,7 @@ export default function ManualRecipeForm() {
                 레시피 저장하기
                 <ArrowRight className="ml-2 h-5 w-5" />
               </>
-            )} */}
-            레시피 저장하기
-            <ArrowRight className="ml-2 h-5 w-5" />
+            )}
           </Button>
         </div>
       </div>

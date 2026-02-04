@@ -20,7 +20,7 @@ export interface RecipeInfoType {
 
 export interface RecipeType {
   category: { id: number; name: string };
-  cookingTime: number;
+  cookingTime: string;
   description: string;
   id: number;
   title: string;
