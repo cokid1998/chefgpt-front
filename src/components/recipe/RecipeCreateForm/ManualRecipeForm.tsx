@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { PenLine } from "lucide-react";
+import { PenLine, ArrowRight, Loader2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -270,6 +270,24 @@ export default function ManualRecipeForm() {
               </div>
             ))}
           </div>
+          <Button
+            // disabled={isSubmitting || !formData.title}
+            className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
+          >
+            {/* {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                저장 중...
+              </>
+            ) : (
+              <>
+                레시피 저장하기
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </>
+            )} */}
+            레시피 저장하기
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
     </div>
