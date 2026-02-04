@@ -4,9 +4,6 @@ import API from "@/hooks/API/API";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Article } from "@/types/articleType";
 
-/**
- * Todo: 캐시정규화
- */
 const useGetAllArticle = (category: string = "", search: string = "") => {
   const queryClient = useQueryClient();
 
