@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { PenLine, ArrowRight, Loader2, CookingPotIcon } from "lucide-react";
+import { PenLine, ArrowRight, Loader2, X } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -8,9 +8,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
+import NoThumbnail from "@/assets/image/default_recipe_thumbnail.png";
 
 export default function ManualRecipeForm() {
   const [formData, setFormData] = useState({
@@ -21,6 +22,37 @@ export default function ManualRecipeForm() {
     ingredients: [{ name: "", amount: "" }],
     steps: [{ stepNumber: 1, stepTitle: "", tip: "", description: "" }],
   });
+
+  const imageRef = useRef<HTMLInputElement>(null);
+
+  const [thumbnailImageFile, setThumbnailImageFile] = useState<File | null>(
+    null,
+  );
+  const [preview, setPreview] = useState("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+    setThumbnailImageFile(file);
+  };
+
+  const handleFileRemove = () => {
+    setThumbnailImageFile(null);
+    setPreview("");
+
+    if (imageRef.current) {
+      imageRef.current.value = "";
+    }
+  };
+
+  useEffect(() => {
+    if (!thumbnailImageFile) return;
+
+    const blobUrl = URL.createObjectURL(thumbnailImageFile);
+    setPreview(blobUrl);
+    return () => URL.revokeObjectURL(preview);
+  }, [thumbnailImageFile]);
 
   const handleChangeFormData = (key: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
@@ -280,24 +312,54 @@ export default function ManualRecipeForm() {
               </div>
             ))}
           </div>
-          <Button
-            disabled={isPending || !formData.title}
-            className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
-            onClick={handleCreateRecipe}
-          >
-            {isPending ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                저장 중...
-              </>
-            ) : (
-              <>
-                레시피 저장하기
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </>
-            )}
-          </Button>
         </div>
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900">썸네일</h3>
+
+          <div
+            className="group relative mt-2 aspect-video cursor-pointer rounded-xl border p-2"
+            onClick={() => imageRef.current?.click()}
+          >
+            <img
+              src={preview ? preview : NoThumbnail}
+              className="h-full w-full object-cover"
+            />
+            <X
+              onClick={(e) => {
+                e.stopPropagation();
+                handleFileRemove();
+              }}
+              className="absolute top-1 right-2 rounded-full bg-white/80 p-1 opacity-0 shadow transition-all duration-200 group-hover:opacity-100 hover:bg-red-500 hover:text-white"
+            />
+          </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            ref={imageRef}
+            onChange={handleFileChange}
+          />
+        </div>
+
+        <Button
+          disabled={isPending || !formData.title}
+          className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
+          onClick={handleCreateRecipe}
+        >
+          {isPending ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              저장 중...
+            </>
+          ) : (
+            <>
+              레시피 저장하기
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </>
+          )}
+        </Button>
       </div>
     </div>
   );
