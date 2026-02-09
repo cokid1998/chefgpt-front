@@ -325,13 +325,15 @@ export default function ManualRecipeForm() {
               src={preview ? preview : NoThumbnail}
               className="h-full w-full object-cover"
             />
-            <X
-              onClick={(e) => {
-                e.stopPropagation();
-                handleFileRemove();
-              }}
-              className="absolute top-1 right-2 rounded-full bg-white/80 p-1 opacity-0 shadow transition-all duration-200 group-hover:opacity-100 hover:bg-red-500 hover:text-white"
-            />
+            {preview && (
+              <X
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFileRemove();
+                }}
+                className="absolute top-1 right-2 rounded-full bg-white/80 p-1 opacity-0 shadow transition-all duration-200 group-hover:opacity-100 hover:bg-red-500 hover:text-white"
+              />
+            )}
           </div>
 
           <input
