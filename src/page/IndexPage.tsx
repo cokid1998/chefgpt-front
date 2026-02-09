@@ -98,41 +98,6 @@ export default function IndexPage() {
         </div>
 
         <div className="mx-auto min-w-7xl px-4 py-12">
-          <div className="mb-12 grid grid-cols-3 gap-6">
-            <div className="flex gap-4 rounded-2xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-              <Clock
-                className="rounded-lg bg-green-100 p-3 text-green-500"
-                size={48}
-              />
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">평균 조리시간</span>
-                <span className="text-2xl font-bold text-gray-900">30분</span>
-              </div>
-            </div>
-
-            <div className="flex gap-4 rounded-2xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-              <Users
-                className="rounded-lg bg-green-100 p-3 text-green-500"
-                size={48}
-              />
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">누적 레시피</span>
-                <span className="text-2xl font-bold text-gray-900">2</span>
-              </div>
-            </div>
-
-            <div className="flex gap-4 rounded-2xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
-              <Clock
-                className="rounded-lg bg-green-100 p-3 text-green-500"
-                size={48}
-              />
-              <div className="flex flex-col">
-                <span className="text-sm text-gray-500">이번 주 신규</span>
-                <span className="text-2xl font-bold text-gray-900">12개</span>
-              </div>
-            </div>
-          </div>
-
           <div className="mb-6 flex justify-between">
             <InputGroup className="h-12 max-w-2xl bg-white">
               <InputGroupInput placeholder="레시피 검색..." />
