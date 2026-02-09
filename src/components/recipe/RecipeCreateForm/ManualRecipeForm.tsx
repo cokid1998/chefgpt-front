@@ -69,7 +69,6 @@ export default function ManualRecipeForm() {
   };
 
   const delIngredientField = (index: number) => {
-    console.log(index);
     setFormData((prev) => ({
       ...prev,
       ingredients: prev.ingredients.filter((_, i) => i !== index),
@@ -131,6 +130,7 @@ export default function ManualRecipeForm() {
     const formatData = {
       ...formData,
       categoryId: Number(formData.categoryId),
+      thumbnailImageFile,
     };
     createRecipe(formatData);
   };
