@@ -133,7 +133,7 @@ export default function ManualRecipeForm() {
       categoryId: formData.categoryId ? Number(formData.categoryId) : 3,
       thumbnailImageFile,
     };
-    createRecipe(formatData);
+    createRecipe({ payload: formatData, youtubeUrl: "" });
   };
 
   return (

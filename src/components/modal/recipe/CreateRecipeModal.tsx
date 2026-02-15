@@ -7,6 +7,7 @@ import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 import { Button } from "@/components/ui/button";
+import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 
 interface CreateRecipeModalProps {
   recipeInfo: RecipeInfoType;
@@ -26,6 +27,24 @@ export default function CreateRecipeModal({
   const [accordionValue, setAccordionValue] = useState<string | undefined>(
     "recepe-item",
   );
+
+  const { mutate: createRecipe } = usePostCreateRecipe();
+  const { data: categoryData } = useGetRecipeCategory();
+
+  const handleCreateRecipe = () => {
+    const categoryId = categoryData?.filter(
+      (cate) => cate.name === recipeInfo.category,
+    )[0].id;
+
+    const { category, ...restRecipeInfo } = recipeInfo;
+
+    const formatData = {
+      ...restRecipeInfo,
+      categoryId: categoryId ? categoryId : 3,
+      thumbnailImageFile: undefined,
+    };
+    createRecipe({ payload: formatData, youtubeUrl });
+  };
 
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
@@ -59,6 +78,7 @@ export default function CreateRecipeModal({
         <Button
           variant="outline"
           className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
+          onClick={handleCreateRecipe}
         >
           레시피 생성하기
         </Button>

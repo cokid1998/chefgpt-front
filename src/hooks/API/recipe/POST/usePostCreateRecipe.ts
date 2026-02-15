@@ -9,7 +9,6 @@ interface PostCreateRecipeReq {
   cookingTime: string;
   ingredients: { name: string; amount: string }[];
   steps: {
-    stepNumber: number;
     stepTitle: string;
     tip: string;
     description: string;
@@ -19,7 +18,13 @@ interface PostCreateRecipeReq {
 
 const usePostCreateRecipe = () => {
   return useMutation({
-    mutationFn: (payload: PostCreateRecipeReq) => {
+    mutationFn: ({
+      payload,
+      youtubeUrl,
+    }: {
+      payload: PostCreateRecipeReq;
+      youtubeUrl: string;
+    }) => {
       const formData = new FormData();
 
       Object.entries(payload).forEach(([key, value]) => {
@@ -39,7 +44,11 @@ const usePostCreateRecipe = () => {
         formData.append(key, value);
       });
 
-      return API.post(POST_CREATE_RECIPE, formData);
+      return API.post(POST_CREATE_RECIPE, formData, {
+        params: {
+          youtubeUrl,
+        },
+      });
     },
   });
 };
