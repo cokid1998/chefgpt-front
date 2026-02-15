@@ -26,7 +26,7 @@ export default function RecipeModalNavigate({
   };
 
   return (
-    <div className="mt-8 flex items-center justify-between">
+    <div className="flex items-center justify-between">
       <Button
         onClick={prevStep}
         disabled={currentStep === 0}

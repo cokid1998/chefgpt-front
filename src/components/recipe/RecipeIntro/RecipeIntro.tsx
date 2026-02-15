@@ -21,7 +21,7 @@ export default function RecipeIntro({
   recipeInfo,
 }: RecipeIntroProps) {
   return (
-    <div className="min-h-153">
+    <div className="min-h-143">
       <RecipeHeader
         title={recipeInfo.title}
         description={recipeInfo.description}

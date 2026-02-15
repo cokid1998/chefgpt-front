@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import type { StepType } from "@/types/recipeType";
+import type { RecipeInfoType, StepType } from "@/types/recipeType";
 import { Lightbulb } from "lucide-react";
 import YouTube from "react-youtube";
 import { extractVideoId } from "@/components/recipe/RecipeIntro/RecipeHeader";
@@ -17,7 +17,7 @@ export default function RecipeStepSlide({
   youtubeUrl,
 }: RecipeStepSlideProps) {
   return (
-    <div className="flex h-153 flex-col justify-between space-y-6">
+    <div className="flex h-143 flex-col justify-between">
       <div className="grid h-1/2 grid-cols-2 gap-3">
         <div className="space-y-6">
           <Badge className="rounded-sm border-0 bg-green-500 text-lg text-white">
@@ -40,15 +40,7 @@ export default function RecipeStepSlide({
         />
       </div>
 
-      <div className="flex flex-col gap-3">
-        <TipBox tip={step.tip} />
-        <Button
-          variant="outline"
-          className="border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
-        >
-          레시피 생성하기
-        </Button>
-      </div>
+      <TipBox tip={step.tip} />
     </div>
   );
 }

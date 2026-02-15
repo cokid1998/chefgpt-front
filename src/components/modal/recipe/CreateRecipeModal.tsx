@@ -5,6 +5,8 @@ import { useState } from "react";
 import type { RecipeInfoType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
+import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
+import { Button } from "@/components/ui/button";
 
 interface CreateRecipeModalProps {
   recipeInfo: RecipeInfoType;
@@ -53,6 +55,13 @@ export default function CreateRecipeModal({
           setCurrentStep={setCurrentStep}
           totalLength={recipeInfo.steps.length}
         />
+
+        <Button
+          variant="outline"
+          className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
+        >
+          레시피 생성하기
+        </Button>
       </div>
     </ScrollArea>
   );
