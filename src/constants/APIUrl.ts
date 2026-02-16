@@ -34,9 +34,10 @@ export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
 
 // recipe
 export const GET_YOUTUBE_RECIPE_SCRIPT = "/recipe/youtube-script";
-export const GET_RECIPE_URL = "/recipe/my";
+export const GET_MY_RECIPE = "/recipe/my";
 export const GET_RECIPE_CATEGORY = "/recipe/category";
 export const POST_CREATE_RECIPE = "/recipe";
+export const GET_RECIPE = "/recipe";
 
 // myInfo
 export const GET_MYINFO_COUNT = "/myinfo/count";

@@ -8,7 +8,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
   return (
     <Link
       to={`/recipe/${recipe.id}`}
-      className="group overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
+      className="group max-w-100 overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
     >
       <div className="relative h-48 overflow-hidden">
         <img

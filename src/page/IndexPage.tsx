@@ -22,15 +22,12 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 import { useLocation } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import RecipeCard from "@/components/recipe/RecipeCard";
+import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 
 const CATEGORY = [
   "전체",
@@ -47,6 +44,7 @@ const CATEGORY = [
 
 export default function IndexPage() {
   const location = useLocation();
+  const { data: recipeData } = useGetRecipe(0, "");
 
   useEffect(() => {
     // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
@@ -115,17 +113,6 @@ export default function IndexPage() {
           </div>
 
           <div className="mb-8 flex items-center gap-3 text-sm font-medium text-gray-600">
-            <Popover>
-              <PopoverTrigger className="flex shrink-0 cursor-pointer items-center gap-2 border-r border-gray-200 pr-2 whitespace-nowrap">
-                <Funnel size={14} />
-                <span>카테고리</span>
-              </PopoverTrigger>
-              <PopoverContent className="flex w-fit flex-col items-center gap-2">
-                <span>카테고리</span>
-                <span>유튜버</span>
-              </PopoverContent>
-            </Popover>
-
             {CATEGORY.map((category) => (
               <Badge
                 key={category}
@@ -142,128 +129,16 @@ export default function IndexPage() {
               <span className="text-2xl font-bold text-gray-900">
                 모든 레시피
               </span>
-              <span className="text-sm text-gray-500">(2개)</span>
+              <span className="text-sm text-gray-500">
+                ({recipeData?.length}개)
+              </span>
             </h1>
           </div>
 
-          <div className="grid grid-cols-3 gap-6">
-            <Link
-              to={"/id"}
-              className="group h-fit overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={youtubeDefaultImage}
-                  className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
-                />
-                <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
-                  쉬움
-                </Badge>
-                <Badge className="absolute top-3 right-3 rounded-md bg-white text-green-500">
-                  한식
-                </Badge>
-              </div>
-              <div className="p-5">
-                <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
-                  김치찌개 만들기
-                </h1>
-                <span className="mb-4 line-clamp-2 text-sm text-gray-500">
-                  매콤하고 깊은 맛의 김치찌개 레시피입니다.
-                </span>
-
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Clock size={16} /> 30분
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-1">
-                      <Eye size={16} />6
-                    </button>
-                    <button className="flex items-center gap-1">
-                      <Heart size={16} /> 1
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to={"/id"}
-              className="group h-fit overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={youtubeDefaultImage}
-                  className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
-                />
-                <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
-                  쉬움
-                </Badge>
-                <Badge className="absolute top-3 right-3 rounded-md bg-white text-green-500">
-                  한식
-                </Badge>
-              </div>
-              <div className="p-5">
-                <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
-                  김치찌개 만들기
-                </h1>
-                <span className="mb-4 line-clamp-2 text-sm text-gray-500">
-                  매콤하고 깊은 맛의 김치찌개 레시피입니다.
-                </span>
-
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Clock size={16} /> 30분
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-1">
-                      <Eye size={16} />6
-                    </button>
-                    <button className="flex items-center gap-1">
-                      <Heart size={16} /> 1
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Link>
-            <Link
-              to={"/id"}
-              className="group h-fit overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={youtubeDefaultImage}
-                  className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
-                />
-                <Badge className="absolute top-3 left-3 rounded-md bg-green-500">
-                  쉬움
-                </Badge>
-                <Badge className="absolute top-3 right-3 rounded-md bg-white text-green-500">
-                  한식
-                </Badge>
-              </div>
-              <div className="p-5">
-                <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
-                  김치찌개 만들기
-                </h1>
-                <span className="mb-4 line-clamp-2 text-sm text-gray-500">
-                  매콤하고 깊은 맛의 김치찌개 레시피입니다.
-                </span>
-
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Clock size={16} /> 30분
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-1">
-                      <Eye size={16} />6
-                    </button>
-                    <button className="flex items-center gap-1">
-                      <Heart size={16} /> 1
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Link>
+          <div className="grid w-full grid-cols-3 gap-6">
+            {recipeData?.map((recipe) => (
+              <RecipeCard recipe={recipe} key={recipe.id} />
+            ))}
           </div>
         </div>
       </div>
