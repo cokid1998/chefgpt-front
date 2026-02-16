@@ -4,7 +4,7 @@ import API from "@/hooks/API/API";
 import { useQuery } from "@tanstack/react-query";
 import type { RecipeType } from "@/types/recipeType";
 
-const useGetRecipe = () => {
+const useGetMyRecipe = () => {
   return useQuery({
     queryKey: QUERY_KEYS.recipe.list(),
     queryFn: () => API.get<RecipeType[]>(GET_RECIPE_URL),
@@ -12,4 +12,4 @@ const useGetRecipe = () => {
   });
 };
 
-export default useGetRecipe;
+export default useGetMyRecipe;

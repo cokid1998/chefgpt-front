@@ -3,13 +3,10 @@ import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide
 import { Separator } from "@/components/ui/separator";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
-import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
+import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
 
 export default function RecipeDetailPage() {
   const [currentStep, setCurrentStep] = useState();
-  const { data: recipeList } = useGetRecipe();
-
-  console.log(recipeList);
 
   return (
     <div className="w-full rounded-xl border bg-gray-100 p-8">

@@ -14,13 +14,13 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router";
 import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
-import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
+import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
 import { RECIPE_DETAIL } from "@/constants/Url";
 import MyInfoRecipeTabSkeleton from "@/components/myInfo/skeleton/MyInfoRecipeTabSkeleton";
 import RecipeCard from "@/components/recipe/RecipeCard";
 
 export default function MyInfoRecipeTab() {
-  const { data: recipeList, isLoading } = useGetRecipe();
+  const { data: recipeList, isLoading } = useGetMyRecipe();
 
   if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
@@ -51,7 +51,7 @@ export default function MyInfoRecipeTab() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {recipeList?.map((recipe, index) => (
-            <RecipeCard recipe={recipe} />
+            <RecipeCard recipe={recipe} key={recipe.id} />
           ))}
         </div>
       </div>
