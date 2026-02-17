@@ -61,6 +61,7 @@ export default function ArticlePage() {
             />
 
             <ArticleList
+              selectCategory={selectCategory}
               articleIds={articleIds}
               isArticleLoading={isArticleLoading}
             />
