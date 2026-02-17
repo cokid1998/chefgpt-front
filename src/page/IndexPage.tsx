@@ -28,23 +28,25 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
-
-const CATEGORY = [
-  "전체",
-  "한식",
-  "양식",
-  "중식",
-  "일식",
-  "디저트",
-  "베이킹",
-  "간식",
-  "음료",
-  "기타",
-];
+import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 
 export default function IndexPage() {
   const location = useLocation();
-  const { data: recipeData } = useGetRecipe(0, "");
+  const [selectCategoryId, setSelectCategoryId] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const handleCategoryClick = (categoryId: number) => {
+    setSelectCategoryId(categoryId);
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setSearch(e.currentTarget.value);
+    }
+  };
+
+  const { data: recipeData } = useGetRecipe(selectCategoryId, search);
+  const { data: categories } = useGetRecipeCategory();
 
   useEffect(() => {
     // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
@@ -57,6 +59,10 @@ export default function IndexPage() {
     //   window.history.replaceState({}, document.title);
     // }
   }, [location]);
+
+  // Todo: searchBar 컴포넌트로 분리
+  // 로딩 UI구현
+  if (!categories) return null;
 
   return (
     <>
@@ -98,7 +104,10 @@ export default function IndexPage() {
         <div className="mx-auto min-w-7xl px-4 py-12">
           <div className="mb-6 flex justify-between">
             <InputGroup className="h-12 max-w-2xl bg-white">
-              <InputGroupInput placeholder="레시피 검색..." />
+              <InputGroupInput
+                placeholder="레시피 검색..."
+                onKeyDown={handleSearchKeyDown}
+              />
               <InputGroupAddon>
                 <SearchIcon />
               </InputGroupAddon>
@@ -113,12 +122,17 @@ export default function IndexPage() {
           </div>
 
           <div className="mb-8 flex items-center gap-3 text-sm font-medium text-gray-600">
-            {CATEGORY.map((category) => (
+            {[{ id: 0, name: "전체" }, ...categories]?.map((category) => (
               <Badge
-                key={category}
-                className="cursor-pointer border-green-100 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50"
+                key={category.id}
+                className={`cursor-pointer bg-white px-5 py-2 text-sm font-medium text-gray-600 ${
+                  selectCategoryId === category.id
+                    ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg"
+                    : "border-green-200 hover:border-green-400 hover:bg-green-50"
+                }`}
+                onClick={() => handleCategoryClick(category.id)}
               >
-                {category}
+                {category.name}
               </Badge>
             ))}
           </div>
@@ -135,7 +149,7 @@ export default function IndexPage() {
             </h1>
           </div>
 
-          <div className="grid w-full grid-cols-3 gap-6">
+          <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
             {recipeData?.map((recipe) => (
               <RecipeCard recipe={recipe} key={recipe.id} />
             ))}
