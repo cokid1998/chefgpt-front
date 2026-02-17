@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Heart } from "lucide-react";
 
 export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
+  console.log(recipe);
   return (
     <Link
       to={`/recipe/${recipe.id}`}
@@ -12,7 +13,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
     >
       <div className="relative h-48 overflow-hidden">
         <img
-          src={youtubeDefaultImage}
+          src={recipe.thumbnailUrl || youtubeDefaultImage}
           className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
         />
         <Badge className="absolute top-3 left-3 rounded-md bg-white text-green-500">

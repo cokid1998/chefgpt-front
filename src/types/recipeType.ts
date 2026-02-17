@@ -25,6 +25,7 @@ export interface RecipeType {
   id: number;
   title: string;
   viewCount: number;
+  thumbnailUrl: string;
 }
 
 export interface RecipeCategoryType {
