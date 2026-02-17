@@ -6,7 +6,7 @@ import ManualRecipeForm from "@/components/recipe/RecipeCreateForm/ManualRecipeF
 import { useState } from "react";
 
 export default function CreateRecipePage() {
-  const [mode, setMode] = useState("manual");
+  const [mode, setMode] = useState("youtube");
 
   return (
     <>
