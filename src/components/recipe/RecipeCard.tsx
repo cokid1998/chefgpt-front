@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Heart } from "lucide-react";
 
 export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
-  console.log(recipe);
   return (
     <Link
       to={`/recipe/${recipe.id}`}
