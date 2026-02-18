@@ -1,33 +1,13 @@
 import { Badge } from "@/components/ui/badge";
-import {
-  ChefHat,
-  Sparkles,
-  Clock,
-  Users,
-  SearchIcon,
-  Plus,
-  Funnel,
-  CookingPot,
-  Eye,
-  Heart,
-} from "lucide-react";
+import { ChefHat, Sparkles } from "lucide-react";
 import { Link } from "react-router";
 import { CREATE_RECIPE, VOTE } from "@/constants/Url";
-import { Button } from "@/components/ui/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
-import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
+import RecipeSearchBar from "@/components/home/RecipeSearchBar";
+import RecipeList from "@/components/home/RecipeList";
 
 export default function HomePage() {
   const location = useLocation();
@@ -44,9 +24,6 @@ export default function HomePage() {
     }
   };
 
-  const { data: recipeData } = useGetRecipe(selectCategoryId, search);
-  const { data: categories } = useGetRecipeCategory();
-
   useEffect(() => {
     // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
     if (location.state?.fromLogout) {
@@ -58,10 +35,6 @@ export default function HomePage() {
     //   window.history.replaceState({}, document.title);
     // }
   }, [location]);
-
-  // Todo: searchBar 컴포넌트로 분리
-  // 로딩 UI구현
-  if (!categories) return null;
 
   return (
     <>
@@ -101,58 +74,13 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto min-w-7xl px-4 py-12">
-          <div className="mb-6 flex justify-between">
-            <InputGroup className="h-12 max-w-2xl bg-white">
-              <InputGroupInput
-                placeholder="레시피 검색..."
-                onKeyDown={handleSearchKeyDown}
-              />
-              <InputGroupAddon>
-                <SearchIcon />
-              </InputGroupAddon>
-            </InputGroup>
+          <RecipeSearchBar
+            onSearchKeyDown={handleSearchKeyDown}
+            onCategoryClick={handleCategoryClick}
+            selectCategoryId={selectCategoryId}
+          />
 
-            <Button className="bg-green-gradient h-12" asChild>
-              <Link to={CREATE_RECIPE}>
-                <Plus />
-                레시피 생성
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mb-8 flex items-center gap-3 text-sm font-medium text-gray-600">
-            {[{ id: 0, name: "전체" }, ...categories]?.map((category) => (
-              <Badge
-                key={category.id}
-                className={`cursor-pointer bg-white px-5 py-2 text-sm font-medium text-gray-600 ${
-                  selectCategoryId === category.id
-                    ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg"
-                    : "border-green-200 hover:border-green-400 hover:bg-green-50"
-                }`}
-                onClick={() => handleCategoryClick(category.id)}
-              >
-                {category.name}
-              </Badge>
-            ))}
-          </div>
-
-          <div>
-            <h1 className="mb-6 flex items-center gap-2">
-              <CookingPot className="text-green-500" />
-              <span className="text-2xl font-bold text-gray-900">
-                모든 레시피
-              </span>
-              <span className="text-sm text-gray-500">
-                ({recipeData?.length}개)
-              </span>
-            </h1>
-          </div>
-
-          <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
-            {recipeData?.map((recipe) => (
-              <RecipeCard recipe={recipe} key={recipe.id} />
-            ))}
-          </div>
+          <RecipeList selectCategoryId={selectCategoryId} search={search} />
         </div>
       </div>
     </>
