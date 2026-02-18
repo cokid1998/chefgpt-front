@@ -62,11 +62,10 @@ export default function AIRecipeForm() {
                   onChange={(e) => setYoutubeUrl(e.target.value)}
                   className="h-14 rounded-xl border-gray-200 pl-12 text-base focus:border-green-400 focus:ring-green-400"
                   required
-                  // disabled={isProcessing}
                 />
               </div>
               <p className="mt-2 text-sm text-gray-500">
-                예: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                예: https://www.youtube.com/shorts/2KoUycJinko
               </p>
             </div>
 
