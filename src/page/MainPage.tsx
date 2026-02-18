@@ -22,7 +22,6 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -30,7 +29,7 @@ import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 
-export default function IndexPage() {
+export default function HomePage() {
   const location = useLocation();
   const [selectCategoryId, setSelectCategoryId] = useState(0);
   const [search, setSearch] = useState("");

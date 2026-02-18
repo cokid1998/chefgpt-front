@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import Layout from "@/components/layout/Layout";
 import LoginPage from "@/page/auth/LoginPage";
-import IndexPage from "@/page/IndexPage";
+import HomePage from "@/page/MainPage";
 import SignupPage from "@/page/auth/SignupPage";
 import CreateRecipePage from "@/page/Recipe/CreateRecipePage";
 import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
@@ -33,7 +33,7 @@ export default function RootRouter() {
   return (
     <Routes>
       <Route element={<Layout />}>
-        <Route path={HOME} element={<IndexPage />} />
+        <Route path={HOME} element={<HomePage />} />
         <Route path={CREATE_RECIPE} element={<CreateRecipePage />} />
         <Route path={RECIPE_DETAIL} element={<RecipeDetailPage />} />
         <Route path={VOTE} element={<VotePage />} />
