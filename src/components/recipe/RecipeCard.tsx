@@ -8,7 +8,7 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
   return (
     <Link
       to={`/recipe/${recipe.id}`}
-      className="group max-w-100 overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
+      className="group flex max-w-100 flex-col overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
     >
       <div className="relative h-48 overflow-hidden border-b">
         <img
@@ -19,13 +19,16 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
           {recipe.category.name}
         </Badge>
       </div>
-      <div className="p-5">
-        <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
-          {recipe.title}
-        </h1>
-        <span className="mb-4 line-clamp-2 text-sm text-gray-500">
-          {recipe.description}
-        </span>
+
+      <div className="flex flex-1 flex-col justify-between p-5">
+        <div>
+          <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
+            {recipe.title}
+          </h1>
+          <span className="mb-4 line-clamp-2 text-sm text-gray-500">
+            {recipe.description}
+          </span>
+        </div>
 
         <div className="flex items-center justify-between text-sm text-gray-600">
           <div className="flex items-center gap-1">
