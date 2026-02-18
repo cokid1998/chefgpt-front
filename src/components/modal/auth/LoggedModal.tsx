@@ -27,7 +27,7 @@ export default function LoggedModal() {
       <div className="mb-8">
         로그인을 원하지 않는경우
         <br />
-        '돌아가기' 버튼을 눌러주세요.
+        <strong>돌아가기</strong> 버튼을 눌러주세요.
       </div>
 
       <div className="flex justify-end gap-4">
