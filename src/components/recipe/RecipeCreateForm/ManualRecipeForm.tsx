@@ -12,8 +12,10 @@ import { useState, useRef, useEffect } from "react";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 import NoThumbnail from "@/assets/image/default_recipe_thumbnail.png";
+import { useIsLogged } from "@/store/authStore";
 
 export default function ManualRecipeForm() {
+  const isLogged = useIsLogged();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -150,7 +152,7 @@ export default function ManualRecipeForm() {
           <h3 className="text-lg font-semibold text-gray-900">기본 정보</h3>
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
-              레시피 제목
+              레시피 제목 *
             </label>
             <Input
               placeholder="예: 김치찌개"
@@ -347,11 +349,13 @@ export default function ManualRecipeForm() {
         </div>
 
         <Button
-          disabled={isPending || !formData.title}
+          disabled={isPending || !formData.title || !isLogged}
           className="h-14 w-full rounded-xl bg-linear-to-r from-green-400 to-emerald-500 text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
           onClick={handleCreateRecipe}
         >
-          {isPending ? (
+          {!isLogged ? (
+            "로그인이 필요한 기능입니다."
+          ) : isPending ? (
             <>
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               저장 중...
