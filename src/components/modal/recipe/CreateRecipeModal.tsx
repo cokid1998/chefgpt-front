@@ -8,6 +8,7 @@ import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 import { Button } from "@/components/ui/button";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
+import { useIsLogged } from "@/store/authStore";
 
 interface CreateRecipeModalProps {
   recipeInfo: RecipeInfoType;
@@ -20,6 +21,7 @@ export default function CreateRecipeModal({
 }: CreateRecipeModalProps) {
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
+  const isLogged = useIsLogged();
 
   // 아코디언의 식재료 체크여부와 닫힘 여부를 다음 슬라이드로 넘어갔다가 다시 되돌아와도
   // 유지되도록 하기 위해 모달파일에서 관리
@@ -79,8 +81,11 @@ export default function CreateRecipeModal({
           variant="outline"
           className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
           onClick={handleCreateRecipe}
+          disabled={!isLogged}
         >
-          레시피 생성하기
+          {!isLogged
+            ? "로그인 후 레시피를 저장할 수 있습니다."
+            : "레시피 저장하기"}
         </Button>
       </div>
     </ScrollArea>
