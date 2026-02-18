@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import type { RecipeType } from "@/types/recipeType";
-import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
+import defaultImage from "@/assets/image/default_recipe_thumbnail.png";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Heart } from "lucide-react";
 
@@ -10,9 +10,9 @@ export default function RecipeCard({ recipe }: { recipe: RecipeType }) {
       to={`/recipe/${recipe.id}`}
       className="group max-w-100 overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden border-b">
         <img
-          src={recipe.thumbnailUrl || youtubeDefaultImage}
+          src={recipe.thumbnailUrl || defaultImage}
           className="h-full w-full object-cover transition-transform duration-400 group-hover:scale-110"
         />
         <Badge className="absolute top-3 left-3 rounded-md bg-white text-green-500">
