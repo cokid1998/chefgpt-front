@@ -5,17 +5,20 @@ import { CREATE_RECIPE, VOTE } from "@/constants/Url";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 import RecipeSearchBar from "@/components/home/RecipeSearchBar";
 import RecipeList from "@/components/home/RecipeList";
+import type { RecipeCategoryType } from "@/types/recipeType";
 
 export default function HomePage() {
   const location = useLocation();
-  const [selectCategoryId, setSelectCategoryId] = useState(0);
+  const [selectCategory, setSelectCategory] = useState<RecipeCategoryType>({
+    id: 0,
+    name: "전체",
+  });
   const [search, setSearch] = useState("");
 
-  const handleCategoryClick = (categoryId: number) => {
-    setSelectCategoryId(categoryId);
+  const handleCategoryClick = (categoryInfo: RecipeCategoryType) => {
+    setSelectCategory(categoryInfo);
   };
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,10 +80,10 @@ export default function HomePage() {
           <RecipeSearchBar
             onSearchKeyDown={handleSearchKeyDown}
             onCategoryClick={handleCategoryClick}
-            selectCategoryId={selectCategoryId}
+            selectCategory={selectCategory}
           />
 
-          <RecipeList selectCategoryId={selectCategoryId} search={search} />
+          <RecipeList selectCategory={selectCategory} search={search} />
         </div>
       </div>
     </>

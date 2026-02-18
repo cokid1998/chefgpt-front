@@ -2,18 +2,19 @@ import { CookingPot } from "lucide-react";
 import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
 import RecipeListSkeleton from "@/components/home/skeleton/RecipeListSkeleton";
+import type { RecipeCategoryType } from "@/types/recipeType";
 
 interface RecipeListProps {
-  selectCategoryId: number;
+  selectCategory: RecipeCategoryType;
   search: string;
 }
 
 export default function RecipeList({
-  selectCategoryId,
+  selectCategory,
   search,
 }: RecipeListProps) {
   const { data: recipeData, isLoading: recipeListLoading } = useGetRecipe(
-    selectCategoryId,
+    selectCategory.id,
     search,
   );
 
@@ -24,7 +25,9 @@ export default function RecipeList({
       <div>
         <h1 className="mb-6 flex items-center gap-2">
           <CookingPot className="text-green-500" />
-          <span className="text-2xl font-bold text-gray-900">모든 레시피</span>
+          <span className="text-2xl font-bold text-gray-900">
+            {selectCategory.name} 레시피
+          </span>
           <span className="text-sm text-gray-500">
             ({recipeData?.length}개)
           </span>
