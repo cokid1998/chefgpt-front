@@ -18,7 +18,7 @@ import {
 import Editor from "@/components/article/editor/Editor";
 import { type Editor as EditorType, type JSONContent } from "@tiptap/react";
 import { Badge } from "@/components/ui/badge";
-import type { ArticleFormType } from "@/page/Article/CreateArticlePage";
+import type { ArticleFormType } from "@/page/Article/CreateArticle-Page";
 
 interface ArticleEditorContentProps {
   form: ArticleFormType;

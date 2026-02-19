@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router";
 import Layout from "@/components/layout/Layout";
-import LoginPage from "@/page/auth/LoginPage";
-import HomePage from "@/page/MainPage";
-import SignupPage from "@/page/auth/SignupPage";
-import CreateRecipePage from "@/page/Recipe/CreateRecipePage";
-import RefrigeratorPage from "@/page/Refrigerator/RefrigeratorPage";
-import VotePage from "@/page/Vote/VotePage";
-import ArticlePage from "@/page/Article/ArticlePage";
+import LoginPage from "@/page/auth/Login-Page";
+import HomePage from "@/page/Main-Page";
+import SignupPage from "@/page/auth/Signup-Page";
+import CreateRecipePage from "@/page/Recipe/CreateRecipe-Page";
+import RefrigeratorPage from "@/page/Refrigerator/Refrigerator-Page";
+import VotePage from "@/page/Vote/Vote-Page";
+import ArticlePage from "@/page/Article/Article-Page";
 import NotFoundPage from "@/page/404";
 import {
   VOTE,
@@ -23,11 +23,11 @@ import {
   RECIPE_DETAIL,
 } from "@/constants/Url";
 import OnlyLoggedLayout from "@/components/layout/OnlyLoggedLayout";
-import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallbackPage";
-import ArticleDetailPage from "@/page/Article/ArticleDetailPage";
-import CreateArticlePage from "@/page/Article/CreateArticlePage";
-import MyInfoPage from "@/page/MyInfo/MyInfoPage";
-import RecipeDetailPage from "@/page/Recipe/RecipeDetailPage";
+import KAKAOAuthCallbackPage from "@/page/auth/KAKAOAuthCallback-Page";
+import ArticleDetailPage from "@/page/Article/ArticleDetail-Page";
+import CreateArticlePage from "@/page/Article/CreateArticle-Page";
+import MyInfoPage from "@/page/MyInfo/MyInfo-Page";
+import RecipeDetailPage from "@/page/Recipe/RecipeDetail-Page";
 
 export default function RootRouter() {
   return (
