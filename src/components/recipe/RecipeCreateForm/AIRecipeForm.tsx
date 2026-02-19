@@ -13,8 +13,11 @@ import useGetRecipeScript from "@/hooks/API/recipe/GET/useGetRecipeInfo";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";
+import { useQueryClient } from "@tanstack/react-query";
+import { QUERY_KEYS } from "@/constants/QueryKeys";
 
 export default function AIRecipeForm() {
+  const queryClient = useQueryClient();
   const openModal = useOpenModal();
   const [youtubeUrl, setYoutubeUrl] = useState(
     "https://www.youtube.com/shorts/2KoUycJinko",
@@ -29,14 +32,44 @@ export default function AIRecipeForm() {
     isError,
     error,
   } = useGetRecipeScript(youtubeUrl);
+  console.log(recipeInfo);
 
-  useEffect(() => {
-    if (recipeInfo && !isFetching && !isError) {
+  /*
+    You Might Not Need an Effect
+    리팩토링 관련 공식문서 : https://react.dev/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers
+    리팩토링 관련 블로그 : https://velog.io/@cokid/useEffect%EB%8A%94-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC%EA%B0%80-%EC%95%84%EB%8B%88%EB%8B%A4
+
+    모달 오픈용 effect
+    useEffect(() => {
+      if (recipeInfo && !isFetching && !isError) {
+        openModal(
+          <CreateRecipeModal recipeInfo={recipeInfo} youtubeUrl={youtubeUrl} />,
+        );
+      }
+    }, [recipeInfo, isFetching]);
+
+    캐시 삭제용 effect - dependency분리를 위한 별도 코드
+    useEffect(() => {
+      return () => {
+        queryClient.removeQueries({
+          queryKey: QUERY_KEYS.recipe.byUrl(youtubeUrl),
+        });
+      };
+    }, []);
+  */
+
+  const handleOnclick = async () => {
+    const recipeInfo = await recipeInfoFetch();
+
+    if (recipeInfo.data && !isFetching && !isError) {
       openModal(
-        <CreateRecipeModal recipeInfo={recipeInfo} youtubeUrl={youtubeUrl} />,
+        <CreateRecipeModal
+          recipeInfo={recipeInfo.data}
+          youtubeUrl={youtubeUrl}
+        />,
       );
     }
-  }, [recipeInfo, isFetching]);
+  };
 
   return (
     <>
@@ -119,7 +152,7 @@ export default function AIRecipeForm() {
             <Button
               disabled={isFetching || !youtubeUrl}
               className="bg-green-gradient h-14 w-full rounded-xl text-lg font-semibold text-white shadow-lg transition-all hover:from-green-500 hover:to-emerald-600 hover:shadow-xl"
-              onClick={() => recipeInfoFetch()}
+              onClick={handleOnclick}
             >
               {isFetching ? (
                 <>
