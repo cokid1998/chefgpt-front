@@ -89,7 +89,7 @@ export default function Sidebar() {
 
   return (
     <aside className="fixed z-10 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white">
-      <div className="flex items-center gap-3 border-b p-6">
+      <div className="flex h-24 items-center gap-3 border-b p-6">
         <Link
           to={HOME}
           className="flex w-full items-center gap-3 transition-transform hover:scale-105"
