@@ -13,7 +13,7 @@ export default function RecipeList({
   selectCategory,
   search,
 }: RecipeListProps) {
-  const { data: recipeData, isLoading: recipeListLoading } = useGetRecipe(
+  const { data: recipeIds, isLoading: recipeListLoading } = useGetRecipe(
     selectCategory.id,
     search,
   );
@@ -28,15 +28,13 @@ export default function RecipeList({
           <span className="text-2xl font-bold text-gray-900">
             {selectCategory.name} 레시피
           </span>
-          <span className="text-sm text-gray-500">
-            ({recipeData?.length}개)
-          </span>
+          <span className="text-sm text-gray-500">({recipeIds?.length}개)</span>
         </h1>
       </div>
 
       <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
-        {recipeData?.map((recipe) => (
-          <RecipeCard recipe={recipe} key={recipe.id} />
+        {recipeIds?.map((recipeId) => (
+          <RecipeCard recipeId={recipeId} key={recipeId} />
         ))}
       </div>
     </>

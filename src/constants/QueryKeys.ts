@@ -52,6 +52,7 @@ export const QUERY_KEYS = {
       categoryId,
       search,
     ],
+    byId: (recipeId: number) => ["recipe", recipeId],
     my: ["recipe", "my"],
   },
 } as const;

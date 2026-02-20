@@ -38,6 +38,7 @@ export const GET_MY_RECIPE = "/recipe/my";
 export const GET_RECIPE_CATEGORY = "/recipe/category";
 export const POST_CREATE_RECIPE = "/recipe";
 export const GET_RECIPE = "/recipe";
+export const GET_ONE_RECIPE = (recipeId: number) => `/recipe/${recipeId}`;
 
 // myInfo
 export const GET_MYINFO_COUNT = "/myinfo/count";
