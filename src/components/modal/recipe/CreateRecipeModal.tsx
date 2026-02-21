@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
-import type { RecipeInfoType } from "@/types/recipeType";
+import type { YoutubeRecipeType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
@@ -11,7 +11,7 @@ import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import { useIsLogged } from "@/store/authStore";
 
 interface CreateRecipeModalProps {
-  recipeInfo: RecipeInfoType;
+  recipeInfo: YoutubeRecipeType;
   youtubeUrl: string;
 }
 

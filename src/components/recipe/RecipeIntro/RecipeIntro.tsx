@@ -1,7 +1,7 @@
 import RecipeHeader from "@/components/recipe/RecipeIntro/RecipeHeader";
 import { Separator } from "@/components/ui/separator";
 import RecipeIngredientAccordion from "@/components/recipe/RecipeIntro/RecipeIngredientAccordion";
-import type { RecipeInfoType } from "@/types/recipeType";
+import type { YoutubeRecipeType } from "@/types/recipeType";
 
 interface RecipeIntroProps {
   youtubeUrl: string;
@@ -9,7 +9,7 @@ interface RecipeIntroProps {
   setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
   accordionValue: string | undefined;
   setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
-  recipeInfo: RecipeInfoType;
+  recipeInfo: YoutubeRecipeType;
 }
 
 export default function RecipeIntro({

@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import useGetRecipeScript from "@/hooks/API/recipe/GET/useGetRecipeInfo";
+import { useState } from "react";
+import useGetYoutubeRecipe from "@/hooks/API/recipe/GET/useGetYoutubeRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";
@@ -31,7 +31,7 @@ export default function AIRecipeForm() {
     isFetching,
     isError,
     error,
-  } = useGetRecipeScript(youtubeUrl);
+  } = useGetYoutubeRecipe(youtubeUrl);
   console.log(recipeInfo);
 
   /*

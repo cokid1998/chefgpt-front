@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
-import type { RecipeInfoType, StepType } from "@/types/recipeType";
+import type { StepType, YoutubeStepType } from "@/types/recipeType";
 import { Lightbulb } from "lucide-react";
 import YouTube from "react-youtube";
 import { extractVideoId } from "@/components/recipe/RecipeIntro/RecipeHeader";
 import { Button } from "@/components/ui/button";
 
 interface RecipeStepSlideProps {
-  step: StepType;
+  step: StepType | YoutubeStepType;
   currentStep: number;
   youtubeUrl: string;
 }

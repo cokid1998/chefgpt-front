@@ -9,12 +9,18 @@ export interface IngredientType {
   amount: string;
 }
 
-export interface RecipeInfoType {
+export interface YoutubeStepType {
+  stepTitle: string;
+  description: string;
+  tip: string;
+}
+
+export interface YoutubeRecipeType {
   category: string;
   title: string;
   description: string;
   cookingTime: string;
-  steps: StepType[];
+  steps: YoutubeStepType[];
   ingredients: IngredientType[];
 }
 
