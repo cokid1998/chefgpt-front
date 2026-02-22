@@ -3,14 +3,18 @@ import defaultImage from "@/assets/image/default_recipe_thumbnail.png";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Heart } from "lucide-react";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
+import usePatchRecipeViewCount from "@/hooks/API/recipe/PATCH/usePatchRecipeViewCount";
 
 export default function RecipeCard({ recipeId }: { recipeId: number }) {
+  const { mutate: recipeViewCountIncrement } = usePatchRecipeViewCount();
+
   const { data: recipe } = useGetOneRecipe(recipeId);
 
   return (
     <Link
       to={`/recipe/${recipeId}`}
       className="group flex max-w-100 flex-col overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
+      onClick={() => recipeViewCountIncrement(recipeId)}
     >
       <div className="relative h-48 overflow-hidden border-b">
         <img

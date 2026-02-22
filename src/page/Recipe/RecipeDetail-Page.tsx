@@ -2,7 +2,7 @@ import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide
 import RecipeDetailNavigate from "@/components/recipe/RecipeDetailNavigate";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft, Heart, Eye } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 
@@ -44,6 +44,11 @@ export default function RecipeDetailPage() {
           >
             <Heart className="mr-2 h-5 w-5" />0
           </Button>
+
+          <div className="flex h-9 items-center gap-2 rounded-md border px-4 py-2">
+            <Eye size={16} />
+            {recipe?.viewCount}
+          </div>
         </div>
       </div>
 
