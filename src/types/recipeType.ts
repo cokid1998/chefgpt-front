@@ -1,7 +1,10 @@
 export interface StepType {
+  id: number;
+  stepNumber: number;
   stepTitle: string;
   description: string;
   tip: string;
+  recipeId: number;
 }
 
 export interface IngredientType {
@@ -32,6 +35,7 @@ export interface RecipeType {
   title: string;
   viewCount: number;
   thumbnailUrl: string;
+  recipeSteps: StepType[];
 }
 
 export interface RecipeCategoryType {
