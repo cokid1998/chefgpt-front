@@ -1,6 +1,7 @@
 import { POST_CREATE_RECIPE } from "@/constants/APIUrl";
 import API from "@/hooks/API/API";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 interface PostCreateRecipeReq {
   title: string;
@@ -17,6 +18,7 @@ interface PostCreateRecipeReq {
 }
 
 const usePostCreateRecipe = () => {
+  const nav = useNavigate();
   return useMutation({
     mutationFn: ({
       payload,
@@ -49,6 +51,11 @@ const usePostCreateRecipe = () => {
           youtubeUrl,
         },
       });
+    },
+
+    onSuccess: (data) => {
+      const recipeId = data.data.id;
+      nav(`/recipe/${recipeId}`);
     },
   });
 };
