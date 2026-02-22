@@ -1,12 +1,10 @@
-import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
-import { Separator } from "@/components/ui/separator";
-import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
+import RecipeDetailNavigate from "@/components/recipe/RecipeDetailNavigate";
 import { useState } from "react";
-import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Heart } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
@@ -64,11 +62,11 @@ export default function RecipeDetailPage() {
 
       <Separator className="my-4 w-full" />
 
-      <RecipeModalNavigate
-        currentStep={currentStep}
-        setCurrentStep={setCurrentStep}
-        totalLength={recipeInfo.steps.length}
-      /> */}
+        <RecipeDetailNavigate
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          totalLength={recipe?.recipeSteps.length}
+        />
     </div>
   );
 }
