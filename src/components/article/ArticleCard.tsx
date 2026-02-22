@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Eye, Tag } from "lucide-react";
 import { Link } from "react-router";
 import { ARTICLE } from "@/constants/Url";
-import usePatchArticleViewCount from "@/hooks/API/article/PATCH/usePatchViewCount";
+import usePatchArticleViewCount from "@/hooks/API/article/PATCH/usePatchArticleViewCount";
 import useGetOneArticle from "@/hooks/API/article/GET/useGetOneArticle";
 
 interface ArticleCardProps {
