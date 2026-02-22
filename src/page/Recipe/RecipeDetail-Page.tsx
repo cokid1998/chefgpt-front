@@ -8,7 +8,12 @@ import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
-  const [currentStep, setCurrentStep] = useState();
+  const { recipeId } = useParams();
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const { data: recipe, isLoading } = useGetOneRecipe(Number(recipeId));
+
+  if (!recipe?.recipeSteps) return null;
 
   return (
     <div className="bg-soft-green h-full">
@@ -16,13 +21,13 @@ export default function RecipeDetailPage() {
         <Button
           variant="outline"
           onClick={() => nav(-1)}
-          className="border-green-200 text-gray-700 hover:bg-green-50"
+          className="text-gray-700 hover:bg-green-50"
         >
           <ArrowLeft className="mr-2 h-5 w-5" />
           돌아가기
         </Button>
 
-        <h1 className="text-3xl text-gray-700">스파게티 알리오 올리오</h1>
+        <h1 className="text-3xl text-gray-700">{recipe?.title}</h1>
 
         <div className="flex items-center gap-3">
           <Button
@@ -42,31 +47,20 @@ export default function RecipeDetailPage() {
         </div>
       </div>
 
-      {/* {currentStep === 0 && (
-        <RecipeIntro
-          youtubeUrl={youtubeUrl}
-          checkedIngredient={checkedIngredient}
-          setCheckedIngredient={setCheckedIngredient}
-          accordionValue={accordionValue}
-          setAccordionValue={setAccordionValue}
-          recipeInfo={recipeInfo}
-        />
-      )}
-      {currentStep !== 0 && (
+      <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
         <RecipeStepSlide
-          step={recipeInfo.steps[currentStep - 1]}
+          step={recipe?.recipeSteps?.[currentStep - 1]}
           currentStep={currentStep}
-          youtubeUrl={youtubeUrl}
+          thumbnailUrl={recipe.thumbnailUrl}
+          className="bg-white shadow-lg"
         />
-      )}
-
-      <Separator className="my-4 w-full" />
 
         <RecipeDetailNavigate
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           totalLength={recipe?.recipeSteps.length}
         />
+      </div>
     </div>
   );
 }

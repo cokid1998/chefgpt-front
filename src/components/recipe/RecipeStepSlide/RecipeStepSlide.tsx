@@ -3,21 +3,27 @@ import type { StepType, YoutubeStepType } from "@/types/recipeType";
 import { Lightbulb } from "lucide-react";
 import YouTube from "react-youtube";
 import { extractVideoId } from "@/components/recipe/RecipeIntro/RecipeHeader";
-import { Button } from "@/components/ui/button";
+import defaultImage from "@/assets/image/default_recipe_thumbnail.png";
 
 interface RecipeStepSlideProps {
   step: StepType | YoutubeStepType;
   currentStep: number;
-  youtubeUrl: string;
+  youtubeUrl?: string;
+  thumbnailUrl?: string;
+  className?: string;
 }
 
 export default function RecipeStepSlide({
   step,
   currentStep,
   youtubeUrl,
+  thumbnailUrl,
+  className,
 }: RecipeStepSlideProps) {
   return (
-    <div className="flex h-143 flex-col justify-between">
+    <div
+      className={`flex h-143 w-full flex-col justify-between rounded-xl border bg-gray-100 p-8 ${className}`}
+    >
       <div className="grid h-1/2 grid-cols-2 gap-3">
         <div className="space-y-6">
           <Badge className="rounded-sm border-0 bg-green-500 text-lg text-white">
@@ -33,11 +39,18 @@ export default function RecipeStepSlide({
           </p>
         </div>
 
-        <YouTube
-          videoId={extractVideoId(youtubeUrl)}
-          className="h-full w-full"
-          iframeClassName="w-full h-full"
-        />
+        {youtubeUrl ? (
+          <YouTube
+            videoId={extractVideoId(youtubeUrl)}
+            className="h-full w-full"
+            iframeClassName="w-full h-full"
+          />
+        ) : (
+          <img
+            src={thumbnailUrl || defaultImage}
+            className="aspect-video rounded-sm border object-cover"
+          />
+        )}
       </div>
 
       <TipBox tip={step.tip} />

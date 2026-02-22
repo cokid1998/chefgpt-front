@@ -32,7 +32,6 @@ export default function AIRecipeForm() {
     isError,
     error,
   } = useGetYoutubeRecipe(youtubeUrl);
-  console.log(recipeInfo);
 
   /*
     You Might Not Need an Effect
