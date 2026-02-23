@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Bot, Youtube, PenLine } from "lucide-react";
-import AIRecipeForm from "@/components/recipe/RecipeCreateForm/AIRecipeForm";
+import YoutubeRecipeForm from "@/components/recipe/RecipeCreateForm/YoutubeRecipeForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ManualRecipeForm from "@/components/recipe/RecipeCreateForm/ManualRecipeForm";
 import { useState } from "react";
@@ -38,7 +38,7 @@ export default function CreateRecipePage() {
             </TabsList>
 
             <TabsContent value="youtube">
-              <AIRecipeForm />
+              <YoutubeRecipeForm />
             </TabsContent>
 
             <TabsContent value="manual">

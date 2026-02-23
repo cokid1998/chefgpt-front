@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
-import type { RecipeSource, YoutubeRecipeType } from "@/types/recipeType";
+import type { YoutubeRecipeType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
@@ -10,15 +10,15 @@ import { Button } from "@/components/ui/button";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import { useIsLogged } from "@/store/authStore";
 
-interface CreateRecipeModalProps {
+interface YoutubeRecipeModalProps {
   recipeInfo: YoutubeRecipeType;
   youtubeUrl: string;
 }
 
-export default function CreateRecipeModal({
+export default function YoutubeRecipeModal({
   recipeInfo,
   youtubeUrl,
-}: CreateRecipeModalProps) {
+}: YoutubeRecipeModalProps) {
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
   const isLogged = useIsLogged();

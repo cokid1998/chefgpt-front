@@ -12,12 +12,9 @@ import { useState } from "react";
 import useGetYoutubeRecipe from "@/hooks/API/recipe/GET/useGetYoutubeRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import CreateRecipeModal from "@/components/modal/recipe/CreateRecipeModal";
-import { useQueryClient } from "@tanstack/react-query";
-import { QUERY_KEYS } from "@/constants/QueryKeys";
+import YoutubeRecipeModal from "@/components/modal/recipe/YoutubeRecipeModal";
 
-export default function AIRecipeForm() {
-  const queryClient = useQueryClient();
+export default function YoutubeRecipeForm() {
   const openModal = useOpenModal();
   const [youtubeUrl, setYoutubeUrl] = useState(
     "https://www.youtube.com/shorts/2KoUycJinko",
@@ -62,7 +59,7 @@ export default function AIRecipeForm() {
 
     if (recipeInfo.data && !isFetching && !isError) {
       openModal(
-        <CreateRecipeModal
+        <YoutubeRecipeModal
           recipeInfo={recipeInfo.data}
           youtubeUrl={youtubeUrl}
         />,
