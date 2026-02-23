@@ -13,7 +13,7 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
   return (
     <Link
       to={`/recipe/${recipeId}`}
-      className="group flex max-w-100 flex-col overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
+      className="group flex max-w-100 cursor-pointer flex-col overflow-hidden rounded-2xl border shadow transition-all duration-300 hover:shadow-xl"
       onClick={() => recipeViewCountIncrement(recipeId)}
     >
       <div className="relative h-48 overflow-hidden border-b">
