@@ -6,7 +6,7 @@ import type { YoutubeRecipeType } from "@/types/recipeType";
 
 const useGetYoutubeRecipe = (youtubeUrl: string) => {
   return useQuery({
-    queryKey: QUERY_KEYS.recipe.byUrl(youtubeUrl),
+    queryKey: QUERY_KEYS.recipe.byYoutubeUrl(youtubeUrl),
     queryFn: () =>
       API.get<YoutubeRecipeType>(GET_YOUTUBE_RECIPE_SCRIPT, {
         params: {

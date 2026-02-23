@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { YoutubeRecipeType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
@@ -9,6 +9,8 @@ import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 import { Button } from "@/components/ui/button";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import { useIsLogged } from "@/store/authStore";
+import { QUERY_KEYS } from "@/constants/QueryKeys";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface YoutubeRecipeModalProps {
   recipeInfo: YoutubeRecipeType;
@@ -19,6 +21,7 @@ export default function YoutubeRecipeModal({
   recipeInfo,
   youtubeUrl,
 }: YoutubeRecipeModalProps) {
+  const queryClient = useQueryClient();
   // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
   const isLogged = useIsLogged();
@@ -48,6 +51,14 @@ export default function YoutubeRecipeModal({
     };
     createRecipe({ payload: formatData, youtubeUrl });
   };
+
+  useEffect(() => {
+    return () => {
+      queryClient.removeQueries({
+        queryKey: QUERY_KEYS.recipe.byYoutubeUrl(youtubeUrl),
+      });
+    };
+  }, []);
 
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">

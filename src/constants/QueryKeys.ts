@@ -46,7 +46,7 @@ export const QUERY_KEYS = {
 
   recipe: {
     all: ["recipe"],
-    byUrl: (recipeUrl: string) => ["recipe", recipeUrl],
+    byYoutubeUrl: (recipeUrl: string) => ["recipe", recipeUrl],
     list: (categoryId: number, search: string = "") => [
       "recipe",
       categoryId,
