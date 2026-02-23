@@ -1,5 +1,9 @@
 import { Badge } from "@/components/ui/badge";
-import type { StepType, YoutubeStepType } from "@/types/recipeType";
+import type {
+  StepType,
+  YoutubeStepType,
+  RecipeSource,
+} from "@/types/recipeType";
 import { Lightbulb } from "lucide-react";
 import YouTube from "react-youtube";
 import { extractVideoId } from "@/components/recipe/RecipeIntro/RecipeHeader";
@@ -8,9 +12,11 @@ import defaultImage from "@/assets/image/default_recipe_thumbnail.png";
 interface RecipeStepSlideProps {
   step: StepType | YoutubeStepType;
   currentStep: number;
+  recipeSource?: RecipeSource;
   youtubeUrl?: string;
   thumbnailUrl?: string;
   className?: string;
+  youtubeId?: string | null;
 }
 
 export default function RecipeStepSlide({
@@ -19,6 +25,8 @@ export default function RecipeStepSlide({
   youtubeUrl,
   thumbnailUrl,
   className,
+  recipeSource,
+  youtubeId,
 }: RecipeStepSlideProps) {
   return (
     <div
@@ -39,16 +47,26 @@ export default function RecipeStepSlide({
           </p>
         </div>
 
-        {youtubeUrl ? (
+        {/* 레시피가 DB에 존재하지 않았을 때 보여주는 UI, 유튜브  */}
+        {youtubeUrl && (
           <YouTube
             videoId={extractVideoId(youtubeUrl)}
             className="h-full w-full"
             iframeClassName="w-full h-full"
           />
-        ) : (
+        )}
+
+        {/* 레시피가 DB에 존재했을 때 보여주는 UI */}
+        {recipeSource === "MANUAL" || youtubeId !== undefined ? (
           <img
             src={thumbnailUrl || defaultImage}
             className="aspect-video rounded-sm border object-cover"
+          />
+        ) : (
+          <YouTube
+            videoId={youtubeId}
+            className="h-full w-full"
+            iframeClassName="w-full h-full"
           />
         )}
       </div>

@@ -66,6 +66,8 @@ export default function RecipeDetailPage() {
           currentStep={currentStep}
           thumbnailUrl={recipe.thumbnailUrl}
           className="bg-white shadow-lg"
+          recipeSource={recipe.recipeSource}
+          youtubeId={recipe.youtubeVideoId}
         />
 
         <RecipeDetailNavigate
