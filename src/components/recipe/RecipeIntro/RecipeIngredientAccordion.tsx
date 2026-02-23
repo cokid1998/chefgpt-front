@@ -8,14 +8,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect } from "react";
-import type { IngredientType } from "@/types/recipeType";
+import type { YoutubeIngredientType } from "@/types/recipeType";
 
 interface RecipeIngredientAccordionProps {
   checkedIngredient: number[];
   setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
   accordionValue: string | undefined;
   setAccordionValue: React.Dispatch<React.SetStateAction<string | undefined>>;
-  ingredients: IngredientType[];
+  ingredients: YoutubeIngredientType[];
 }
 
 export default function RecipeIngredientAccordion({

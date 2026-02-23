@@ -7,9 +7,16 @@ export interface StepType {
   recipeId: number;
 }
 
-export interface IngredientType {
+export interface YoutubeIngredientType {
   name: string;
   amount: string;
+}
+
+export interface IngredientType {
+  id: number;
+  name: string;
+  amount: string;
+  recipeId: number;
 }
 
 export interface YoutubeStepType {
@@ -24,7 +31,7 @@ export interface YoutubeRecipeType {
   description: string;
   cookingTime: string;
   steps: YoutubeStepType[];
-  ingredients: IngredientType[];
+  ingredients: YoutubeIngredientType[];
 }
 
 export interface RecipeType {
@@ -36,6 +43,7 @@ export interface RecipeType {
   viewCount: number;
   thumbnailUrl: string;
   recipeSteps: StepType[];
+  recipeIngredients: IngredientType[];
 }
 
 export interface RecipeCategoryType {
