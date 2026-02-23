@@ -2,6 +2,7 @@ import { POST_CREATE_RECIPE } from "@/constants/APIUrl";
 import API from "@/hooks/API/API";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import type { RecipeSource } from "@/types/recipeType";
 
 interface PostCreateRecipeReq {
   title: string;
@@ -15,6 +16,7 @@ interface PostCreateRecipeReq {
     description: string;
   }[];
   thumbnailImageFile?: File | null;
+  recipeSource: RecipeSource;
 }
 
 const usePostCreateRecipe = () => {

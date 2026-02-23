@@ -1,3 +1,5 @@
+export type RecipeSource = "MANUAL" | "YOUTUBE";
+
 export interface StepType {
   id: number;
   stepNumber: number;
@@ -35,7 +37,7 @@ export interface YoutubeRecipeType {
 }
 
 export interface RecipeType {
-  category: { id: number; name: string };
+  category: RecipeCategoryType;
   cookingTime: string;
   description: string;
   id: number;
@@ -44,6 +46,7 @@ export interface RecipeType {
   thumbnailUrl: string;
   recipeSteps: StepType[];
   recipeIngredients: IngredientType[];
+  recipeSource: RecipeSource;
 }
 
 export interface RecipeCategoryType {

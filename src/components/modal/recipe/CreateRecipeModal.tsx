@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useState } from "react";
-import type { YoutubeRecipeType } from "@/types/recipeType";
+import type { RecipeSource, YoutubeRecipeType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
@@ -44,6 +44,7 @@ export default function CreateRecipeModal({
       ...restRecipeInfo,
       categoryId: categoryId ? categoryId : 3,
       thumbnailImageFile: undefined,
+      recipeSource: "YOUTUBE" as const,
     };
     createRecipe({ payload: formatData, youtubeUrl });
   };

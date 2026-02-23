@@ -134,6 +134,7 @@ export default function ManualRecipeForm() {
       // 카테고리를 선택하지 않으면 기본으로 기타로 분류
       categoryId: formData.categoryId ? Number(formData.categoryId) : 3,
       thumbnailImageFile,
+      recipeSource: "MANUAL" as const,
     };
     createRecipe({ payload: formatData, youtubeUrl: "" });
   };
