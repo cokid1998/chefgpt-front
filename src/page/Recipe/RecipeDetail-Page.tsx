@@ -5,15 +5,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Heart, Eye } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
+import { useOpenModal } from "@/store/modalStore";
+import IngredientViewModal from "@/components/modal/recipe/IngredientViewModal";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
+  const openModal = useOpenModal();
   const { recipeId } = useParams();
   const [currentStep, setCurrentStep] = useState(1);
 
   const { data: recipe, isLoading } = useGetOneRecipe(Number(recipeId));
 
-  if (!recipe?.recipeSteps) return null;
+  // Todo: Skeleton 처리
+  if (!recipe?.recipeSteps || isLoading) return null;
 
   return (
     <div className="bg-soft-green h-full">
@@ -31,7 +35,11 @@ export default function RecipeDetailPage() {
 
         <div className="flex items-center gap-3">
           <Button
-            // onClick={() => setShowIngredients(!showIngredients)}
+            onClick={() =>
+              openModal(
+                <IngredientViewModal ingredients={recipe.recipeIngredients} />,
+              )
+            }
             className="bg-green-500 text-white hover:bg-green-600"
           >
             재료 보기
