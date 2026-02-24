@@ -41,13 +41,14 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
             <Clock size={16} /> {recipe?.cookingTime}
           </div>
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-1">
+            <div className="flex items-center gap-1">
               <Eye size={16} />
               {recipe?.viewCount}
-            </button>
-            <button className="flex items-center gap-1">
+            </div>
+
+            <div className="flex cursor-pointer items-center gap-1">
               <Heart size={16} /> Todo: 1
-            </button>
+            </div>
           </div>
         </div>
       </div>
