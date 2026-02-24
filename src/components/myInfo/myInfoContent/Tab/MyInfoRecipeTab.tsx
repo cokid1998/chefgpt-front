@@ -51,7 +51,7 @@ export default function MyInfoRecipeTab() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {recipeList?.map((recipe, index) => (
-            <RecipeCard recipe={recipe} key={recipe.id} />
+            <RecipeCard recipeId={recipe.id} key={recipe.id} />
           ))}
         </div>
       </div>
