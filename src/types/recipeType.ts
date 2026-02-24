@@ -48,6 +48,7 @@ export interface RecipeType {
   recipeIngredients: IngredientType[];
   recipeSource: RecipeSource;
   youtubeVideoId: string | null;
+  likeCount: number;
 }
 
 export interface RecipeCategoryType {

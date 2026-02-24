@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import IngredientViewModal from "@/components/modal/recipe/IngredientViewModal";
+import usePostToggleLike from "@/hooks/API/recipe/POST/userPostToggleLike";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
@@ -15,6 +16,7 @@ export default function RecipeDetailPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const { data: recipe, isLoading } = useGetOneRecipe(Number(recipeId));
+  const { mutate: likeToggle } = usePostToggleLike();
 
   // Todo: Skeleton 처리
   if (!recipe?.recipeSteps || isLoading) return null;
@@ -47,10 +49,11 @@ export default function RecipeDetailPage() {
 
           <Button
             variant="outline"
-            // onClick={() => likeMutation.mutate()}
-            className="border-green-200 text-gray-700 hover:bg-green-50"
+            onClick={() => likeToggle(Number(recipeId))}
+            className="border text-gray-700 hover:bg-gray-50"
           >
-            <Heart className="mr-2 h-5 w-5" />0
+            <Heart className="mr-2 h-5 w-5" />
+            {recipe?.likeCount}
           </Button>
 
           <div className="flex h-9 items-center gap-2 rounded-md border px-4 py-2">

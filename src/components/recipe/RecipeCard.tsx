@@ -47,7 +47,7 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
             </div>
 
             <div className="flex cursor-pointer items-center gap-1">
-              <Heart size={16} /> Todo: 1
+              <Heart size={16} /> {recipe?.likeCount}
             </div>
           </div>
         </div>
