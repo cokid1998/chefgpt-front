@@ -50,9 +50,15 @@ export default function RecipeDetailPage() {
           <Button
             variant="outline"
             onClick={() => likeToggle(Number(recipeId))}
-            className="border text-gray-700 hover:bg-gray-50"
+            className={`border ${
+              recipe?.liked
+                ? "border-red-200 text-red-500 hover:bg-red-50"
+                : "text-gray-700 hover:bg-gray-50"
+            }`}
           >
-            <Heart className="mr-2 h-5 w-5" />
+            <Heart
+              className={`mr-2 h-5 w-5 ${recipe?.liked ? "fill-red-500 stroke-red-500" : ""}`}
+            />
             {recipe?.likeCount}
           </Button>
 

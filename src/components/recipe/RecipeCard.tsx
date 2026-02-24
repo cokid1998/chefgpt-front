@@ -10,6 +10,8 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
 
   const { data: recipe } = useGetOneRecipe(recipeId);
 
+  console.log(recipe?.liked);
+
   return (
     <Link
       to={`/recipe/${recipeId}`}
@@ -46,8 +48,16 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
               {recipe?.viewCount}
             </div>
 
-            <div className="flex cursor-pointer items-center gap-1">
-              <Heart size={16} /> {recipe?.likeCount}
+            <div
+              className={`flex cursor-pointer items-center gap-1 ${
+                recipe?.liked ? "text-red-500" : ""
+              }`}
+            >
+              <Heart
+                size={16}
+                className={`${recipe?.liked ? "fill-red-500" : ""}`}
+              />
+              {recipe?.likeCount}
             </div>
           </div>
         </div>

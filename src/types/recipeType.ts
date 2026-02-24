@@ -49,6 +49,7 @@ export interface RecipeType {
   recipeSource: RecipeSource;
   youtubeVideoId: string | null;
   likeCount: number;
+  liked: boolean;
 }
 
 export interface RecipeCategoryType {
