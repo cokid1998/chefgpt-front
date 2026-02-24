@@ -159,6 +159,7 @@ export default function ManualRecipeForm() {
               placeholder="예: 김치찌개"
               onChange={(e) => handleChangeFormData("title", e.target.value)}
               value={formData.title}
+              disabled={!isLogged}
             />
           </div>
 
@@ -172,6 +173,7 @@ export default function ManualRecipeForm() {
                 handleChangeFormData("description", e.target.value)
               }
               value={formData.description}
+              disabled={!isLogged}
             />
           </div>
 
@@ -184,6 +186,7 @@ export default function ManualRecipeForm() {
                 onValueChange={(value) =>
                   handleChangeFormData("categoryId", value)
                 }
+                disabled={!isLogged}
               >
                 <SelectTrigger className="h-9! w-full">
                   <SelectValue placeholder="카테고리" />
@@ -209,6 +212,7 @@ export default function ManualRecipeForm() {
                 onChange={(e) =>
                   handleChangeFormData("cookingTime", e.target.value)
                 }
+                disabled={!isLogged}
               />
             </div>
           </div>
@@ -221,6 +225,7 @@ export default function ManualRecipeForm() {
               onClick={addIngredientField}
               size="sm"
               className="bg-green-500 hover:bg-green-600"
+              disabled={!isLogged}
             >
               + 재료 추가
             </Button>
@@ -236,6 +241,7 @@ export default function ManualRecipeForm() {
                     onChange={(e) =>
                       updateIngredient(index, "name", e.target.value)
                     }
+                    disabled={!isLogged}
                   />
                   <Input
                     placeholder="양"
@@ -244,6 +250,7 @@ export default function ManualRecipeForm() {
                     onChange={(e) =>
                       updateIngredient(index, "amount", e.target.value)
                     }
+                    disabled={!isLogged}
                   />
                   {formData.ingredients.length > 1 && (
                     <Button
@@ -267,6 +274,7 @@ export default function ManualRecipeForm() {
               onClick={addStepField}
               size="sm"
               className="bg-green-500 hover:bg-green-600"
+              disabled={!isLogged}
             >
               + 단계 추가
             </Button>
@@ -300,6 +308,7 @@ export default function ManualRecipeForm() {
                   onChange={(e) =>
                     updateStep(index, "stepTitle", e.target.value)
                   }
+                  disabled={!isLogged}
                 />
                 <Input
                   placeholder="자세한 설명"
@@ -307,11 +316,13 @@ export default function ManualRecipeForm() {
                   onChange={(e) =>
                     updateStep(index, "description", e.target.value)
                   }
+                  disabled={!isLogged}
                 />
                 <Input
                   placeholder="팁 (선택사항)"
                   value={step.tip}
                   onChange={(e) => updateStep(index, "tip", e.target.value)}
+                  disabled={!isLogged}
                 />
               </div>
             ))}
@@ -322,7 +333,9 @@ export default function ManualRecipeForm() {
           <h3 className="text-lg font-semibold text-gray-900">썸네일</h3>
 
           <div
-            className="group relative mt-2 aspect-video cursor-pointer rounded-xl border p-2"
+            className={`group relative mt-2 aspect-video rounded-xl border p-2 ${
+              !isLogged ? "cursor-not-allowed blur-xs" : "cursor-pointer"
+            }`}
             onClick={() => imageRef.current?.click()}
           >
             <img
@@ -346,6 +359,7 @@ export default function ManualRecipeForm() {
             className="hidden"
             ref={imageRef}
             onChange={handleFileChange}
+            disabled={!isLogged}
           />
         </div>
 
