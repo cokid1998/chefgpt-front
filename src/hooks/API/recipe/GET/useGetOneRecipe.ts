@@ -7,8 +7,12 @@ import type { RecipeType } from "@/types/recipeType";
 const useGetOneRecipe = (recipeId: number) => {
   return useQuery({
     queryKey: QUERY_KEYS.recipe.byId(recipeId),
-    queryFn: () => API.get<RecipeType>(GET_ONE_RECIPE(recipeId)),
-    select: (data) => data.data || data,
+    queryFn: async () => {
+      const res = await API.get<RecipeType>(GET_ONE_RECIPE(recipeId));
+      return res.data;
+    },
+    // queryFn: () => API.get<RecipeType>(GET_ONE_RECIPE(recipeId)),
+    // select: (data) => data.data || data,
     staleTime: 1 * 60 * 1000,
     gcTime: 1 * 60 * 1000,
   });
