@@ -10,8 +10,6 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
 
   const { data: recipe } = useGetOneRecipe(recipeId);
 
-  console.log(recipe?.liked);
-
   return (
     <Link
       to={`/recipe/${recipeId}`}
