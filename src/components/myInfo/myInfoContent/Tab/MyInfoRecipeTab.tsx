@@ -20,14 +20,14 @@ import MyInfoRecipeTabSkeleton from "@/components/myInfo/skeleton/MyInfoRecipeTa
 import RecipeCard from "@/components/recipe/RecipeCard";
 
 export default function MyInfoRecipeTab() {
-  const { data: recipeList, isLoading } = useGetMyRecipe();
+  const { data: myRecipeIds, isLoading } = useGetMyRecipe();
 
   if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex flex-col space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        내가 만든 레시피 ({recipeList?.length}개)
+        내가 만든 레시피 ({myRecipeIds?.length}개)
       </div>
 
       <div className="p-6 pt-0">
@@ -50,8 +50,8 @@ export default function MyInfoRecipeTab() {
           )} */}
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {recipeList?.map((recipe, index) => (
-            <RecipeCard recipeId={recipe.id} key={recipe.id} />
+          {myRecipeIds?.map((recipeId) => (
+            <RecipeCard recipeId={recipeId} key={recipeId} />
           ))}
         </div>
       </div>
