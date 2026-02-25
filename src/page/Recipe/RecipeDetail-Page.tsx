@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import IngredientViewModal from "@/components/modal/recipe/IngredientViewModal";
-import usePostToggleLike from "@/hooks/API/recipe/POST/userPostToggleLike";
+import usePostToggleLike from "@/hooks/API/recipe/POST/usePostToggleLike";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
