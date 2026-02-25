@@ -1,6 +1,6 @@
 import { CookingPot } from "lucide-react";
 import RecipeCard from "@/components/recipe/RecipeCard";
-import useGetRecipe from "@/hooks/API/recipe/GET/useGetRecipe";
+import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import RecipeListSkeleton from "@/components/home/skeleton/RecipeListSkeleton";
 import type { RecipeCategoryType } from "@/types/recipeType";
 
@@ -13,7 +13,7 @@ export default function RecipeList({
   selectCategory,
   search,
 }: RecipeListProps) {
-  const { data: recipeIds, isLoading: recipeListLoading } = useGetRecipe(
+  const { data: recipeIds, isLoading: recipeListLoading } = useGetAllRecipe(
     selectCategory.id,
     search,
   );

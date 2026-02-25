@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { GET_RECIPE } from "@/constants/APIUrl";
 import type { RecipeType } from "@/types/recipeType";
 
-const useGetRecipe = (categoryId: number, search: string) => {
+const useGetAllRecipe = (categoryId: number, search: string) => {
   const queryClient = useQueryClient();
 
   return useQuery({
@@ -28,4 +28,4 @@ const useGetRecipe = (categoryId: number, search: string) => {
   });
 };
 
-export default useGetRecipe;
+export default useGetAllRecipe;
