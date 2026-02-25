@@ -8,7 +8,7 @@ import {
   LogOut,
   LogIn,
 } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate, matchPath } from "react-router";
 import {
   HOME,
   CREATE_RECIPE,
@@ -18,6 +18,7 @@ import {
   LOGIN_URL,
   ARTICLE_CREATE_URL,
   MY_INFO,
+  ARTICLE_DETAIL_URL,
 } from "@/constants/Url";
 import { useIsLogged, useProfile } from "@/store/authStore";
 import usePostLogout from "@/hooks/API/auth/POST/usePostLogout";
@@ -59,16 +60,18 @@ const MENU = [
       {
         link: ARTICLE_CREATE_URL,
       },
+      {
+        link: ARTICLE_DETAIL_URL,
+      },
     ],
   },
 ];
 
 const isActiveMenu = (menu: (typeof MENU)[number], pathname: string) => {
-  if (menu.link === pathname) return true;
-
-  if (!menu.link) return false;
-
-  return menu.child?.some((child) => child.link === pathname);
+  return (
+    matchPath(menu.link, pathname) ||
+    menu.child?.some((child) => matchPath(child.link, pathname))
+  );
 };
 
 export default function Sidebar() {
