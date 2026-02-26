@@ -1,21 +1,7 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ChefHat,
-  Trophy,
-  Settings,
-  CheckCircle2,
-  BookOpen,
-  TrendingUp,
-  Clock,
-  Eye,
-  Heart,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { ChefHat } from "lucide-react";
 import { Link } from "react-router";
-import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
 import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
-import { RECIPE_DETAIL } from "@/constants/Url";
+import { CREATE_RECIPE, RECIPE_DETAIL } from "@/constants/Url";
 import MyInfoRecipeTabSkeleton from "@/components/myInfo/skeleton/MyInfoRecipeTabSkeleton";
 import RecipeCard from "@/components/recipe/RecipeCard";
 
@@ -31,29 +17,25 @@ export default function MyInfoRecipeTab() {
       </div>
 
       <div className="p-6 pt-0">
-        {/* {recipes.length === 0 ? (
-            <div className="py-12 text-center">
-              <ChefHat className="mx-auto mb-4 h-16 w-16 text-gray-300" />
-              <p className="mb-4 text-gray-500">
-                아직 작성한 레시피가 없습니다
-              </p>
-              <Button className="bg-green-500 hover:bg-green-600">
-                레시피 만들기
-              </Button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {recipes.map((recipe) => (
-                <RecipeCard key={recipe.id} recipe={recipe} />
-              ))}
-            </div>
-          )} */}
+        {myRecipeIds?.length === 0 ? (
+          <div className="py-12 text-center">
+            <ChefHat className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+            <p className="mb-4 text-gray-500">아직 작성한 레시피가 없습니다</p>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {myRecipeIds?.map((recipeId) => (
-            <RecipeCard recipeId={recipeId} key={recipeId} />
-          ))}
-        </div>
+            <Link
+              to={CREATE_RECIPE}
+              className="text-primary-foreground inline-flex h-9 items-center justify-center rounded-md bg-green-500 px-4 py-2 text-sm font-medium hover:bg-green-600"
+            >
+              레시피 만들기
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {myRecipeIds?.map((recipeId) => (
+              <RecipeCard key={recipeId} recipeId={recipeId} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
