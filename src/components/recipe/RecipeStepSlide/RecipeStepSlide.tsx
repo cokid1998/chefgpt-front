@@ -30,7 +30,7 @@ export default function RecipeStepSlide({
 }: RecipeStepSlideProps) {
   return (
     <div
-      className={`flex h-143 w-full flex-col justify-between rounded-xl border bg-gray-100 p-8 ${className}`}
+      className={`flex h-143 w-full flex-col justify-between rounded-xl bg-gray-100 p-8 ${className}`}
     >
       <div className="grid h-1/2 grid-cols-2 gap-3">
         <div className="space-y-6">
@@ -47,26 +47,29 @@ export default function RecipeStepSlide({
           </p>
         </div>
 
-        {/* 레시피가 DB에 존재하지 않았을 때 보여주는 UI, 유튜브  */}
-        {youtubeUrl && (
-          <YouTube
-            videoId={extractVideoId(youtubeUrl)}
-            className="h-full w-full"
-            iframeClassName="w-full h-full"
-          />
-        )}
-
-        {/* 레시피가 DB에 존재했을 때 보여주는 UI */}
-        {recipeSource === "MANUAL" || youtubeId !== undefined ? (
+        {youtubeUrl ? (
+          // 레시피를 저장하기 전 모달에서 보여주는 UI
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+            <YouTube
+              videoId={extractVideoId(youtubeUrl)}
+              className="h-full w-full"
+              iframeClassName="w-full h-full"
+            />
+          </div>
+        ) : recipeSource === "YOUTUBE" && youtubeId !== null ? (
+          // 유튜브를 통해 만들어진 레시피 상세페이지에서 보여주는 UI
+          <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+            <YouTube
+              videoId={youtubeId}
+              className="h-full w-full"
+              iframeClassName="w-full h-full"
+            />
+          </div>
+        ) : (
+          // 직접입력으로 만들어진 레시피 상세페이지에서 보여주는 UI
           <img
             src={thumbnailUrl || defaultImage}
             className="aspect-video rounded-sm border object-cover"
-          />
-        ) : (
-          <YouTube
-            videoId={youtubeId}
-            className="h-full w-full"
-            iframeClassName="w-full h-full"
           />
         )}
       </div>
