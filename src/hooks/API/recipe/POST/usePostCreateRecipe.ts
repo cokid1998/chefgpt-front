@@ -3,6 +3,7 @@ import API from "@/hooks/API/API";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import type { RecipeSource } from "@/types/recipeType";
+import { useCloseModal } from "@/store/modalStore";
 
 interface PostCreateRecipeReq {
   title: string;
@@ -21,6 +22,7 @@ interface PostCreateRecipeReq {
 
 const usePostCreateRecipe = () => {
   const nav = useNavigate();
+  const closeModal = useCloseModal();
   return useMutation({
     mutationFn: ({
       payload,
@@ -50,13 +52,14 @@ const usePostCreateRecipe = () => {
 
       return API.post(POST_CREATE_RECIPE, formData, {
         params: {
-          youtubeUrl,
+          youtubeUrl: youtubeUrl ? youtubeUrl : undefined,
         },
       });
     },
 
     onSuccess: (data) => {
       const recipeId = data.data.id;
+      closeModal();
       nav(`/recipe/${recipeId}`);
     },
   });
