@@ -14,4 +14,6 @@ export interface Article {
   viewCount: number;
   tags: string[];
   contentJSON: string;
+  liked: boolean;
+  likeCount: number;
 }

@@ -1,11 +1,12 @@
 import useGetOneArticle from "@/hooks/API/article/GET/useGetOneArticle";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Clock, Eye, Calendar, Tag } from "lucide-react";
+import { ArrowLeft, Clock, Eye, Calendar, Tag, Heart } from "lucide-react";
 import { ARTICLE } from "@/constants/Url";
 import { Badge } from "@/components/ui/badge";
 import dayjs from "dayjs";
 import EditorViewer from "@/components/article/editor/EditorViewer";
+import usePostArticleToggleLike from "@/hooks/API/article/POST/usePostArticleToggleLike";
 
 export default function ArticleDetailPage() {
   const nav = useNavigate();
@@ -14,6 +15,7 @@ export default function ArticleDetailPage() {
   const { data: article, isLoading: isArticleLoading } = useGetOneArticle(
     Number(articleId),
   );
+  const { mutate: likeToggle } = usePostArticleToggleLike();
 
   // Skeleton처리
   if (!article || isArticleLoading) return null;
@@ -33,9 +35,26 @@ export default function ArticleDetailPage() {
         <article className="overflow-hidden rounded-3xl border border-green-100 bg-white shadow-lg">
           <div className="p-8">
             <div className="mb-6">
-              <Badge className="mb-4 rounded-md border-0 bg-green-500 px-4 py-1 text-base text-white shadow">
-                {article?.category.name}
-              </Badge>
+              <div className="mb-4 flex items-center justify-between">
+                <Badge className="rounded-md border-0 bg-green-500 px-4 py-1 text-base text-white shadow">
+                  {article?.category.name}
+                </Badge>
+
+                <Button
+                  variant="outline"
+                  onClick={() => likeToggle(Number(articleId))}
+                  className={`border ${
+                    article?.liked
+                      ? "border-red-200 text-red-500 hover:bg-red-50"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  <Heart
+                    className={`mr-2 h-5 w-5 ${article?.liked ? "fill-red-500 stroke-red-500" : ""}`}
+                  />
+                  {article?.likeCount}
+                </Button>
+              </div>
 
               <h1 className="mb-4 text-4xl leading-tight font-bold text-gray-900">
                 {article?.title}

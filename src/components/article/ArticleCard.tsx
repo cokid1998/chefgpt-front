@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { Clock, Eye, Tag } from "lucide-react";
+import { Clock, Eye, Tag, Heart } from "lucide-react";
 import { Link } from "react-router";
 import { ARTICLE } from "@/constants/Url";
 import usePatchArticleViewCount from "@/hooks/API/article/PATCH/usePatchArticleViewCount";
@@ -36,7 +36,7 @@ export default function ArticleCard({ articleId }: ArticleCardProps) {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1">
             <Clock className="h-4 w-4" />
-            <span>{article?.readingTime}</span>
+            <span>{article?.readingTime}</span>분
           </div>
 
           <div className="flex items-center gap-1">
@@ -45,9 +45,23 @@ export default function ArticleCard({ articleId }: ArticleCardProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-1">
-          <Tag className="h-3 w-3" />
-          <span className="text-xs">{article?.tags.length}</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <Tag className="h-3 w-3" />
+            <span className="text-xs">{article?.tags.length}</span>
+          </div>
+
+          <div
+            className={`flex cursor-pointer items-center gap-1 ${
+              article?.liked ? "text-red-500" : ""
+            }`}
+          >
+            <Heart
+              size={16}
+              className={`${article?.liked ? "fill-red-500" : ""}`}
+            />
+            {article?.likeCount}
+          </div>
         </div>
       </div>
     </Link>
