@@ -33,9 +33,16 @@ export default function RecipeList({
       </div>
 
       <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
-        {recipeIds?.map((recipeId) => (
-          <RecipeCard recipeId={recipeId} key={recipeId} />
-        ))}
+        {recipeIds?.length === 0 ? (
+          <div className="col-span-3 flex flex-col items-center justify-center gap-2 text-gray-400">
+            <CookingPot size={48} />
+            <p className="text-lg font-medium">등록된 레시피가 없습니다</p>
+          </div>
+        ) : (
+          recipeIds?.map((recipeId) => (
+            <RecipeCard recipeId={recipeId} key={recipeId} />
+          ))
+        )}
       </div>
     </>
   );

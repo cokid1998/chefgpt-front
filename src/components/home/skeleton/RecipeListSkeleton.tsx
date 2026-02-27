@@ -9,7 +9,7 @@ export default function RecipeListSkeleton() {
       </div>
 
       <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
-        {Array.from({ length: 6 }).map((_, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}
             className="animate-pulse rounded-xl border bg-white p-4 shadow-sm"
