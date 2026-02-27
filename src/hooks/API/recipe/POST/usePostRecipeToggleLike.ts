@@ -46,6 +46,9 @@ const usePostRecipeToggleLike = () => {
         },
       );
 
+      // 내 정보 카운트 캐싱 데이터 refetch
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.count.myInfo });
+
       return {
         prevRecipe,
       };
