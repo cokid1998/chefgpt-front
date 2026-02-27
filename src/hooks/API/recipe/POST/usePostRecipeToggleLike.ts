@@ -4,7 +4,7 @@ import API from "@/hooks/API/API";
 import type { RecipeType } from "@/types/recipeType";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const usePostToggleLike = () => {
+const usePostRecipeToggleLike = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -62,4 +62,4 @@ const usePostToggleLike = () => {
   });
 };
 
-export default usePostToggleLike;
+export default usePostRecipeToggleLike;

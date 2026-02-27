@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router";
 import useGetOneRecipe from "@/hooks/API/recipe/GET/useGetOneRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import IngredientViewModal from "@/components/modal/recipe/IngredientViewModal";
-import usePostToggleLike from "@/hooks/API/recipe/POST/usePostToggleLike";
+import usePostRecipeToggleLike from "@/hooks/API/recipe/POST/usePostRecipeToggleLike";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
@@ -16,7 +16,7 @@ export default function RecipeDetailPage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   const { data: recipe, isLoading } = useGetOneRecipe(Number(recipeId));
-  const { mutate: likeToggle } = usePostToggleLike();
+  const { mutate: likeToggle } = usePostRecipeToggleLike();
 
   // Todo: Skeleton 처리
   if (!recipe?.recipeSteps || isLoading) return null;
