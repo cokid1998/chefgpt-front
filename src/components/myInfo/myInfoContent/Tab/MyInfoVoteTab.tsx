@@ -1,89 +1,82 @@
-import { CheckCircle2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-
-const dummy = [
-  {
-    title: "김치찌개에 설탕을 넣는다?",
-    desc: "김치찌개 맛의 비결",
-    count: 81,
-    time: "2025년 12월 26일",
-    vote: "A",
-  },
-  {
-    title: "김치찌개에 설탕을 넣는다?",
-    desc: "김치찌개 맛의 비결",
-    count: 81,
-    time: "2025년 12월 26일",
-    vote: "B",
-  },
-  {
-    title: "김치찌개에 설탕을 넣는다?",
-    desc: "김치찌개 맛의 비결",
-    count: 81,
-    time: "2025년 12월 26일",
-    vote: "A",
-  },
-  {
-    title: "김치찌개에 설탕을 넣는다?",
-    desc: "김치찌개 맛의 비결",
-    count: 81,
-    time: "2025년 12월 26일",
-    vote: "B",
-  },
-  {
-    title: "김치찌개에 설탕을 넣는다?",
-    desc: "김치찌개 맛의 비결",
-    count: 81,
-    time: "2025년 12월 26일",
-    vote: "A",
-  },
-];
+import useGetMyCreateVote from "@/hooks/API/vote/GET/useGetMyCreateVote";
+import dayjs from "dayjs";
 
 export default function MyInfoVoteTab() {
-  return (
-    <div className="border-none shadow-lg">
-      {/* Todo: 내가 만든 투표 리스트도 보여줘야함 */}
-      내가 만든 투표 리스트도 보여줘야함
-      <div>
-        <div>내 투표 기록 (4444개)</div>
-      </div>
-      <div>
-        <div className="py-12 text-center">
-          <CheckCircle2 className="mx-auto mb-4 h-16 w-16 text-gray-300" />
-          <p className="text-gray-500">아직 참여한 투표가 없습니다</p>
-        </div>
+  const { data: createdVote } = useGetMyCreateVote();
 
+  //Todo: Skeleton UI
+
+  return (
+    <div className="rounded-lg border-none bg-white shadow-lg">
+      {/* Todo: 내가 만든 투표 리스트도 보여줘야함 */}
+      <div className="flex flex-col space-y-1.5 p-6 leading-none font-semibold tracking-tight">
+        내 투표 ({createdVote?.length}개)
+      </div>
+
+      <div className="p-6 pt-0">
         <div className="space-y-4">
-          {dummy.map((poll, index) => {
-            // const myVote = votes.find((v) => v.poll_id === poll.id);
+          {createdVote?.map((vote) => {
             return (
               <div
-                key={index}
-                className="rounded-xl border border-green-100 p-4 transition-all hover:shadow-md"
+                key={vote.id}
+                className="rounded-xl border p-4 transition-all hover:shadow-md"
               >
                 <div className="mb-3 flex items-start justify-between">
                   <div className="flex-1">
                     <h3 className="mb-1 font-semibold text-gray-900">
-                      {poll.title}
+                      {vote.title}
                     </h3>
-                    <p className="text-sm text-gray-600">{poll.title}</p>
+                    <p className="text-sm text-gray-600">{vote.description}</p>
                   </div>
-                  <Badge
-                    className={
-                      poll?.vote === "A" ? "bg-green-500" : "bg-blue-500"
-                    }
-                  >
-                    {poll.vote}
-                  </Badge>
                 </div>
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>총 {poll.count}표</span>
-                  <span>•</span>
+
+                {/* 옵션 A */}
+                <div className="mb-3">
+                  <div className="mb-1 flex justify-between text-sm font-medium text-gray-700">
+                    <span>{vote.optionA}</span>
+                    <span>{vote.optionACount}표</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-gray-100">
+                    <div
+                      className="h-2 rounded-full bg-green-400 transition-all"
+                      style={{
+                        width: `${
+                          vote.participantsCount === 0 ||
+                          !vote.participantsCount
+                            ? 0
+                            : (vote.optionACount / vote.participantsCount) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* 옵션 B */}
+                <div className="mb-4">
+                  <div className="mb-1 flex justify-between text-sm font-medium text-gray-700">
+                    <span>{vote.optionB}</span>
+                    <span>{vote.optionBCount}표</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-gray-100">
+                    <div
+                      className="h-2 rounded-full bg-blue-400 transition-all"
+                      style={{
+                        width: `${
+                          vote.participantsCount === 0 ||
+                          !vote.participantsCount
+                            ? 0
+                            : (vote.optionBCount / vote.participantsCount) * 100
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                {/* 하단 정보 */}
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>총 {vote.participantsCount}명 참여</span>
                   <span>
-                    {/* {format(new Date(myVote?.created_date), "PPP", {
-                        locale: ko,
-                      })} */}
-                    {poll.time}
+                    {dayjs(vote?.startDate).format("YYYY년 MM월 DD일")}
                   </span>
                 </div>
               </div>

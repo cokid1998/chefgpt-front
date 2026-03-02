@@ -1,19 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  ChefHat,
-  Trophy,
-  Settings,
-  CheckCircle2,
-  BookOpen,
-  TrendingUp,
-  Clock,
-  Eye,
-  Heart,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router";
-import youtubeDefaultImage from "@/assets/image/youtube_default.jpg";
+import { ChefHat, CheckCircle2 } from "lucide-react";
 import MyInfoRecipeTab from "@/components/myInfo/myInfoContent/Tab/MyInfoRecipeTab";
 import MyInfoVoteTab from "@/components/myInfo/myInfoContent/Tab/MyInfoVoteTab";
 import MyInfoArticleTab from "@/components/myInfo/myInfoContent/Tab/MyInfoArticleTab";
@@ -22,7 +8,7 @@ export default function MyInfoContent() {
   return (
     <>
       <Tabs defaultValue="my-recipe" className="space-y-6">
-        <TabsList className="border border-green-100 bg-white p-1">
+        <TabsList className="border bg-white p-1 shadow-xs">
           <TabsTrigger
             value="my-recipe"
             className="data-[state=active]:bg-green-500 data-[state=active]:text-white"
