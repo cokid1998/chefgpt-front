@@ -8,7 +8,13 @@ import {
   LogOut,
   LogIn,
 } from "lucide-react";
-import { Link, useLocation, useNavigate, matchPath } from "react-router";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  matchPath,
+  useMatch,
+} from "react-router";
 import {
   HOME,
   CREATE_RECIPE,
@@ -81,6 +87,7 @@ export default function Sidebar() {
   const userId = profile?.id;
   const openModal = useOpenModal();
   const nav = useNavigate();
+  const isMyInfoPage = useMatch(MY_INFO);
 
   const { mutate: logOut } = usePostLogout();
 
@@ -146,7 +153,9 @@ export default function Sidebar() {
         {isLogged ? (
           <Link
             to={MY_INFO}
-            className="flex items-center gap-3 rounded-md p-1 transition-colors duration-200 hover:bg-green-50"
+            className={`flex items-center gap-3 rounded-md p-1 transition-colors duration-200 hover:bg-green-100 ${
+              isMyInfoPage ? "bg-green-100" : ""
+            }`}
           >
             {profile?.thumbnail ? (
               <img
