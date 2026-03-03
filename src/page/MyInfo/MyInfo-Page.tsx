@@ -2,7 +2,6 @@ import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useOpenModal } from "@/store/modalStore";
 import UpdateMyInfoModal from "@/components/modal/myInfo/UpdateMyInfoModal";
-import { Badge } from "@/components/ui/badge";
 import { useProfile } from "@/store/authStore";
 import DefaultThumbnail from "@/components/common/DefaultThumbnail";
 import MyInfoCount from "@/components/myInfo/MyInfoCount";

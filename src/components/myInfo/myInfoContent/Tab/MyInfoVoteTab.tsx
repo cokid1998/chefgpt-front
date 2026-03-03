@@ -1,8 +1,11 @@
 import useGetMyCreateVote from "@/hooks/API/vote/GET/useGetMyCreateVote";
+import useGetMyVoted from "@/hooks/API/vote/GET/useGetMyVoted";
 import dayjs from "dayjs";
 
 export default function MyInfoVoteTab() {
   const { data: createdVote } = useGetMyCreateVote();
+  const { data: voted } = useGetMyVoted();
+  console.log(voted);
 
   //Todo: Skeleton UI
 
@@ -10,7 +13,7 @@ export default function MyInfoVoteTab() {
     <div className="rounded-lg border-none bg-white shadow-lg">
       {/* Todo: 내가 만든 투표 리스트도 보여줘야함 */}
       <div className="flex flex-col space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        내 투표 ({createdVote?.length}개)
+        내가 만든 투표 ({createdVote?.length}개)
       </div>
 
       <div className="p-6 pt-0">
