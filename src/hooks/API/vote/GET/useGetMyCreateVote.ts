@@ -4,7 +4,7 @@ import API from "@/hooks/API/API";
 import type { VoteType } from "@/types/voteType";
 import { useQuery } from "@tanstack/react-query";
 
-type MyCreatedVote = Partial<VoteType> & {
+export type MyCreatedVote = Partial<VoteType> & {
   optionACount: number;
   optionBCount: number;
 };

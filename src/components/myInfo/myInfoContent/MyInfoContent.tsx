@@ -50,7 +50,7 @@ export default function MyInfoContent() {
       </TabsContent>
 
       <TabsContent value={MY_INFO_TAB.VOTE} className="space-y-6">
-        <MyInfoVoteTab />
+        <MyInfoVoteTab curTab={curTab} />
       </TabsContent>
 
       <TabsContent value={MY_INFO_TAB.ARTICLE} className="space-y-6">
