@@ -17,8 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "react-router";
 
 const MY_INFO_VOTE_TYPE = {
-  CREATED: "created",
-  VOTED: "voted",
+  CREATED: { LABEL: "내 투표", VALUE: "created" },
+  VOTED: { LABEL: "참여한 투표", VALUE: "voted" },
 } as const;
 
 interface MyInfoVoteTabProps {
@@ -31,7 +31,8 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   const { data: votedList = [] } = useGetMyVoted();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const curSelect = searchParams.get("select") ?? MY_INFO_VOTE_TYPE.CREATED;
+  const curSelect =
+    searchParams.get("select") ?? MY_INFO_VOTE_TYPE.CREATED.VALUE;
 
   const handleSelectChange = (value: string) => {
     setSearchParams({ tab: curTab, select: value });
@@ -42,23 +43,24 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
-      {/* Todo: 내가 만든 투표 리스트도 보여줘야함 */}
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {voteType === "created" ? "내가 만든 투표" : "내가 참여한 투표"} (
-        {createdVoteList?.length}개)
+        {voteType === "created"
+          ? MY_INFO_VOTE_TYPE.CREATED.LABEL
+          : MY_INFO_VOTE_TYPE.VOTED.LABEL}
+        ({createdVoteList?.length}개)
         <Select
           value={curSelect}
           onValueChange={(value) => handleSelectChange(value)}
         >
           <SelectTrigger size="sm">
-            <SelectValue placeholder="종류" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={MY_INFO_VOTE_TYPE.CREATED}>
-              내가 만든 투표
+            <SelectItem value={MY_INFO_VOTE_TYPE.CREATED.VALUE}>
+              {MY_INFO_VOTE_TYPE.CREATED.LABEL}
             </SelectItem>
-            <SelectItem value={MY_INFO_VOTE_TYPE.VOTED}>
-              내가 참여한 투표
+            <SelectItem value={MY_INFO_VOTE_TYPE.VOTED.VALUE}>
+              {MY_INFO_VOTE_TYPE.VOTED.LABEL}
             </SelectItem>
           </SelectContent>
         </Select>
