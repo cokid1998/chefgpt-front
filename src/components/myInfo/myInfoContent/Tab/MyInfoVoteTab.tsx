@@ -17,7 +17,7 @@ import { useSearchParams } from "react-router";
 import {
   CreatedVoteItemSkeleton,
   VotedItemSkeleton,
-} from "@/components/myInfo/skeleton/vote/MyInfoVoteTabSkeleton";
+} from "@/components/myInfo/skeleton/MyInfoVoteTabSkeleton";
 
 const MY_INFO_VOTE_TYPE = {
   CREATED: { LABEL: "내 투표", VALUE: "created" },
