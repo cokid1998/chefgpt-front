@@ -55,6 +55,6 @@ export const QUERY_KEYS = {
       search,
     ],
     byId: (recipeId: number) => ["recipe", recipeId],
-    my: ["recipe", "my"],
+    created: ["recipe", "create"],
   },
 } as const;

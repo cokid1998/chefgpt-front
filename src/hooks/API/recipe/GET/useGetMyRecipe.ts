@@ -7,7 +7,7 @@ import type { RecipeType } from "@/types/recipeType";
 const useGetMyRecipe = () => {
   const queryClient = useQueryClient();
   return useQuery({
-    queryKey: QUERY_KEYS.recipe.my,
+    queryKey: QUERY_KEYS.recipe.created,
     queryFn: async () => {
       const res = await API.get<RecipeType[]>(GET_MY_RECIPE);
 
