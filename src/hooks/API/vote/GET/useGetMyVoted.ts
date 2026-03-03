@@ -12,11 +12,12 @@ export type MyVotedType = Pick<
 /**
  * 내가 참여한 투표 리스트
  */
-const useGetMyVoted = () => {
+const useGetMyVoted = (enabled: boolean) => {
   return useQuery({
     queryKey: QUERY_KEYS.vote.myVoted,
     queryFn: () => API.get<MyVotedType[]>(GET_MY_VOTED),
     select: (data) => data.data,
+    enabled,
   });
 };
 

@@ -26,13 +26,14 @@ interface MyInfoVoteTabProps {
 }
 
 export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
-  const [voteType, setVoteType] = useState("created");
-  const { data: createdVoteList = [] } = useGetMyCreateVote();
-  const { data: votedList = [] } = useGetMyVoted();
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [voteType, setVoteType] = useState("created");
   const curSelect =
     searchParams.get("select") ?? MY_INFO_VOTE_TYPE.CREATED.VALUE;
+  const { data: createdVoteList = [] } = useGetMyCreateVote();
+  const { data: votedList = [] } = useGetMyVoted(
+    curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE,
+  );
 
   const handleSelectChange = (value: string) => {
     setSearchParams({ tab: curTab, select: value });
