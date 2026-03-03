@@ -12,9 +12,12 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "react-router";
+import {
+  CreatedVoteItemSkeleton,
+  VotedItemSkeleton,
+} from "@/components/myInfo/skeleton/vote/MyInfoVoteTabSkeleton";
 
 const MY_INFO_VOTE_TYPE = {
   CREATED: { LABEL: "내 투표", VALUE: "created" },
@@ -27,25 +30,21 @@ interface MyInfoVoteTabProps {
 
 export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [voteType, setVoteType] = useState("created");
   const curSelect =
     searchParams.get("select") ?? MY_INFO_VOTE_TYPE.CREATED.VALUE;
-  const { data: createdVoteList = [] } = useGetMyCreateVote();
-  const { data: votedList = [] } = useGetMyVoted(
-    curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE,
-  );
+  const { data: createdVoteList = [], isLoading: myCreatedVoteListIsLoading } =
+    useGetMyCreateVote();
+  const { data: votedList = [], isLoading: myVotedListIsLoading } =
+    useGetMyVoted(curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE);
 
   const handleSelectChange = (value: string) => {
     setSearchParams({ tab: curTab, select: value });
-    setVoteType(value);
   };
-
-  //Todo: Skeleton UI
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {voteType === "created"
+        {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
           ? MY_INFO_VOTE_TYPE.CREATED.LABEL
           : MY_INFO_VOTE_TYPE.VOTED.LABEL}
         ({createdVoteList?.length}개)
@@ -69,11 +68,21 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
       <div className="p-6 pt-0">
         <div className="space-y-4">
-          {voteType === "created"
-            ? createdVoteList.map((vote) => (
-                <CreatedVoteItem key={vote.id} vote={vote} />
-              ))
-            : votedList.map((vote) => <VotedItem key={vote.id} vote={vote} />)}
+          {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
+            ? myCreatedVoteListIsLoading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <CreatedVoteItemSkeleton key={i} />
+                ))
+              : createdVoteList.map((vote) => (
+                  <CreatedVoteItem key={vote.id} vote={vote} />
+                ))
+            : myVotedListIsLoading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <VotedItemSkeleton key={i} />
+                ))
+              : votedList.map((vote) => (
+                  <VotedItem key={vote.id} vote={vote} />
+                ))}
         </div>
       </div>
     </div>
