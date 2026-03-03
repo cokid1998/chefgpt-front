@@ -47,7 +47,11 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
         {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
           ? MY_INFO_VOTE_TYPE.CREATED.LABEL
           : MY_INFO_VOTE_TYPE.VOTED.LABEL}
-        ({createdVoteList?.length}개)
+        (
+        {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
+          ? createdVoteList?.length
+          : votedList.length}
+        개)
         <Select
           value={curSelect}
           onValueChange={(value) => handleSelectChange(value)}
