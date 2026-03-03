@@ -2,7 +2,7 @@ import {
   ChefHat,
   House,
   Plus,
-  Users,
+  Vote,
   BookOpen,
   Refrigerator,
   LogOut,
@@ -54,7 +54,7 @@ const MENU = [
   {
     title: "요리 투표",
     link: VOTE,
-    icon: <Users size={16} />,
+    icon: <Vote size={16} />,
     auth: false,
   },
   {

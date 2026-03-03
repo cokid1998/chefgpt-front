@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChefHat, CheckCircle2 } from "lucide-react";
+import { ChefHat, CheckCircle2, BookOpen, Vote } from "lucide-react";
 import MyInfoRecipeTab from "@/components/myInfo/myInfoContent/Tab/MyInfoRecipeTab";
 import MyInfoVoteTab from "@/components/myInfo/myInfoContent/Tab/MyInfoVoteTab";
 import MyInfoArticleTab from "@/components/myInfo/myInfoContent/Tab/MyInfoArticleTab";
 import { useSearchParams } from "react-router";
+import { Separator } from "@/components/ui/separator";
 
 const MY_INFO_TAB = {
   RECIPE: "recipe",
@@ -29,24 +30,33 @@ export default function MyInfoContent() {
           value={MY_INFO_TAB.RECIPE}
           className="data-[state=active]:bg-green-500 data-[state=active]:text-white"
         >
-          <ChefHat className="mr-2 h-4 w-4" />내 레시피
+          <ChefHat className="mr-2 h-4 w-4" />
+          레시피
         </TabsTrigger>
+
+        <Separator orientation="vertical" className="mx-2" />
+
         <TabsTrigger
           value={MY_INFO_TAB.VOTE}
           className="data-[state=active]:bg-green-500 data-[state=active]:text-white"
         >
-          <CheckCircle2 className="mr-2 h-4 w-4" />내 투표
+          <Vote className="mr-2 h-4 w-4" />
+          투표
         </TabsTrigger>
+
+        <Separator orientation="vertical" className="mx-2" />
+
         <TabsTrigger
           value={MY_INFO_TAB.ARTICLE}
           className="data-[state=active]:bg-green-500 data-[state=active]:text-white"
         >
-          <CheckCircle2 className="mr-2 h-4 w-4" />내 요리 정보
+          <BookOpen className="mr-2 h-4 w-4" />
+          요리 정보
         </TabsTrigger>
       </TabsList>
 
       <TabsContent value={MY_INFO_TAB.RECIPE} className="space-y-6">
-        <MyInfoRecipeTab />
+        <MyInfoRecipeTab curTab={curTab} />
       </TabsContent>
 
       <TabsContent value={MY_INFO_TAB.VOTE} className="space-y-6">
