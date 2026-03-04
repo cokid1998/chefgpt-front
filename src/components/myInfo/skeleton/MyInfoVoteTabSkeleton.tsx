@@ -1,7 +1,7 @@
 /**
  * 내 투표 Skeleton
  */
-export function CreatedVoteItemSkeleton() {
+export function MyVoteItemSkeleton() {
   return (
     <div className="rounded-xl border p-4">
       {/* 제목/설명 */}

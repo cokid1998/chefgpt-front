@@ -1,8 +1,8 @@
-import useGetMyCreateVote, {
-  type MyCreatedVote,
+import useGetMyVote, {
+  type MyVoteType,
 } from "@/hooks/API/vote/GET/useGetMyCreateVote";
 import useGetMyVoted, {
-  type MyVotedType,
+  type VotedType,
 } from "@/hooks/API/vote/GET/useGetMyVoted";
 import dayjs from "dayjs";
 import {
@@ -15,7 +15,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useSearchParams, Link } from "react-router";
 import {
-  CreatedVoteItemSkeleton,
+  MyVoteItemSkeleton,
   VotedItemSkeleton,
 } from "@/components/myInfo/skeleton/MyInfoVoteTabSkeleton";
 import { Vote } from "lucide-react";
@@ -35,8 +35,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   const curSelect = searchParams.get("select") ?? MY_INFO_VOTE_TYPE.MY.VALUE;
   const isMyVote = curSelect === MY_INFO_VOTE_TYPE.MY.VALUE;
 
-  const { data: myVoteList = [], isLoading: isMyVoteLoading } =
-    useGetMyCreateVote();
+  const { data: myVoteList = [], isLoading: isMyVoteLoading } = useGetMyVote();
   const { data: votedList = [], isLoading: isVotedLoading } = useGetMyVoted(
     curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE,
   );
@@ -55,7 +54,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
     if (isLoading) {
       return Array.from({ length: 3 }).map((_, i) =>
         isMyVote ? (
-          <CreatedVoteItemSkeleton key={i} />
+          <MyVoteItemSkeleton key={i} />
         ) : (
           <VotedItemSkeleton key={i} />
         ),
@@ -63,9 +62,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
     }
 
     if (isMyVote) {
-      return myVoteList.map((vote) => (
-        <CreatedVoteItem key={vote.id} vote={vote} />
-      ));
+      return myVoteList.map((vote) => <MYVoteItem key={vote.id} vote={vote} />);
     }
 
     return votedList.map((vote) => <VotedItem key={vote.id} vote={vote} />);
@@ -106,7 +103,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   );
 }
 
-function CreatedVoteItem({ vote }: { vote: MyCreatedVote }) {
+function MYVoteItem({ vote }: { vote: MyVoteType }) {
   return (
     <div className="rounded-xl border p-4 transition-all hover:shadow-md">
       <div className="mb-3 flex items-start justify-between">
@@ -165,7 +162,7 @@ function CreatedVoteItem({ vote }: { vote: MyCreatedVote }) {
   );
 }
 
-function VotedItem({ vote }: { vote: MyVotedType }) {
+function VotedItem({ vote }: { vote: VotedType }) {
   return (
     <div className="rounded-xl border p-4 transition-all hover:shadow-md">
       <div className="mb-3 flex items-start justify-between">

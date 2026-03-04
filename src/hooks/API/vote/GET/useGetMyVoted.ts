@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { GET_MY_VOTED } from "@/constants/APIUrl";
 import type { VoteOption, VoteType } from "@/types/voteType";
 
-export type MyVotedType = Pick<
+export type VotedType = Pick<
   VoteType,
   "id" | "title" | "description" | "participantsCount" | "startDate"
 > & { selectedOptionName: string; selectedOption: VoteOption };
@@ -14,8 +14,8 @@ export type MyVotedType = Pick<
  */
 const useGetMyVoted = (enabled: boolean) => {
   return useQuery({
-    queryKey: QUERY_KEYS.vote.myVoted,
-    queryFn: () => API.get<MyVotedType[]>(GET_MY_VOTED),
+    queryKey: QUERY_KEYS.vote.voted,
+    queryFn: () => API.get<VotedType[]>(GET_MY_VOTED),
     select: (data) => data.data,
     enabled,
   });

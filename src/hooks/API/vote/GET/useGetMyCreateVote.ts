@@ -4,17 +4,17 @@ import API from "@/hooks/API/API";
 import type { VoteType } from "@/types/voteType";
 import { useQuery } from "@tanstack/react-query";
 
-export type MyCreatedVote = Partial<VoteType> & {
+export type MyVoteType = Partial<VoteType> & {
   optionACount: number;
   optionBCount: number;
 };
 
-const useGetMyCreateVote = () => {
+const useGetMyVote = () => {
   return useQuery({
-    queryKey: QUERY_KEYS.vote.myCreate,
-    queryFn: () => API.get<MyCreatedVote[]>(GET_MY_VOTE),
+    queryKey: QUERY_KEYS.vote.my,
+    queryFn: () => API.get<MyVoteType[]>(GET_MY_VOTE),
     select: (data) => data.data,
   });
 };
 
-export default useGetMyCreateVote;
+export default useGetMyVote;

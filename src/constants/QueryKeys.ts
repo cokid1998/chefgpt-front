@@ -32,8 +32,8 @@ export const QUERY_KEYS = {
   vote: {
     all: ["vote"],
     list: (status: "active" | "close") => ["vote", "list", status],
-    myCreate: ["vote", "my", "create"],
-    myVoted: ["vote", "my", "voted"],
+    my: ["vote", "my"],
+    voted: ["vote", "voted"],
   },
 
   article: {
@@ -44,7 +44,7 @@ export const QUERY_KEYS = {
       search,
     ],
     byId: (articleId: number) => ["article", articleId],
-    myCreate: ["article", "my", "create"],
+    my: ["article", "my"],
     liked: ["article", "liked"],
   },
 
@@ -57,7 +57,7 @@ export const QUERY_KEYS = {
       search,
     ],
     byId: (recipeId: number) => ["recipe", recipeId],
-    created: ["recipe", "create"],
+    my: ["recipe", "my"],
     liked: ["recipe", "liked"],
   },
 } as const;
