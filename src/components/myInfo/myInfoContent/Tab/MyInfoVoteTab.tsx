@@ -13,14 +13,16 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { useSearchParams } from "react-router";
+import { useSearchParams, Link } from "react-router";
 import {
   CreatedVoteItemSkeleton,
   VotedItemSkeleton,
 } from "@/components/myInfo/skeleton/MyInfoVoteTabSkeleton";
+import { Vote } from "lucide-react";
+import { VOTE } from "@/constants/Url";
 
 const MY_INFO_VOTE_TYPE = {
-  CREATED: { LABEL: "내 투표", VALUE: "created" },
+  MY: { LABEL: "내 투표", VALUE: "my" },
   VOTED: { LABEL: "참여한 투표", VALUE: "voted" },
 } as const;
 
@@ -30,28 +32,49 @@ interface MyInfoVoteTabProps {
 
 export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const curSelect =
-    searchParams.get("select") ?? MY_INFO_VOTE_TYPE.CREATED.VALUE;
-  const { data: createdVoteList = [], isLoading: myCreatedVoteListIsLoading } =
+  const curSelect = searchParams.get("select") ?? MY_INFO_VOTE_TYPE.MY.VALUE;
+  const isMyVote = curSelect === MY_INFO_VOTE_TYPE.MY.VALUE;
+
+  const { data: myVoteList = [], isLoading: isMyVoteLoading } =
     useGetMyCreateVote();
-  const { data: votedList = [], isLoading: myVotedListIsLoading } =
-    useGetMyVoted(curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE);
+  const { data: votedList = [], isLoading: isVotedLoading } = useGetMyVoted(
+    curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE,
+  );
 
   const handleSelectChange = (value: string) => {
     setSearchParams({ tab: curTab, select: value });
   };
 
+  const curLabel = isMyVote
+    ? MY_INFO_VOTE_TYPE.MY.LABEL
+    : MY_INFO_VOTE_TYPE.VOTED.LABEL;
+  const curList = isMyVote ? myVoteList : votedList;
+  const isLoading = isMyVote ? isMyVoteLoading : isVotedLoading;
+
+  const renderList = () => {
+    if (isLoading) {
+      return Array.from({ length: 3 }).map((_, i) =>
+        isMyVote ? (
+          <CreatedVoteItemSkeleton key={i} />
+        ) : (
+          <VotedItemSkeleton key={i} />
+        ),
+      );
+    }
+
+    if (isMyVote) {
+      return myVoteList.map((vote) => (
+        <CreatedVoteItem key={vote.id} vote={vote} />
+      ));
+    }
+
+    return votedList.map((vote) => <VotedItem key={vote.id} vote={vote} />);
+  };
+
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
-          ? MY_INFO_VOTE_TYPE.CREATED.LABEL
-          : MY_INFO_VOTE_TYPE.VOTED.LABEL}
-        (
-        {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
-          ? createdVoteList?.length
-          : votedList.length}
-        개)
+        {curLabel}({curList?.length}개)
         <Select
           value={curSelect}
           onValueChange={(value) => handleSelectChange(value)}
@@ -60,8 +83,8 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={MY_INFO_VOTE_TYPE.CREATED.VALUE}>
-              {MY_INFO_VOTE_TYPE.CREATED.LABEL}
+            <SelectItem value={MY_INFO_VOTE_TYPE.MY.VALUE}>
+              {MY_INFO_VOTE_TYPE.MY.LABEL}
             </SelectItem>
             <SelectItem value={MY_INFO_VOTE_TYPE.VOTED.VALUE}>
               {MY_INFO_VOTE_TYPE.VOTED.LABEL}
@@ -72,21 +95,11 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
       <div className="p-6 pt-0">
         <div className="space-y-4">
-          {curSelect === MY_INFO_VOTE_TYPE.CREATED.VALUE
-            ? myCreatedVoteListIsLoading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <CreatedVoteItemSkeleton key={i} />
-                ))
-              : createdVoteList.map((vote) => (
-                  <CreatedVoteItem key={vote.id} vote={vote} />
-                ))
-            : myVotedListIsLoading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <VotedItemSkeleton key={i} />
-                ))
-              : votedList.map((vote) => (
-                  <VotedItem key={vote.id} vote={vote} />
-                ))}
+          {curList.length === 0 ? (
+            <EmptyVote isMyVote={isMyVote} />
+          ) : (
+            renderList()
+          )}
         </div>
       </div>
     </div>
@@ -174,6 +187,26 @@ function VotedItem({ vote }: { vote: MyVotedType }) {
         <span>•</span>
         <span>{dayjs(vote?.startDate).format("YYYY년 MM월 DD일")}</span>
       </div>
+    </div>
+  );
+}
+
+function EmptyVote({ isMyVote }: { isMyVote: boolean }) {
+  return (
+    <div className="py-12 text-center">
+      <Vote className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+
+      <p className="mb-4 text-gray-500">
+        {isMyVote ? "생성한 투표가 없습니다." : "참여한 투표가 없습니다."}
+      </p>
+      {isMyVote ? (
+        <Link
+          to={VOTE}
+          className="text-primary-foreground inline-flex h-9 items-center justify-center rounded-md bg-green-500 px-4 py-2 text-sm font-medium hover:bg-green-600"
+        >
+          투표 만들기
+        </Link>
+      ) : null}
     </div>
   );
 }
