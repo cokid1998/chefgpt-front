@@ -1,4 +1,4 @@
-import { ChefHat } from "lucide-react";
+import { ChefHat, Heart } from "lucide-react";
 import { Link, useSearchParams } from "react-router";
 import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
 import { CREATE_RECIPE } from "@/constants/Url";
@@ -14,7 +14,7 @@ import {
 import useGetLikedRecipe from "@/hooks/API/recipe/GET/useGetLikedRecipe";
 
 const MY_RECIPE_TYPE = {
-  CREATED: { LABEL: "내 레시피", VALUE: "created" },
+  MY: { LABEL: "내 레시피", VALUE: "my" },
   LIKED: { LABEL: "좋아요 누른 레시피", VALUE: "liked" },
 } as const;
 
@@ -24,7 +24,7 @@ interface MyInfoRecipeTabProps {
 
 export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const curSelect = searchParams.get("select") ?? MY_RECIPE_TYPE.CREATED.VALUE;
+  const curSelect = searchParams.get("select") ?? MY_RECIPE_TYPE.MY.VALUE;
 
   const { data: myRecipeIds, isLoading: myRecipeIsLoading } = useGetMyRecipe();
   const { data: likedRecipeIds, isLoading: likedRecipeIsLoading } =
@@ -40,11 +40,11 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curSelect === MY_RECIPE_TYPE.CREATED.VALUE
-          ? MY_RECIPE_TYPE.CREATED.LABEL
+        {curSelect === MY_RECIPE_TYPE.MY.VALUE
+          ? MY_RECIPE_TYPE.MY.LABEL
           : MY_RECIPE_TYPE.LIKED.LABEL}
         (
-        {curSelect === MY_RECIPE_TYPE.CREATED.VALUE
+        {curSelect === MY_RECIPE_TYPE.MY.VALUE
           ? myRecipeIds?.length
           : likedRecipeIds?.length}
         개)
@@ -56,8 +56,8 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={MY_RECIPE_TYPE.CREATED.VALUE}>
-              {MY_RECIPE_TYPE.CREATED.LABEL}
+            <SelectItem value={MY_RECIPE_TYPE.MY.VALUE}>
+              {MY_RECIPE_TYPE.MY.LABEL}
             </SelectItem>
             <SelectItem value={MY_RECIPE_TYPE.LIKED.VALUE}>
               {MY_RECIPE_TYPE.LIKED.LABEL}
@@ -68,20 +68,10 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
 
       <div className="p-6 pt-0">
         {myRecipeIds?.length === 0 ? (
-          <div className="py-12 text-center">
-            <ChefHat className="mx-auto mb-4 h-16 w-16 text-gray-300" />
-            <p className="mb-4 text-gray-500">아직 작성한 레시피가 없습니다</p>
-
-            <Link
-              to={CREATE_RECIPE}
-              className="text-primary-foreground inline-flex h-9 items-center justify-center rounded-md bg-green-500 px-4 py-2 text-sm font-medium hover:bg-green-600"
-            >
-              레시피 만들기
-            </Link>
-          </div>
+          <EmptyRecipe curSelect={curSelect} />
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {curSelect === MY_RECIPE_TYPE.CREATED.VALUE
+            {curSelect === MY_RECIPE_TYPE.MY.VALUE
               ? myRecipeIds?.map((recipeId) => (
                   <RecipeCard key={recipeId} recipeId={recipeId} />
                 ))
@@ -91,6 +81,34 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function EmptyRecipe({ curSelect }: { curSelect: string }) {
+  const isMyRecipe = curSelect === "my";
+
+  return (
+    <div className="py-12 text-center">
+      {isMyRecipe ? (
+        <ChefHat className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+      ) : (
+        <Heart className="mx-auto mb-4 h-16 w-16 text-gray-300" />
+      )}
+
+      <p className="mb-4 text-gray-500">
+        {isMyRecipe
+          ? "아직 작성한 레시피가 없습니다."
+          : "아직 좋아요를 누른 레시피가 없습니다."}
+      </p>
+      {isMyRecipe ? (
+        <Link
+          to={CREATE_RECIPE}
+          className="text-primary-foreground inline-flex h-9 items-center justify-center rounded-md bg-green-500 px-4 py-2 text-sm font-medium hover:bg-green-600"
+        >
+          레시피 만들기
+        </Link>
+      ) : null}
     </div>
   );
 }
