@@ -92,7 +92,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
       <div className="p-6 pt-0">
         <div className="space-y-4">
-          {curList.length === 0 ? (
+          {!isLoading && curList.length === 0 ? (
             <EmptyVote isMyVote={isMyVote} />
           ) : (
             renderList()
