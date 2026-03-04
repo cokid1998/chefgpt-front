@@ -35,6 +35,7 @@ export const PATCH_ARTICLE_VIEWCOUNT = (articleId: number) =>
   `/article/${articleId}`;
 export const POST_TOGGLE_ARTICLE_LIKE = (articleId: number) =>
   `/article/like/${articleId}`;
+export const GET_MY_ARTICLE = "/article/my";
 
 // recipe
 export const GET_YOUTUBE_RECIPE_SCRIPT = "/recipe/youtube-script";

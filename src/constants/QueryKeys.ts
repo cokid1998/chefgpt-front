@@ -44,6 +44,7 @@ export const QUERY_KEYS = {
       search,
     ],
     byId: (articleId: number) => ["article", articleId],
+    myCreate: ["article", "my", "create"],
   },
 
   recipe: {

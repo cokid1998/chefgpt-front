@@ -4,11 +4,11 @@ export interface ArticleCategory {
 }
 
 export interface Article {
+  userId: number;
   id: number;
   createdAt: string;
   title: string;
   summary: string;
-  content: string;
   category: ArticleCategory;
   readingTime: number;
   viewCount: number;
