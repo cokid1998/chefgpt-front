@@ -92,8 +92,8 @@ function EmptyRecipe({ isMyRecipe }: { isMyRecipe: boolean }) {
 
       <p className="mb-4 text-gray-500">
         {isMyRecipe
-          ? "아직 작성한 레시피가 없습니다."
-          : "아직 좋아요를 누른 레시피가 없습니다."}
+          ? "작성한 레시피가 없습니다."
+          : "좋아요를 누른 레시피가 없습니다."}
       </p>
       {isMyRecipe ? (
         <Link
