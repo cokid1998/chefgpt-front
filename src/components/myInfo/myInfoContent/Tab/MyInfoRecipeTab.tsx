@@ -25,29 +25,29 @@ interface MyInfoRecipeTabProps {
 export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const curSelect = searchParams.get("select") ?? MY_RECIPE_TYPE.MY.VALUE;
+  const isMyRecipe = curSelect === MY_RECIPE_TYPE.MY.VALUE;
 
-  const { data: myRecipeIds, isLoading: myRecipeIsLoading } = useGetMyRecipe();
-  const { data: likedRecipeIds, isLoading: likedRecipeIsLoading } =
+  const { data: myRecipeIdList, isLoading: isMyRecipeLoading } =
+    useGetMyRecipe();
+  const { data: likedRecipeIdList, isLoading: isLikedRecipeLoading } =
     useGetLikedRecipe(curSelect === MY_RECIPE_TYPE.LIKED.VALUE);
 
   const handleSelectChange = (value: string) => {
     setSearchParams({ tab: curTab, select: value });
   };
 
-  if (myRecipeIsLoading || likedRecipeIsLoading)
-    return <MyInfoRecipeTabSkeleton />;
+  const curLabel = isMyRecipe
+    ? MY_RECIPE_TYPE.MY.LABEL
+    : MY_RECIPE_TYPE.LIKED.LABEL;
+  const curList = isMyRecipe ? myRecipeIdList : likedRecipeIdList;
+  const isLoading = isMyRecipe ? isMyRecipeLoading : isLikedRecipeLoading;
+
+  if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curSelect === MY_RECIPE_TYPE.MY.VALUE
-          ? MY_RECIPE_TYPE.MY.LABEL
-          : MY_RECIPE_TYPE.LIKED.LABEL}
-        (
-        {curSelect === MY_RECIPE_TYPE.MY.VALUE
-          ? myRecipeIds?.length
-          : likedRecipeIds?.length}
-        개)
+        {curLabel}({curList?.length}개)
         <Select
           value={curSelect}
           onValueChange={(value) => handleSelectChange(value)}
@@ -67,17 +67,13 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
       </div>
 
       <div className="p-6 pt-0">
-        {myRecipeIds?.length === 0 ? (
-          <EmptyRecipe curSelect={curSelect} />
+        {curList?.length === 0 ? (
+          <EmptyRecipe isMyRecipe={isMyRecipe} />
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {curSelect === MY_RECIPE_TYPE.MY.VALUE
-              ? myRecipeIds?.map((recipeId) => (
-                  <RecipeCard key={recipeId} recipeId={recipeId} />
-                ))
-              : likedRecipeIds?.map((likedRecipeId) => (
-                  <RecipeCard key={likedRecipeId} recipeId={likedRecipeId} />
-                ))}
+            {curList?.map((recipeId) => (
+              <RecipeCard key={recipeId} recipeId={recipeId} />
+            ))}
           </div>
         )}
       </div>
@@ -85,9 +81,7 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
   );
 }
 
-function EmptyRecipe({ curSelect }: { curSelect: string }) {
-  const isMyRecipe = curSelect === "my";
-
+function EmptyRecipe({ isMyRecipe }: { isMyRecipe: boolean }) {
   return (
     <div className="py-12 text-center">
       {isMyRecipe ? (
