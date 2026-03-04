@@ -67,7 +67,7 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
       </div>
 
       <div className="p-6 pt-0">
-        {curList?.length === 0 ? (
+        {!isLoading && curList?.length === 0 ? (
           <EmptyRecipe isMyRecipe={isMyRecipe} />
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
