@@ -17,7 +17,7 @@ export default function ArticleCard({ articleId }: ArticleCardProps) {
   return (
     <Link
       to={`${ARTICLE}/${articleId}`}
-      className="group cursor-pointer rounded-xl border border-green-100 bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl"
+      className="group cursor-pointer rounded-xl border bg-white p-6 shadow transition-all duration-300 hover:border-green-300 hover:shadow-xl"
       onClick={() => articleViewCountSubmit(articleId)}
     >
       <Badge className="mb-3 rounded-md bg-green-100 px-2.5 font-semibold text-green-600 shadow">

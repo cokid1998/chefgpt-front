@@ -45,6 +45,7 @@ export const QUERY_KEYS = {
     ],
     byId: (articleId: number) => ["article", articleId],
     myCreate: ["article", "my", "create"],
+    liked: ["article", "liked"],
   },
 
   recipe: {
