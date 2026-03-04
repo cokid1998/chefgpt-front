@@ -7,7 +7,7 @@ import type { Article } from "@/types/articleType";
 const useGetMyArticle = () => {
   const queryClient = useQueryClient();
   return useQuery({
-    queryKey: QUERY_KEYS.article.myCreate,
+    queryKey: QUERY_KEYS.article.my,
     queryFn: async () => {
       const myArticles = await API.get<Article[]>(GET_MY_ARTICLE);
 
