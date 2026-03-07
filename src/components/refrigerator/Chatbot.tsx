@@ -8,10 +8,18 @@ import { motion, AnimatePresence } from "motion/react";
 import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
+import usePostChatbot from "@/hooks/API/recipe/POST/usePostChatbot";
+
+const quickPrompts = [
+  "간단한 요리 추천해줘",
+  "30분 안에 만들 수 있는 요리",
+  "한식 레시피 추천",
+  "다이어트 요리",
+];
 
 export default function Chatbot() {
   const queryClient = useQueryClient();
-  const [input, setInput] = useState("");
+  const [message, setMessage] = useState("");
   const [chatContent, setChatContent] = useState([
     {
       role: "bot",
@@ -19,58 +27,38 @@ export default function Chatbot() {
         "안녕하세요! 냉장고 속 식재료로 만들 수 있는 레시피를 추천해드릴게요. 무엇을 만들고 싶으신가요?",
     },
   ]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const { data: foodIds = [] } = useGetAllFood();
+  const { data: foodIds = [] } = useGetAllFood("전체", "", "ALL");
   const foods = foodIds
     .map((id) => queryClient.getQueryData<FoodType>(QUERY_KEYS.food.byId(id)))
     .filter((food): food is FoodType => food !== undefined);
 
-  const quickPrompts = [
-    "간단한 요리 추천해줘",
-    "30분 안에 만들 수 있는 요리",
-    "한식 레시피 추천",
-    "다이어트 요리",
-  ];
+  const { mutate: sendChatbot, isPending } = usePostChatbot();
 
   // Todo: handleSend, handleQuickPromptSend 로직 통합
-  const handleSend = () => {
-    const userMessage = input;
+  const handleSend = (prompt?: string) => {
+    if (isPending) return;
+    const curMessage = prompt ?? message;
+    setMessage("");
+    setChatContent((prev) => [...prev, { role: "user", message: curMessage }]);
 
-    // 1. input상태 초기화
-    setInput("");
-    // 2. chatContent에 추가
-    setChatContent((prev) => [...prev, { role: "user", message: userMessage }]);
-    // 3. isLoading을 true로
-    setIsLoading(true);
-    // Todo: setTimeout 삭제해야함
-    setTimeout(() => {
-      setChatContent((prev) => [
-        ...prev,
-        { role: "bot", message: "현재 UI 만 구현함" },
-      ]);
-      setIsLoading(false);
-    }, 500);
-    // 4. Todo: API처리
-  };
-
-  // Todo: handleSend, handleQuickPromptSend 로직 통합
-  const handleQuickPromptSend = (prompt: string) => {
-    // 1. input상태 초기화
-    setInput("");
-    // 2. chatContent에 추가
-    setChatContent((prev) => [...prev, { role: "user", message: prompt }]);
-    // 3. isLoading을 true로
-    setIsLoading(true);
-    // Todo: setTimeout 삭제해야하
-    setTimeout(() => {
-      setChatContent((prev) => [
-        ...prev,
-        { role: "bot", message: "현재 UI 만 구현함" },
-      ]);
-      setIsLoading(false);
-    }, 500);
-    // 4. Todo: API처리
+    sendChatbot(
+      { message: curMessage },
+      {
+        onSuccess: (res) => {
+          setChatContent((prev) => [
+            ...prev,
+            { role: "bot", message: res.data },
+          ]);
+        },
+        onError: () => {
+          setChatContent((prev) => [
+            ...prev,
+            { role: "bot", message: "오류가 발생했습니다. 다시 시도해주세요." },
+          ]);
+        },
+      },
+    );
   };
 
   const onPressKeyDownSend = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -96,14 +84,14 @@ export default function Chatbot() {
 
       {/* Chat Area */}
       <ScrollArea className="flex h-[467px] flex-1 flex-col gap-4 p-4">
-        {chatContent.map((content) => {
+        {chatContent.map((content, index) => {
           const isUser = content.role === "user";
 
           return (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              key={content.message}
+              key={index}
               className={`flex justify-start gap-3 ${isUser ? "flex-row-reverse" : ""} mt-4`}
             >
               <div
@@ -128,7 +116,7 @@ export default function Chatbot() {
             </motion.div>
           );
         })}
-        {isLoading && (
+        {isPending && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -155,7 +143,7 @@ export default function Chatbot() {
                   key={prompt}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  onClick={() => handleQuickPromptSend(prompt)}
+                  onClick={() => handleSend(prompt)}
                 >
                   <Button
                     variant={"outline"}
@@ -175,23 +163,22 @@ export default function Chatbot() {
       <div className="z-1 border-t bg-white p-4">
         <div className="flex gap-2">
           <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="예: 냉장고 재료로 저녁 메뉴 추천해줘"
-            // Todo: disabled
+            disabled={isPending}
             onKeyDown={onPressKeyDownSend}
           />
           <Button
             size={"icon"}
             className="bg-green-gradient hover:from-green-500 hover:to-emerald-600"
-            onClick={handleSend}
+            onClick={() => handleSend()}
           >
-            <Send className="h-5 w-5" />
-            {/* {isLoading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <Send className="w-5 h-5" />
-              )} */}
+            {isPending ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <Send className="h-5 w-5" />
+            )}
           </Button>
         </div>
         <p className="mt-2 text-xs text-gray-400">

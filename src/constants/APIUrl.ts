@@ -50,6 +50,7 @@ export const PATCH_RECIPE_VIEWCOUNT = (recipeId: number) =>
 export const POST_TOGGLE_RECIPE_LiKE = (recipeId: number) =>
   `/recipe/like/${recipeId}`;
 export const GET_LIKED_RECIPE = "/recipe/liked";
+export const POST_CHATBOT_RECIPE = "/recipe/chatbot";
 
 // myInfo
 export const GET_MYINFO_COUNT = "/myinfo/count";
