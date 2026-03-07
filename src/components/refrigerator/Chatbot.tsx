@@ -78,7 +78,7 @@ export default function Chatbot() {
           AI 레시피 추천
         </div>
         <p className="mt-2 text-sm text-gray-500">
-          현재 냉장고에 있는 5개 식재료로 만들 수 있는 요리를 추천받으세요
+          현재 냉장고에 있는 식재료로 만들 수 있는 요리를 추천받으세요
         </p>
       </div>
 
