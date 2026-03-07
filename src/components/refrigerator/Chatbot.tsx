@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { FoodType } from "@/types/refrigeratorType";
 import { Bot, Sparkles, User, Loader2, Send } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion, AnimatePresence } from "motion/react";
 import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import usePostChatbot from "@/hooks/API/recipe/POST/usePostChatbot";
+import { useEffect } from "react";
 
 const quickPrompts = [
   "간단한 요리 추천해줘",
@@ -19,6 +20,7 @@ const quickPrompts = [
 
 export default function Chatbot() {
   const queryClient = useQueryClient();
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
   const [chatContent, setChatContent] = useState([
     {
@@ -32,10 +34,18 @@ export default function Chatbot() {
   const foods = foodIds
     .map((id) => queryClient.getQueryData<FoodType>(QUERY_KEYS.food.byId(id)))
     .filter((food): food is FoodType => food !== undefined);
-
   const { mutate: sendChatbot, isPending } = usePostChatbot();
 
-  // Todo: handleSend, handleQuickPromptSend 로직 통합
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatContent, isPending]);
+
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
+
   const handleSend = (prompt?: string) => {
     if (isPending) return;
     const curMessage = prompt ?? message;
@@ -83,7 +93,11 @@ export default function Chatbot() {
       </div>
 
       {/* Chat Area */}
-      <ScrollArea className="flex h-[467px] flex-1 flex-col gap-4 p-4">
+      <ScrollArea
+        type="always"
+        ref={scrollRef}
+        className="flex h-[467px] flex-1 flex-col gap-4 p-4"
+      >
         {chatContent.map((content, index) => {
           const isUser = content.role === "user";
 
@@ -166,12 +180,15 @@ export default function Chatbot() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="예: 냉장고 재료로 저녁 메뉴 추천해줘"
-            disabled={isPending}
             onKeyDown={onPressKeyDownSend}
           />
           <Button
             size={"icon"}
-            className="bg-green-gradient hover:from-green-500 hover:to-emerald-600"
+            className={`hover:bg-gray-400 ${
+              isPending
+                ? "bg-gray-400"
+                : "bg-green-gradient hover:from-green-500 hover:to-emerald-600"
+            }`}
             onClick={() => handleSend()}
           >
             {isPending ? (
