@@ -22,7 +22,6 @@ export default function YoutubeRecipeModal({
   youtubeUrl,
 }: YoutubeRecipeModalProps) {
   const queryClient = useQueryClient();
-  // Todo: 모달이 꺼질 때 캐시된 script데이터 삭제해야함
   const [currentStep, setCurrentStep] = useState(0);
   const isLogged = useIsLogged();
 
