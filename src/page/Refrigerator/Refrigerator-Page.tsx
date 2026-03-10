@@ -42,7 +42,7 @@ function RefrigeratorPage() {
         <div className="bg-green-gradient">
           <div className="mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-6 px-4 py-8 md:flex-row md:items-center md:gap-0 md:px-8 md:py-16">
             <div className="flex flex-col">
-              <div className="mb-3 flex gap-3">
+              <div className="mb-3 flex items-center gap-3">
                 <Refrigerator size={40} color="white" />
                 <h1 className="text-2xl font-bold text-white md:text-4xl">
                   내 냉장고

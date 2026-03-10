@@ -15,7 +15,7 @@ export default function VoteList() {
           진행 중인 투표
         </h2>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {activeVoteListLoading
             ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
             : activeVoteList?.map((item) => (
@@ -27,7 +27,7 @@ export default function VoteList() {
       <div>
         <h2 className="mb-6 text-2xl font-bold text-gray-900">지난 투표</h2>
 
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {closeVoteListLoading
             ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
             : closeVoteList?.map((item) => (
