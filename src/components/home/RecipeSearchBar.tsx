@@ -49,7 +49,7 @@ export default function RecipeSearchBar({
         </Button>
       </div>
 
-      <div className="mb-8 flex items-center gap-3 text-sm font-medium text-gray-600">
+      <div className="scrollbar-hide mb-8 flex w-0 min-w-full items-center gap-3 overflow-x-auto text-sm font-medium text-gray-600">
         {[{ id: 0, name: "전체" }, ...categories]?.map((category) => (
           <Badge
             key={category.id}
@@ -64,8 +64,6 @@ export default function RecipeSearchBar({
           </Badge>
         ))}
       </div>
-
-      {/* <RecipeSearchBarSkeleton /> */}
     </>
   );
 }

@@ -32,9 +32,9 @@ export default function RecipeList({
         </h1>
       </div>
 
-      <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
+      <div className="grid min-h-[346px] w-full grid-cols-1 gap-6 md:grid-cols-3">
         {recipeIds?.length === 0 ? (
-          <div className="col-span-3 flex flex-col items-center justify-center gap-2 text-gray-400">
+          <div className="col-span-1 flex flex-col items-center justify-center gap-2 text-gray-400 md:col-span-3">
             <CookingPot size={48} />
             <p className="text-lg font-medium">등록된 레시피가 없습니다</p>
           </div>
