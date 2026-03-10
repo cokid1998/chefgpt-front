@@ -1,6 +1,6 @@
 export default function MyInfoCountSkeleton() {
   return (
-    <div className="-mt-8 grid w-full grid-cols-4 gap-6">
+    <div className="mt-8 grid w-full grid-cols-2 gap-6 md:-mt-8 md:grid-cols-4">
       {[1, 2, 3, 4].map((i) => (
         <div key={i} className="rounded-2xl bg-white p-6 shadow-md">
           <div className="flex h-13 items-center gap-4">

@@ -17,20 +17,25 @@ export default function MyInfoPage() {
 
       <div className="bg-soft-green flex flex-col">
         <div className="bg-green-gradient">
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-16">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 md:flex-row md:items-center md:justify-between md:gap-0 md:px-8 md:py-16">
             <div className="flex gap-6">
               {profile?.thumbnail ? (
                 <img
                   src={profile.thumbnail}
-                  className="size-28 rounded-full object-cover"
+                  className="size-20 rounded-full object-cover md:size-28"
                 />
               ) : (
-                <DefaultThumbnail className="size-28" iconClassName="size-16" />
+                <DefaultThumbnail
+                  className="size-20 md:size-28"
+                  iconClassName="size-12 md:size-16"
+                />
               )}
 
               <div className="flex flex-col justify-evenly text-white/90">
-                <h1 className="text-4xl font-bold">{profile?.nickname}</h1>
-                <p className="text-lg">{profile?.email}</p>
+                <h1 className="text-2xl font-bold md:text-4xl">
+                  {profile?.nickname}
+                </h1>
+                <p className="text-sm md:text-lg">{profile?.email}</p>
               </div>
             </div>
 
@@ -46,7 +51,7 @@ export default function MyInfoPage() {
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-8 pb-8">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 pb-8 md:px-8">
           <MyInfoCount />
 
           <MyInfoContent />
