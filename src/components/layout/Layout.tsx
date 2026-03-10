@@ -39,7 +39,7 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
   return (
-    <>
+    <div className="md:hidden">
       {isOpen && (
         <div className="fixed inset-0 z-20 bg-black/50" onClick={onClose} />
       )}
@@ -53,6 +53,6 @@ export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
           <h1 className="text-lg font-bold text-gray-900">ChefGPT</h1>
         </div>
       </header>
-    </>
+    </div>
   );
 }
