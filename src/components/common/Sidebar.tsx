@@ -151,6 +151,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       e.preventDefault(); // 페이지 이동 방지
                       openModal(<LoggedModal />);
                     }
+                    if (isOpen) {
+                      onClose();
+                    }
                   }}
                 >
                   {menu.icon}
