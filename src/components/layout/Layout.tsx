@@ -14,7 +14,7 @@ export default function layout() {
       {/* 사이드바 */}
       <Sidebar isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
-      <main className="flex flex-1 flex-col">
+      <main className="flex flex-1 flex-col md:ml-(--sidebar-width)">
         {/* 모바일 헤더 */}
         <MobileHeader
           isOpen={isOpen}
