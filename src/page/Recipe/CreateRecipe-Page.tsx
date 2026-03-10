@@ -11,8 +11,8 @@ export default function CreateRecipePage() {
   return (
     <>
       <title>ChefGPT | 레시피 생성</title>
-      <div className="flex items-center justify-center bg-linear-to-b from-green-50 to-white py-10">
-        <div className="mx-auto flex max-w-3xl flex-col items-center">
+      <div className="flex items-center justify-center bg-linear-to-b from-green-50 to-white px-4 py-10 md:px-0">
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center">
           {mode === "youtube" ? <YoutubeModeHeader /> : <ManualModeHeader />}
 
           <Tabs
@@ -60,11 +60,11 @@ function YoutubeModeHeader() {
           AI기반 레시피 생성
         </span>
       </Badge>
-      <h1 className="mb-4 text-4xl font-bold text-gray-900">
+      <h1 className="mb-4 text-2xl font-bold text-gray-900 md:text-4xl">
         유튜브로 레시피 만들기
       </h1>
 
-      <p className="mb-12 text-lg text-gray-600">
+      <p className="mb-12 text-center text-sm text-gray-600 md:text-lg">
         유튜브 영상 URL을 입력하면 AI가 자동으로 단계별 레시피로 변환해드립니다
       </p>
     </>
@@ -80,11 +80,11 @@ function ManualModeHeader() {
           직접 레시피 작성하기
         </span>
       </Badge>
-      <h1 className="mb-4 text-4xl font-bold text-gray-900">
+      <h1 className="mb-4 text-center text-2xl font-bold text-gray-900 md:text-4xl">
         나만의 레시피 만들기
       </h1>
 
-      <p className="mb-12 text-lg text-gray-600">
+      <p className="mb-12 text-center text-sm text-gray-600 md:text-lg">
         당신만의 특별한 레시피를 직접 작성하고 다른 사람들과 공유해보세요
       </p>
     </>

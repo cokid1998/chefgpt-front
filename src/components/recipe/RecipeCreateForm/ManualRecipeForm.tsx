@@ -140,10 +140,10 @@ export default function ManualRecipeForm() {
   };
 
   return (
-    <div className="min-w-3xl overflow-hidden rounded-3xl border-none bg-white shadow-2xl">
-      <div className="bg-linear-to-br from-green-400 to-emerald-500 p-8 text-white">
-        <div className="flex items-center gap-3 text-2xl">
-          <PenLine className="h-8 w-8" />
+    <div className="w-full overflow-hidden rounded-3xl border-none bg-white shadow-2xl md:min-w-3xl">
+      <div className="bg-linear-to-br from-green-400 to-emerald-500 p-4 text-white md:p-8">
+        <div className="flex items-center gap-3 text-lg md:text-2xl">
+          <PenLine className="md:h-8 md:w-8" />
           직접 레시피 작성하기
         </div>
       </div>
