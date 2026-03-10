@@ -20,8 +20,6 @@ export default function ChatbotRecipeModal({
     "recepe-item",
   );
 
-  console.log(recipe);
-
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
       <div className="w-full rounded-xl border bg-gray-100 p-8">

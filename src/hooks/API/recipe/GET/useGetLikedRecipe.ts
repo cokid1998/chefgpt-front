@@ -12,8 +12,6 @@ const useGetLikedRecipe = (enabled: boolean) => {
   return useQuery({
     queryKey: QUERY_KEYS.recipe.liked,
     queryFn: async () => {
-      console.log("asdf");
-
       const res = await API.get<RecipeType[]>(GET_LIKED_RECIPE);
 
       res.data.forEach((likedRecipe) => {
