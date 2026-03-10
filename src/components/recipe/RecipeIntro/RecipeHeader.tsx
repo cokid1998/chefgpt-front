@@ -5,7 +5,7 @@ import YouTube from "react-youtube";
 interface RecipeHeaderProps {
   title: string;
   description: string;
-  youtubeUrl: string;
+  youtubeUrl?: string;
   category: string;
 }
 
@@ -28,7 +28,7 @@ export default function RecipeHeader({
   category,
 }: RecipeHeaderProps) {
   return (
-    <div className="grid w-full grid-cols-2 gap-8">
+    <div className={`${youtubeUrl ? "grid w-full grid-cols-2 gap-8" : ""}`}>
       <div className="space-y-6">
         <div>
           <Badge className="mb-3 rounded-md bg-green-500">{category}</Badge>
@@ -37,7 +37,7 @@ export default function RecipeHeader({
           <p className="text-lg leading-relaxed">{description}</p>
         </div>
 
-        <div className="rounded-xl bg-black p-4">
+        <div className={`rounded-xl bg-black p-4 ${youtubeUrl ? "" : "w-50"}`}>
           <div className="mb-1 flex items-center gap-2 text-green-400">
             <Clock className="size-4" />
             <span className="text-sm font-medium">조리 시간</span>
@@ -46,13 +46,15 @@ export default function RecipeHeader({
         </div>
       </div>
 
-      <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
-        <YouTube
-          videoId={extractVideoId(youtubeUrl)}
-          className="h-full w-full"
-          iframeClassName="w-full h-full"
-        />
-      </div>
+      {youtubeUrl && (
+        <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
+          <YouTube
+            videoId={extractVideoId(youtubeUrl)}
+            className="h-full w-full"
+            iframeClassName="w-full h-full"
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -4,7 +4,7 @@ import RecipeIngredientAccordion from "@/components/recipe/RecipeIntro/RecipeIng
 import type { YoutubeRecipeType } from "@/types/recipeType";
 
 interface RecipeIntroProps {
-  youtubeUrl: string;
+  youtubeUrl?: string;
   checkedIngredient: number[];
   setCheckedIngredient: React.Dispatch<React.SetStateAction<number[]>>;
   accordionValue: string | undefined;

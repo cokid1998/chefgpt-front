@@ -10,6 +10,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import usePostChatbot from "@/hooks/API/recipe/POST/usePostChatbot";
 import { useEffect } from "react";
+import type { ChatbotRecipe } from "@/types/recipeType";
+import { useOpenModal } from "@/store/modalStore";
+import ChatbotRecipeModal from "@/components/modal/chatbot/ChatbotRecipeModal";
 
 const quickPrompts = [
   "간단한 요리 추천해줘",
@@ -18,11 +21,18 @@ const quickPrompts = [
   "다이어트 요리",
 ];
 
+interface ChatContent {
+  role: "bot" | "user";
+  message: string;
+  recipe?: ChatbotRecipe;
+}
+
 export default function Chatbot() {
   const queryClient = useQueryClient();
+  const openModal = useOpenModal();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState("");
-  const [chatContent, setChatContent] = useState([
+  const [chatContent, setChatContent] = useState<ChatContent[]>([
     {
       role: "bot",
       message:
@@ -37,14 +47,14 @@ export default function Chatbot() {
   const { mutate: sendChatbot, isPending } = usePostChatbot();
 
   useEffect(() => {
+    const scrollToBottom = () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+    };
+
     scrollToBottom();
   }, [chatContent, isPending]);
-
-  const scrollToBottom = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  };
 
   const handleSend = (prompt?: string) => {
     if (isPending) return;
@@ -56,9 +66,10 @@ export default function Chatbot() {
       { message: curMessage },
       {
         onSuccess: (res) => {
+          const data = res.data;
           setChatContent((prev) => [
             ...prev,
-            { role: "bot", message: res.data },
+            { role: "bot", message: data.message, recipe: data.recipe },
           ]);
         },
         onError: () => {
@@ -126,6 +137,20 @@ export default function Chatbot() {
                 >
                   {content.message}
                 </p>
+                {content.recipe && (
+                  <Button
+                    size="sm"
+                    className="mt-2 bg-emerald-500 hover:bg-emerald-600"
+                    onClick={() => {
+                      if (content.recipe)
+                        openModal(
+                          <ChatbotRecipeModal recipe={content.recipe} />,
+                        );
+                    }}
+                  >
+                    레시피 보기
+                  </Button>
+                )}
               </div>
             </motion.div>
           );
@@ -190,6 +215,7 @@ export default function Chatbot() {
                 : "bg-green-gradient hover:from-green-500 hover:to-emerald-600"
             }`}
             onClick={() => handleSend()}
+            disabled={!message}
           >
             {isPending ? (
               <Loader2 className="h-5 w-5 animate-spin" />

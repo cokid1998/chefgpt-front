@@ -56,3 +56,20 @@ export interface RecipeCategoryType {
   id: number;
   name: string;
 }
+
+export interface ChatbotRecipe {
+  category: string;
+  title: string;
+  description: string;
+  cookingTime: string;
+  ingredients: {
+    name: string;
+    amount: string;
+  }[];
+  steps: {
+    stepNumber: number;
+    stepTitle: string;
+    description: string;
+    tip: string;
+  }[];
+}
