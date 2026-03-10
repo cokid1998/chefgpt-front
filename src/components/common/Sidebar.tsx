@@ -7,6 +7,7 @@ import {
   Refrigerator,
   LogOut,
   LogIn,
+  X,
 } from "lucide-react";
 import {
   Link,
@@ -80,7 +81,12 @@ const isActiveMenu = (menu: (typeof MENU)[number], pathname: string) => {
   );
 };
 
-export default function Sidebar() {
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { pathname } = useLocation();
   const isLogged = useIsLogged();
   const profile = useProfile();
@@ -98,11 +104,20 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="fixed z-10 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white">
+    <aside
+      className={`fixed z-30 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white transition-transform duration-300 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+    >
+      <button
+        className="absolute top-4 right-4 cursor-pointer md:hidden"
+        onClick={onClose}
+      >
+        <X size={20} />
+      </button>
+
       <div className="flex h-24 items-center gap-3 border-b p-6">
         <Link
           to={HOME}
-          className="flex w-full items-center gap-3 transition-transform hover:scale-105"
+          className="flex w-fit items-center gap-3 transition-transform hover:scale-105"
         >
           <div className="bg-green-gradient flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg">
             <ChefHat color="white" size={28} />
