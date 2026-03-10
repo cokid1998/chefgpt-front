@@ -48,9 +48,9 @@ export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
           <PanelLeft size={24} />
         </button>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <ChefHat className="h-6 w-6 text-green-500" />
-          <h1 className="text-lg font-bold text-gray-900">쿡스테이지</h1>
+          <h1 className="text-lg font-bold text-gray-900">ChefGPT</h1>
         </div>
       </header>
     </>
