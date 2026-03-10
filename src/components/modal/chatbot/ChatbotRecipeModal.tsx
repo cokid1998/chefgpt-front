@@ -6,6 +6,7 @@ import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import type { ChatbotRecipe } from "@/types/recipeType";
+import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
 
 interface ChatbotRecipeModalProps {
   recipe: ChatbotRecipe;
@@ -19,6 +20,16 @@ export default function ChatbotRecipeModal({
   const [accordionValue, setAccordionValue] = useState<string | undefined>(
     "recepe-item",
   );
+
+  const { mutate: createRecipe } = usePostCreateRecipe();
+
+  const handleCreateRecipe = () => {
+    const formatData = {
+      ...recipe,
+      recipeSource: "CHATBOT" as const,
+    };
+    createRecipe({ payload: formatData, youtubeUrl: "" });
+  };
 
   return (
     <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
@@ -50,7 +61,7 @@ export default function ChatbotRecipeModal({
         <Button
           variant="outline"
           className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
-          // onClick={handleCreateRecipe}
+          onClick={handleCreateRecipe}
         >
           레시피 저장하기
         </Button>

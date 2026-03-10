@@ -1,4 +1,4 @@
-export type RecipeSource = "MANUAL" | "YOUTUBE";
+export type RecipeSource = "MANUAL" | "YOUTUBE" | "CHATBOT";
 
 export interface YoutubeIngredientType {
   name: string;
@@ -58,6 +58,7 @@ export interface RecipeCategoryType {
 }
 
 export interface ChatbotRecipe {
+  categoryId: number;
   category: string;
   title: string;
   description: string;
