@@ -34,7 +34,7 @@ export default function FoodList({ foodIds, isFoodsLoading }: FoodListProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {foodIds.map((foodId) => (
         <FoodCard key={foodId} foodId={foodId} />
       ))}

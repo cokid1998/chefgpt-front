@@ -54,7 +54,7 @@ export default function FoodSearchBar({
       <div className="space-y-3">
         <div>
           <p className="mb-2 text-xs font-medium text-gray-500">카테고리</p>
-          <div className="flex items-center gap-2 overflow-x-auto pb-2">
+          <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pb-2">
             {[{ id: 0, name: "전체", icon: "" }, ...foodsCategory]?.map(
               (category) => (
                 <Badge

@@ -6,7 +6,7 @@ export default function FoodCount() {
 
   if (foodsCountLoading) {
     return (
-      <div className="grid min-h-22.5 grid-cols-4 gap-4">
+      <div className="grid min-h-22.5 grid-cols-2 gap-4 md:grid-cols-4">
         {[...Array(4)].map((_, i) => (
           <FoodCountSkeleton key={i} />
         ))}
@@ -15,7 +15,7 @@ export default function FoodCount() {
   }
 
   return (
-    <div className="grid min-h-22.5 grid-cols-4 gap-4">
+    <div className="grid min-h-22.5 grid-cols-2 gap-4 md:grid-cols-4">
       {foodsCount?.map((count) => (
         <div
           key={count.key}
