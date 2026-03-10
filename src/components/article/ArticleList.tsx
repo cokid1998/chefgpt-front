@@ -21,14 +21,11 @@ export default function ArticleList({
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold text-gray-900">
           {selectCategory} 정보
-          <span className="ml-2 text-sm text-gray-500">
-            {/* Todo: 무한 스크롤을 활용할려면 length를 사요하지않고 따로 API를 만들어야할듯 */}
-            ({articleIds.length}개)
-          </span>
+          <span className="ml-2 text-sm text-gray-500">({articleCount}개)</span>
         </h2>
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {isArticleLoading
           ? [...Array(3)].map((_, i) => <ArticleCardSkeleton key={i} />)
           : articleIds.map((id) => {
