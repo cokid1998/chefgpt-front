@@ -8,7 +8,7 @@ export default function RecipeListSkeleton() {
         </div>
       </div>
 
-      <div className="grid min-h-[346px] w-full grid-cols-3 gap-6">
+      <div className="grid min-h-[346px] w-full grid-cols-1 gap-6 md:grid-cols-3">
         {Array.from({ length: 3 }).map((_, i) => (
           <div
             key={i}

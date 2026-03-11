@@ -77,7 +77,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 py-12">
+        <div className="max-w-7xl px-4 py-12 md:mx-auto">
           <RecipeSearchBar
             onSearchKeyDown={handleSearchKeyDown}
             onCategoryClick={handleCategoryClick}
