@@ -1,17 +1,16 @@
-import { useCloseModal, useOpenModal } from "@/store/modalStore";
+import { useCloseModal } from "@/store/modalStore";
 import { Vote, X, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import usePostVote from "@/hooks/API/vote/POST/usePostVote";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
 import { toast } from "sonner";
-import { useIsLogged } from "@/store/authStore";
-import LoggedModal from "@/components/modal/auth/LoggedModal";
+import useRequireLoginModal from "@/hooks/useRequireLoginModal";
 
 export default function CreateVoteModal() {
-  const isLogged = useIsLogged();
+  useRequireLoginModal();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -19,14 +18,7 @@ export default function CreateVoteModal() {
     optionB: "",
     endDate: "",
   });
-  const openModal = useOpenModal();
   const closeModal = useCloseModal();
-
-  useEffect(() => {
-    if (!isLogged) {
-      openModal(<LoggedModal />);
-    }
-  }, []);
 
   const { mutate: createVote, isPending } = usePostVote();
 
