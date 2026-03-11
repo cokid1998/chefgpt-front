@@ -1,4 +1,4 @@
-import { useCloseModal } from "@/store/modalStore";
+import { useCloseModal, useOpenModal } from "@/store/modalStore";
 import { Vote, X, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,10 +45,10 @@ export default function CreateVoteModal() {
   };
 
   return (
-    <div className="w-xl rounded-sm bg-white p-6">
+    <div className="w-96 max-w-xl rounded-sm bg-white p-4 md:mx-0 md:w-full md:p-6">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-2xl">
-          <Vote className="h-6 w-6 text-green-500" />새 투표 만들기
+        <div className="flex items-center gap-2 text-lg md:text-2xl">
+          <Vote className="size-5 text-green-500 md:size-6" />새 투표 만들기
         </div>
         <Button
           onClick={closeModal}
@@ -60,9 +60,9 @@ export default function CreateVoteModal() {
         </Button>
       </div>
 
-      <div className="space-y-5 pt-4">
+      <div className="space-y-4 pt-4 md:space-y-5">
         <div>
-          <div className="font-semibold">투표 제목 *</div>
+          <div className="text-sm font-semibold md:text-base">투표 제목 *</div>
           <Input
             className="mt-2 h-12"
             placeholder="예: MSG는 몸에 나쁘다?"
@@ -73,7 +73,7 @@ export default function CreateVoteModal() {
         </div>
 
         <div>
-          <div className="font-semibold">설명 (선택)</div>
+          <div className="text-sm font-semibold md:text-base">설명 (선택)</div>
           <Textarea
             className="mt-2 resize-none"
             placeholder="투표에 대한 설명을 입력하세요"
@@ -85,7 +85,7 @@ export default function CreateVoteModal() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <div className="font-semibold">옵션 A *</div>
+            <div className="text-sm font-semibold md:text-base">옵션 A *</div>
             <Input
               className="mt-2 h-12"
               placeholder="예: 그렇다"
@@ -96,7 +96,7 @@ export default function CreateVoteModal() {
           </div>
 
           <div>
-            <div className="font-semibold">옵션 B *</div>
+            <div className="text-sm font-semibold md:text-base">옵션 B *</div>
             <Input
               className="mt-2 h-12"
               placeholder="예: 아니다"
@@ -108,12 +108,12 @@ export default function CreateVoteModal() {
         </div>
 
         <div>
-          <div className="font-semibold">
+          <div className="text-sm font-semibold md:text-base">
             종료일 (선택하지않으면 7일로 설정)
           </div>
           <Input
             type="date"
-            className="mt-2 h-12"
+            className="mt-2 h-12 md:h-12"
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, endDate: e.target.value }))
             }
