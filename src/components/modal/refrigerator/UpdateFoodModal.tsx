@@ -84,10 +84,10 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
   if (isLoading) return null;
 
   return (
-    <div className="w-xl rounded-sm bg-white p-6">
+    <div className="w-96 max-w-xl rounded-sm bg-white p-4 md:mx-0 md:w-full md:p-6">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-2xl">
-          <Plus className="h-6 w-6 text-green-500" />
+        <div className="flex items-center gap-2 text-lg md:text-2xl">
+          <Plus className="size-5 text-green-500 md:size-6" />
           식재료 수정
         </div>
         <Button
@@ -100,9 +100,11 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
         </Button>
       </div>
 
-      <div className="space-y-5 pt-4">
+      <div className="space-y-4 pt-4 md:space-y-5">
         <div>
-          <div className="text-base font-semibold">식재료 이름 *</div>
+          <div className="text-sm font-semibold md:text-base">
+            식재료 이름 *
+          </div>
           <Input
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -111,9 +113,9 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <div className="text-base font-semibold">카테고리 *</div>
+            <div className="text-sm font-semibold md:text-base">카테고리 *</div>
             <Select
               value={formData.categoryId}
               onValueChange={(value) =>
@@ -134,7 +136,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
           </div>
 
           <div>
-            <div className="text-base font-semibold">보관 위치</div>
+            <div className="text-sm font-semibold md:text-base">보관 위치</div>
             <Select
               value={formData.location}
               onValueChange={(value: LocationType) =>
@@ -157,7 +159,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <div className="text-base font-semibold">수량</div>
+            <div className="text-sm font-semibold md:text-base">수량</div>
             <Input
               value={formData.quantity}
               onChange={(e) =>
@@ -169,7 +171,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
           </div>
 
           <div>
-            <div className="text-base font-semibold">단위</div>
+            <div className="text-sm font-semibold md:text-base">단위</div>
             <Input
               value={formData.unit}
               onChange={(e) =>
@@ -181,7 +183,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
           </div>
         </div>
         <div>
-          <div className="text-base font-semibold">유통기한</div>
+          <div className="text-sm font-semibold md:text-base">유통기한</div>
           <Input
             type="date"
             value={formData.expiration_date}
@@ -193,7 +195,7 @@ export default function UpdateFoodModal({ foodId }: { foodId: number }) {
         </div>
 
         <div>
-          <div className="text-base font-semibold">메모</div>
+          <div className="text-sm font-semibold md:text-base">메모</div>
           <Textarea
             value={formData.memo}
             onChange={(e) => setFormData({ ...formData, memo: e.target.value })}
