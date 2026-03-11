@@ -25,7 +25,7 @@ export default function ArticleDetailPage() {
       <div className="mx-auto max-w-4xl px-4 py-8">
         <Button
           variant="ghost"
-          className="mb-6 transition-all hover:bg-gray-100"
+          className="mb-6 hidden transition-all hover:bg-gray-100 md:flex"
           onClick={() => nav(ARTICLE)}
         >
           <ArrowLeft className="mr-2 size-5" />
@@ -33,7 +33,7 @@ export default function ArticleDetailPage() {
         </Button>
 
         <article className="overflow-hidden rounded-3xl border border-green-100 bg-white shadow-lg">
-          <div className="p-8">
+          <div className="p-4 md:p-8">
             <div className="mb-6">
               <div className="mb-4 flex items-center justify-between">
                 <Badge className="rounded-md border-0 bg-green-500 px-4 py-1 text-base text-white shadow">
@@ -56,12 +56,12 @@ export default function ArticleDetailPage() {
                 </Button>
               </div>
 
-              <h1 className="mb-4 text-4xl leading-tight font-bold text-gray-900">
+              <h1 className="mb-4 text-2xl leading-tight font-bold text-gray-900 md:text-4xl">
                 {article?.title}
               </h1>
 
               {article?.summary && (
-                <p className="text-xl leading-relaxed text-gray-600">
+                <p className="text-base leading-relaxed text-gray-600 md:text-xl">
                   {article.summary}
                 </p>
               )}
