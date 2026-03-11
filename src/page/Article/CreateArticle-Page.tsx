@@ -87,11 +87,11 @@ export default function CreateArticlePage() {
     <>
       <title>ChefGPT | 아티클 작성</title>
       <div className="min-h-screen bg-linear-to-b from-green-50 to-white">
-        <div className="mx-auto flex-col p-6">
+        <div className="mx-auto flex-col p-4 md:p-6">
           <Button
             variant="ghost"
             onClick={() => nav(ARTICLE)}
-            className="mb-6 hover:bg-transparent"
+            className="mb-6 hidden hover:bg-transparent md:flex"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             목록으로
@@ -104,7 +104,7 @@ export default function CreateArticlePage() {
                 요리 정보 작성
               </span>
             </div>
-            <h1 className="mb-2 text-4xl font-bold text-gray-900">
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 md:text-4xl">
               새 아티클 작성
             </h1>
             <p className="text-gray-600">
@@ -112,7 +112,7 @@ export default function CreateArticlePage() {
             </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 md:flex-row">
             <ArticleEditorContent
               form={form}
               editor={editor}

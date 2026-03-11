@@ -43,7 +43,7 @@ export default function ArticleEditorContent({
   };
 
   return (
-    <div className="w-1/2 space-y-6">
+    <div className="w-full space-y-6 md:w-1/2">
       <Accordion type="single" collapsible defaultValue="article-item">
         <AccordionItem value="article-item" className="rounded-xl shadow-xl">
           <AccordionTrigger className="cursor-pointer rounded-none bg-linear-to-br from-green-400 to-emerald-500 p-6 text-white">
