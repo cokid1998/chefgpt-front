@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Outlet, useMatch } from "react-router";
+import { Link, Outlet, useMatch } from "react-router";
 import Sidebar from "@/components/common/Sidebar";
 import Footer from "@/components/common/Footer";
-import { RECIPE_DETAIL } from "@/constants/Url";
+import { HOME, RECIPE_DETAIL } from "@/constants/Url";
 import { PanelLeft, ChefHat } from "lucide-react";
 
 export default function layout() {
@@ -48,10 +48,10 @@ export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
           <PanelLeft size={24} />
         </button>
 
-        <div className="flex items-center gap-1">
+        <Link to={HOME} className="flex items-center gap-1">
           <ChefHat className="h-6 w-6 text-green-500" />
           <h1 className="text-lg font-bold text-gray-900">ChefGPT</h1>
-        </div>
+        </Link>
       </header>
     </div>
   );
