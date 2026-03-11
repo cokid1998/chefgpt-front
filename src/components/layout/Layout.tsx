@@ -39,18 +39,21 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
   return (
-    <div className="md:hidden">
+    <div className="pt-14 md:hidden">
       {isOpen && (
         <div className="fixed inset-0 z-20 bg-black/50" onClick={onClose} />
       )}
-      <header className="flex h-14 items-center gap-3 border-b bg-white px-4">
+      <header className="fixed top-0 z-10 flex h-14 w-full items-center border-b bg-white px-4">
         <button onClick={onOpen} className="cursor-pointer">
           <PanelLeft size={24} />
         </button>
-
-        <Link to={HOME} className="flex items-center gap-1">
-          <ChefHat className="h-6 w-6 text-green-500" />
-          <h1 className="text-lg font-bold text-gray-900">ChefGPT</h1>
+        <Link
+          to={HOME}
+          className="pointer-events-none absolute inset-x-0 flex items-center justify-center"
+        >
+          <h1 className="pointer-events-auto text-2xl font-bold text-green-500">
+            ChefGPT
+          </h1>
         </Link>
       </header>
     </div>
