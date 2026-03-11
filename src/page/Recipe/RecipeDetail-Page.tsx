@@ -24,7 +24,7 @@ export default function RecipeDetailPage() {
   if (!recipe?.recipeSteps || isLoading) return null;
 
   return (
-    <div className="bg-soft-green h-full">
+    <div className="bg-soft-green flex h-full flex-col">
       <div className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-white px-4 md:h-24 md:px-10">
         <Button
           variant="outline"
@@ -73,7 +73,7 @@ export default function RecipeDetailPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl space-y-8 px-4 py-8">
+      <div className="mx-auto flex max-w-7xl flex-1 flex-col gap-3 space-y-8 px-4 py-8">
         <RecipeStepSlide
           step={recipe?.recipeSteps?.[currentStep - 1]}
           currentStep={currentStep}

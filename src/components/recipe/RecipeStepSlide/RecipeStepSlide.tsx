@@ -30,7 +30,7 @@ export default function RecipeStepSlide({
 }: RecipeStepSlideProps) {
   return (
     <div
-      className={`flex w-full flex-col justify-between gap-2 rounded-xl bg-gray-100 p-4 md:h-143 md:p-8 ${className}`}
+      className={`flex h-full w-full flex-col justify-between gap-2 rounded-xl bg-gray-100 p-4 md:h-143 md:p-8 ${className}`}
     >
       <div className="grid grid-cols-1 gap-3 md:h-1/2 md:grid-cols-2">
         <div className="space-y-4 md:space-y-6">
