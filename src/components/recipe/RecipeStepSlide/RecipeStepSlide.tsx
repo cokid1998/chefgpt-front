@@ -34,7 +34,7 @@ export default function RecipeStepSlide({
     >
       <div className="grid grid-cols-1 gap-3 md:h-1/2 md:grid-cols-2">
         <div className="space-y-4 md:space-y-6">
-          <Badge className="rounded-sm border-0 bg-green-500 text-lg text-white">
+          <Badge className="rounded-sm border-0 bg-green-500 text-sm text-white md:text-lg">
             단계 {currentStep}
           </Badge>
 
@@ -81,12 +81,12 @@ export default function RecipeStepSlide({
 
 function TipBox({ tip }: { tip: string }) {
   return (
-    <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-6">
+    <div className="rounded-2xl border border-yellow-500/20 bg-yellow-500/10 p-3 md:p-6">
       <div className="flex items-start gap-3">
         <div>
           <h3 className="mb-2 flex items-center gap-1.5 font-semibold">
             <Lightbulb className="text-yellow-500" />
-            <span className="text-lg">팁</span>
+            <span className="text-sm md:text-lg">팁</span>
           </h3>
           <p className="leading-relaxed text-gray-600">{tip}</p>
         </div>

@@ -28,13 +28,17 @@ export default function RecipeHeader({
   category,
 }: RecipeHeaderProps) {
   return (
-    <div className={`${youtubeUrl ? "grid w-full grid-cols-2 gap-8" : ""}`}>
+    <div
+      className={`${youtubeUrl ? "grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-8" : ""}`}
+    >
       <div className="space-y-6">
         <div>
           <Badge className="mb-3 rounded-md bg-green-500">{category}</Badge>
 
-          <h1 className="mb-4 text-4xl leading-tight font-bold">{title}</h1>
-          <p className="text-lg leading-relaxed">{description}</p>
+          <h1 className="mb-4 text-2xl leading-tight font-bold md:text-4xl">
+            {title}
+          </h1>
+          <p className="text-base leading-relaxed md:text-lg">{description}</p>
         </div>
 
         <div className={`rounded-xl bg-black p-4 ${youtubeUrl ? "" : "w-50"}`}>

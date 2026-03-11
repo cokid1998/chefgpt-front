@@ -60,8 +60,11 @@ export default function YoutubeRecipeModal({
   }, []);
 
   return (
-    <ScrollArea className="h-200 w-300 overflow-y-auto rounded-2xl bg-white p-4">
-      <div className="w-full rounded-xl border bg-gray-100 p-8">
+    <ScrollArea
+      className="h-[95svh] w-[95vw] overflow-y-auto rounded-2xl bg-white p-3 md:h-200 md:w-300 md:p-4"
+      viewportClassName="!h-full [&>div]:h-full"
+    >
+      <div className="flex h-full w-full flex-col rounded-xl border bg-gray-100 p-4 md:p-8">
         {currentStep === 0 && (
           <RecipeIntro
             youtubeUrl={youtubeUrl}
@@ -80,24 +83,26 @@ export default function YoutubeRecipeModal({
           />
         )}
 
-        <Separator className="my-4 w-full" />
+        <div className="mt-auto">
+          <Separator className="my-4 w-full" />
 
-        <RecipeModalNavigate
-          currentStep={currentStep}
-          setCurrentStep={setCurrentStep}
-          totalLength={recipeInfo.steps.length}
-        />
+          <RecipeModalNavigate
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+            totalLength={recipeInfo.steps.length}
+          />
 
-        <Button
-          variant="outline"
-          className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
-          onClick={handleCreateRecipe}
-          disabled={!isLogged}
-        >
-          {!isLogged
-            ? "로그인 후 레시피를 저장할 수 있습니다."
-            : "레시피 저장하기"}
-        </Button>
+          <Button
+            variant="outline"
+            className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
+            onClick={handleCreateRecipe}
+            disabled={!isLogged}
+          >
+            {!isLogged
+              ? "로그인 후 레시피를 저장할 수 있습니다."
+              : "레시피 저장하기"}
+          </Button>
+        </div>
       </div>
     </ScrollArea>
   );

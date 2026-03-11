@@ -74,15 +74,16 @@ export default function RecipeIngredientAccordion({
                 }`}
               />
             </div>
-            {/* Todo 내 냉장고에 있는 재료면 확인표시 기능 */}
             <div className="flex items-center">
-              <h1 className="text-3xl font-bold">필요한 재료&nbsp;</h1>
+              <h1 className="text-xl font-bold md:text-3xl">
+                필요한 재료&nbsp;
+              </h1>
               <span>{`${checkedIngredient.length} / ${ingredients.length}`}</span>
             </div>
           </div>
         </AccordionTrigger>
 
-        <AccordionContent className="grid gap-3 px-10">
+        <AccordionContent className="grid gap-3 px-4 md:px-10">
           {ingredients.map((ingredient, index) => {
             const isChecked = checkedIngredient.includes(index);
             return (
@@ -106,7 +107,7 @@ export default function RecipeIngredientAccordion({
                     {isChecked && <Check className="h-4 w-4 text-white" />}
                   </div>
                   <span
-                    className={`text-lg ${isChecked ? "text-gray-400 line-through" : ""}`}
+                    className={`text-sm md:text-lg ${isChecked ? "text-gray-400 line-through" : ""}`}
                   >
                     {ingredient.name}
                   </span>
