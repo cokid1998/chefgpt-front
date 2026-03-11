@@ -41,8 +41,8 @@ export default function EditorViewer({ content }: EditorViewerProps) {
   }, [content, viewer]);
 
   return (
-    <div className="flex-1 rounded-lg border bg-white p-4">
-      <EditorContent editor={viewer} />
+    <div className="flex-1 overflow-y-auto border bg-white">
+      <EditorContent editor={viewer} className="max-h-96 md:max-h-150" />
     </div>
   );
 }

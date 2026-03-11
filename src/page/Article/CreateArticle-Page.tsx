@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ARTICLE } from "@/constants/Url";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft, Sparkles, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
-import ArticleEditorContent from "@/components/article/ArticleEditorContent";
 import { useState } from "react";
 import EditorViewer from "@/components/article/editor/EditorViewer";
 import { useEditor } from "@tiptap/react";
@@ -10,6 +9,9 @@ import StarterKit from "@tiptap/starter-kit";
 import { Placeholder } from "@tiptap/extensions";
 import type { JSONContent } from "@tiptap/react";
 import usePostArticle from "@/hooks/API/article/POST/usePostArticle";
+import { toast } from "sonner";
+import ArticleInputAccordion from "@/components/article/ArticleInputAccordion";
+import Editor from "@/components/article/editor/Editor";
 
 export interface ArticleFormType {
   title: string;
@@ -28,7 +30,7 @@ export default function CreateArticlePage() {
     contentJSON: null,
     tags: [],
   });
-  const { mutate: articleSubmit } = usePostArticle();
+  const { mutate: articleSubmit, isPending } = usePostArticle();
 
   const handleSetForm = (
     key: keyof typeof form,
@@ -72,6 +74,11 @@ export default function CreateArticlePage() {
   });
 
   const handleArticleSubmit = () => {
+    if (!form.title || !form.category) {
+      toast.error("필수 입력란을 입력해주세요.");
+      return;
+    }
+
     const formatArticle = {
       ...form,
       contentJSON: JSON.stringify(form.contentJSON),
@@ -97,7 +104,7 @@ export default function CreateArticlePage() {
             목록으로
           </Button>
 
-          <div className="mb-8">
+          <div className="mb-8 flex flex-col items-center justify-center md:block">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-green-200 px-4 py-2">
               <Sparkles className="h-4 w-4 text-green-600" />
               <span className="text-sm font-medium text-green-600">
@@ -112,12 +119,12 @@ export default function CreateArticlePage() {
             </p>
           </div>
 
+          <div className="mb-5 w-full space-y-6 md:mb-10">
+            <ArticleInputAccordion form={form} handleSetForm={handleSetForm} />
+          </div>
+
           <div className="flex flex-col gap-3 md:flex-row">
-            <ArticleEditorContent
-              form={form}
-              editor={editor}
-              handleSetForm={handleSetForm}
-            />
+            <Editor editor={editor} />
 
             <EditorViewer content={form.contentJSON} />
           </div>
@@ -126,32 +133,28 @@ export default function CreateArticlePage() {
             <Button
               type="button"
               variant="outline"
-              // onClick={() => navigate(createPageUrl("Articles"))}
-              // disabled={createMutation.isPending}
+              onClick={() => nav(-1)}
+              disabled={isPending}
               className="h-12 px-6"
             >
               취소
             </Button>
             <Button
-              // disabled={createMutation.isPending}
+              disabled={isPending}
               className="h-12 bg-linear-to-r from-green-500 to-emerald-500 px-8 hover:from-green-600 hover:to-emerald-600"
               onClick={handleArticleSubmit}
             >
-              {/* {createMutation.isPending ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                저장 중...
-              </>
-            ) : (
-              <>
-                <Sparkles className="mr-2 h-4 w-4" />
-                아티클 작성
-              </>
-            )} */}
-              <>
-                <Sparkles className="mr-2 h-4 w-4" />
-                아티클 작성
-              </>
+              {isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  저장 중...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  아티클 작성
+                </>
+              )}
             </Button>
           </div>
         </div>
