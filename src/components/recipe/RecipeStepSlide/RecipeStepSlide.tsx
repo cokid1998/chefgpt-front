@@ -30,19 +30,19 @@ export default function RecipeStepSlide({
 }: RecipeStepSlideProps) {
   return (
     <div
-      className={`flex h-143 w-full flex-col justify-between rounded-xl bg-gray-100 p-8 ${className}`}
+      className={`flex w-full flex-col justify-between gap-2 rounded-xl bg-gray-100 p-4 md:h-143 md:p-8 ${className}`}
     >
-      <div className="grid h-1/2 grid-cols-2 gap-3">
-        <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-3 md:h-1/2 md:grid-cols-2">
+        <div className="space-y-4 md:space-y-6">
           <Badge className="rounded-sm border-0 bg-green-500 text-lg text-white">
             단계 {currentStep}
           </Badge>
 
-          <h1 className="mb-6 text-3xl leading-tight font-bold">
+          <h1 className="mb-4 text-lg leading-tight font-bold md:mb-6 md:text-3xl">
             {step.stepTitle}
           </h1>
 
-          <p className="text-xl leading-relaxed text-gray-600">
+          <p className="text-base leading-relaxed text-gray-600 md:text-xl">
             {step.description}
           </p>
         </div>
