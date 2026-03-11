@@ -29,7 +29,7 @@ export default function IngredientViewModal({
   if (!ingredients) return null;
 
   return (
-    <div className="flex h-150 w-300 flex-col rounded-sm bg-white p-6">
+    <div className="flex max-h-[90svh] w-[90vw] max-w-lg flex-col rounded-sm bg-white p-4 pb-10 md:max-w-2xl md:p-6 md:pb-10">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center gap-3">
           <div
@@ -60,7 +60,7 @@ export default function IngredientViewModal({
       <Separator className="mt-5 mb-8" />
 
       <ScrollArea className="flex-1 overflow-auto">
-        <div className="grid gap-3 px-10">
+        <div className="grid gap-3 px-4 md:px-10">
           {ingredients.map((ingredient, index) => {
             const isChecked = checkedIngredient.includes(index);
             return (
@@ -82,7 +82,7 @@ export default function IngredientViewModal({
                     {isChecked && <Check className="h-4 w-4 text-white" />}
                   </div>
                   <span
-                    className={`text-lg ${isChecked ? "text-gray-400 line-through" : ""}`}
+                    className={`text-sm md:text-lg ${isChecked ? "text-gray-400 line-through" : ""}`}
                   >
                     {ingredient.name}
                   </span>
