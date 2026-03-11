@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import usePostVote from "@/hooks/API/vote/POST/usePostVote";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { toast } from "sonner";
+import { useIsLogged } from "@/store/authStore";
+import LoggedModal from "@/components/modal/auth/LoggedModal";
 
-/**
- * 이 모달은 로그인한 사용자만 나와야함
- */
 export default function CreateVoteModal() {
+  const isLogged = useIsLogged();
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -19,7 +19,14 @@ export default function CreateVoteModal() {
     optionB: "",
     endDate: "",
   });
+  const openModal = useOpenModal();
   const closeModal = useCloseModal();
+
+  useEffect(() => {
+    if (!isLogged) {
+      openModal(<LoggedModal />);
+    }
+  }, []);
 
   const { mutate: createVote, isPending } = usePostVote();
 
