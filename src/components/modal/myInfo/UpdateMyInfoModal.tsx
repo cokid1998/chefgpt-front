@@ -55,7 +55,7 @@ export default function UpdateMyInfoModal() {
   };
 
   return (
-    <div className="flex w-md flex-col rounded-sm bg-white p-6">
+    <div className="flex w-96 flex-col rounded-sm bg-white p-4 md:mx-0 md:w-md md:p-6">
       <div className="mb-4 flex gap-2">
         <User className="text-green-500" />
         <span className="text-lg font-semibold">프로필 수정</span>
