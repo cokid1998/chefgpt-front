@@ -1,12 +1,12 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
 import RecipeStepSlide from "@/components/recipe/RecipeStepSlide/RecipeStepSlide";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import type { ChatbotRecipe } from "@/types/recipeType";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
+import RecipeNavigate from "@/components/recipe/RecipeNavigate";
 
 interface ChatbotRecipeModalProps {
   recipe: ChatbotRecipe;
@@ -56,10 +56,11 @@ export default function ChatbotRecipeModal({
         <div className="mt-auto">
           <Separator className="my-4 w-full" />
 
-          <RecipeModalNavigate
+          <RecipeNavigate
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalLength={recipe.steps.length}
+            hasIntro
           />
 
           <Button

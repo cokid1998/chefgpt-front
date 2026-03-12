@@ -1,18 +1,21 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type React from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-interface RecipeModalNavigateProps {
+interface RecipeNavigateProps {
   totalLength: number;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  hasIntro?: boolean; // 추가
 }
 
-export default function RecipeModalNavigate({
+export default function RecipeNavigate({
   totalLength,
   currentStep,
   setCurrentStep,
-}: RecipeModalNavigateProps) {
+  hasIntro = false,
+}: RecipeNavigateProps) {
+  const minStep = hasIntro ? 0 : 1;
+
   const nextStep = () => {
     if (currentStep < totalLength) {
       setCurrentStep((prev) => prev + 1);
@@ -20,7 +23,7 @@ export default function RecipeModalNavigate({
   };
 
   const prevStep = () => {
-    if (currentStep > 0) {
+    if (currentStep > minStep) {
       setCurrentStep((prev) => prev - 1);
     }
   };
@@ -29,7 +32,7 @@ export default function RecipeModalNavigate({
     <div className="flex items-center justify-between">
       <Button
         onClick={prevStep}
-        disabled={currentStep === 0}
+        disabled={currentStep === minStep}
         size="lg"
         className="bg-green-500 text-white hover:bg-green-600 disabled:opacity-30"
       >
@@ -39,14 +42,18 @@ export default function RecipeModalNavigate({
 
       <div className="text-center">
         <div className="mb-1 text-sm opacity-70">
-          {currentStep === 0 ? "시작하기" : `${currentStep} / ${totalLength}`}
+          {hasIntro && currentStep === 0
+            ? "시작하기"
+            : `${currentStep} / ${totalLength}`}
         </div>
         <div className="flex gap-1">
-          {[...Array(totalLength + 1)].map((_, i) => (
+          {[...Array(hasIntro ? totalLength + 1 : totalLength)].map((_, i) => (
             <div
               key={i}
               className={`h-2 rounded-full transition-all ${
-                i === currentStep ? "w-8 bg-green-500" : "w-2 bg-black/30"
+                (hasIntro ? i === currentStep : i + 1 === currentStep)
+                  ? "w-8 bg-green-500"
+                  : "w-2 bg-black/30"
               }`}
             />
           ))}

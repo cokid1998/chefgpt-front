@@ -1,6 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import RecipeModalNavigate from "@/components/recipe/RecipeModalNavigate";
 import { useEffect, useState } from "react";
 import type { YoutubeRecipeType } from "@/types/recipeType";
 import RecipeIntro from "@/components/recipe/RecipeIntro/RecipeIntro";
@@ -11,6 +10,7 @@ import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import { useIsLogged } from "@/store/authStore";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { useQueryClient } from "@tanstack/react-query";
+import RecipeNavigate from "@/components/recipe/RecipeNavigate";
 
 interface YoutubeRecipeModalProps {
   recipeInfo: YoutubeRecipeType;
@@ -86,10 +86,11 @@ export default function YoutubeRecipeModal({
         <div className="mt-auto">
           <Separator className="my-4 w-full" />
 
-          <RecipeModalNavigate
+          <RecipeNavigate
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalLength={recipeInfo.steps.length}
+            hasIntro
           />
 
           <Button
