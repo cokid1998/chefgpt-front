@@ -73,7 +73,7 @@ export default function RecipeDetailPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex flex-1 flex-col gap-3 space-y-8 px-4 py-8 md:min-w-7xl">
+      <div className="mx-auto flex max-w-7xl flex-1 flex-col gap-3 space-y-8 px-4 py-8 md:block">
         <RecipeStepSlide
           step={recipe?.recipeSteps?.[currentStep - 1]}
           currentStep={currentStep}
