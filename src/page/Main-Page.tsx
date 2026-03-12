@@ -72,7 +72,7 @@ export default function HomePage() {
               to={VOTE}
             >
               <Users size={20} />
-              커뮤니티 둘러보기
+              요리투표해보기
             </Link>
           </div>
         </div>
