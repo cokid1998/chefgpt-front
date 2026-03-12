@@ -66,14 +66,14 @@ export default function RecipeDetailPage() {
             {recipe?.likeCount}
           </Button>
 
-          <div className="flex h-8 items-center gap-2 rounded-md border px-4 py-2 shadow-xs md:h-9">
+          <div className="hidden h-8 items-center gap-2 rounded-md border px-4 py-2 shadow-xs md:flex md:h-9">
             <Eye size={16} />
             {recipe?.viewCount}
           </div>
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl flex-1 flex-col gap-3 space-y-8 px-4 py-8">
+      <div className="mx-auto flex flex-1 flex-col gap-3 space-y-8 px-4 py-8 md:min-w-7xl">
         <RecipeStepSlide
           step={recipe?.recipeSteps?.[currentStep - 1]}
           currentStep={currentStep}
