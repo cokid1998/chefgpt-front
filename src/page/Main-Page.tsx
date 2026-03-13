@@ -2,30 +2,38 @@ import { Badge } from "@/components/ui/badge";
 import { ChefHat, Sparkles, Users } from "lucide-react";
 import { Link } from "react-router";
 import { CREATE_RECIPE, VOTE } from "@/constants/Url";
-import { useLocation } from "react-router";
-import { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import RecipeSearchBar from "@/components/home/RecipeSearchBar";
 import RecipeList from "@/components/home/RecipeList";
-import type { RecipeCategoryType } from "@/types/recipeType";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
+import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 
 export default function HomePage() {
   const location = useLocation();
-  const [selectCategory, setSelectCategory] = useState<RecipeCategoryType>({
-    id: 0,
-    name: "전체",
-  });
-  const [search, setSearch] = useState("");
+  const [params, setParams] = useSearchParams();
+  const categoryName = params.get("category") ?? "전체";
+  const search = params.get("search") ?? "";
+  const page = Number(params.get("page") ?? 1);
 
-  const handleCategoryClick = (categoryInfo: RecipeCategoryType) => {
-    setSelectCategory(categoryInfo);
-  };
+  const { data: categories = [] } = useGetRecipeCategory();
+  const categoryId =
+    categories.find((cate) => cate.name === categoryName)?.id ?? 0;
 
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setSearch(e.currentTarget.value);
-    }
-  };
+  const { data: recipeData, isLoading: recipeListLoading } = useGetAllRecipe(
+    categoryId,
+    search,
+    page,
+  );
 
   useEffect(() => {
     // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
@@ -78,13 +86,39 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-7xl px-4 py-12 md:mx-auto md:min-w-7xl">
-          <RecipeSearchBar
-            onSearchKeyDown={handleSearchKeyDown}
-            onCategoryClick={handleCategoryClick}
-            selectCategory={selectCategory}
-          />
+          <RecipeSearchBar />
 
-          <RecipeList selectCategory={selectCategory} search={search} />
+          <RecipeList />
+
+          <Pagination className="mt-10">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  aria-disabled={page === 1}
+                  className={page === 1 ? "pointer-events-none opacity-50" : ""}
+                />
+              </PaginationItem>
+
+              {[...Array(recipeData?.totalPage || 1)].map((_, index) => (
+                <PaginationItem key={index}>
+                  <PaginationLink href="#">{index + 1}</PaginationLink>
+                </PaginationItem>
+              ))}
+
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  aria-disabled={page === recipeData?.totalPage}
+                  className={
+                    page === recipeData?.totalPage
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </div>
     </>

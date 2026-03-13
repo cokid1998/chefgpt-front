@@ -51,10 +51,11 @@ export const QUERY_KEYS = {
   recipe: {
     all: ["recipe"],
     byYoutubeUrl: (recipeUrl: string) => ["recipe", recipeUrl],
-    list: (categoryId: number, search: string = "") => [
+    list: (categoryId: number, search: string = "", page: number = 1) => [
       "recipe",
       categoryId,
       search,
+      page,
     ],
     byId: (recipeId: number) => ["recipe", recipeId],
     my: ["recipe", "my"],

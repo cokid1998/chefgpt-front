@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { SearchIcon, Plus } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { CREATE_RECIPE } from "@/constants/Url";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,19 +12,31 @@ import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import RecipeSearchBarSkeleton from "@/components/home/skeleton/RecipeSearchBarSkeleton";
 import type { RecipeCategoryType } from "@/types/recipeType";
 
-interface RecipeSearchBarProps {
-  onSearchKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onCategoryClick: (categoryInfo: RecipeCategoryType) => void;
-  selectCategory: RecipeCategoryType;
-}
+export default function RecipeSearchBar() {
+  const [params, setParams] = useSearchParams();
+  const categoryName = params.get("category") ?? "전체";
+  const search = params.get("search") ?? "";
 
-export default function RecipeSearchBar({
-  onSearchKeyDown,
-  onCategoryClick,
-  selectCategory,
-}: RecipeSearchBarProps) {
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetRecipeCategory();
+
+  const handleCategoryClick = (categoryInfo: RecipeCategoryType) => {
+    setParams({
+      category: categoryInfo.name,
+      search,
+      page: "1",
+    });
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setParams({
+        category: categoryName,
+        search: e.currentTarget.value,
+        page: "1",
+      });
+    }
+  };
 
   if (isCategoryLoading) return <RecipeSearchBarSkeleton />;
 
@@ -34,7 +46,7 @@ export default function RecipeSearchBar({
         <InputGroup className="h-12 bg-white">
           <InputGroupInput
             placeholder="레시피 검색..."
-            onKeyDown={onSearchKeyDown}
+            onKeyDown={handleSearchKeyDown}
           />
           <InputGroupAddon>
             <SearchIcon />
@@ -54,11 +66,11 @@ export default function RecipeSearchBar({
           <Badge
             key={category.id}
             className={`cursor-pointer bg-white px-5 py-2 text-sm font-medium text-gray-600 ${
-              selectCategory.id === category.id
+              categoryName === category.name
                 ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg"
                 : "border-green-200 hover:border-green-400 hover:bg-green-50"
             }`}
-            onClick={() => onCategoryClick(category)}
+            onClick={() => handleCategoryClick(category)}
           >
             {category.name}
           </Badge>
