@@ -3,22 +3,16 @@ import { ChefHat, Sparkles, Users } from "lucide-react";
 import { Link } from "react-router";
 import { CREATE_RECIPE, VOTE } from "@/constants/Url";
 import { useLocation, useSearchParams } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 import RecipeSearchBar from "@/components/home/RecipeSearchBar";
 import RecipeList from "@/components/home/RecipeList";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
+import Pagination from "@/components/common/Pagination";
 
 export default function HomePage() {
+  const listRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [params, setParams] = useSearchParams();
   const categoryName = params.get("category") ?? "전체";
@@ -85,40 +79,15 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="max-w-7xl px-4 py-12 md:mx-auto md:min-w-7xl">
+        <div
+          className="max-w-7xl px-4 py-12 md:mx-auto md:min-w-7xl"
+          ref={listRef}
+        >
           <RecipeSearchBar />
 
           <RecipeList />
 
-          <Pagination className="mt-10">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  aria-disabled={page === 1}
-                  className={page === 1 ? "pointer-events-none opacity-50" : ""}
-                />
-              </PaginationItem>
-
-              {[...Array(recipeData?.totalPage || 1)].map((_, index) => (
-                <PaginationItem key={index}>
-                  <PaginationLink href="#">{index + 1}</PaginationLink>
-                </PaginationItem>
-              ))}
-
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  aria-disabled={page === recipeData?.totalPage}
-                  className={
-                    page === recipeData?.totalPage
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
+          <Pagination data={recipeData} listRef={listRef} />
         </div>
       </div>
     </>
