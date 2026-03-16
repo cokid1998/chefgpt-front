@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { SearchIcon, Plus } from "lucide-react";
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import { CREATE_RECIPE } from "@/constants/Url";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +11,10 @@ import {
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import RecipeSearchBarSkeleton from "@/components/home/skeleton/RecipeSearchBarSkeleton";
 import type { RecipeCategoryType } from "@/types/recipeType";
+import usePaginationParams from "@/hooks/usePagination";
 
 export default function RecipeSearchBar() {
-  const [params, setParams] = useSearchParams();
-  const categoryName = params.get("category") ?? "전체";
-  const search = params.get("search") ?? "";
+  const { categoryName, search, setParams } = usePaginationParams();
 
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetRecipeCategory();

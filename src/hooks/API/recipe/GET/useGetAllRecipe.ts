@@ -19,8 +19,6 @@ const useGetAllRecipe = (
     queryFn: async () => {
       const res = await API.get<RecipePagination>(GET_RECIPE, {
         params: {
-          // categoryId가 0이면 쿼리스트링에 categoryId가 포함안되게 구현
-          // axios에서 쿼리스트링이 undefined면 url에서 아예 제외시킴
           categoryId,
           search,
           page,

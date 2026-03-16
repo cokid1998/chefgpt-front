@@ -6,10 +6,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/ui/pagination";
-import { useSearchParams } from "react-router";
 import { useEffect, type RefObject } from "react";
+import usePaginationParams from "@/hooks/usePagination";
 
 interface PaginationProps {
   data: any;
@@ -17,10 +16,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ data, listRef }: PaginationProps) {
-  const [params, setParams] = useSearchParams();
-  const categoryName = params.get("category") ?? "전체";
-  const search = params.get("search") ?? "";
-  const page = Number(params.get("page") ?? 1);
+  const { categoryName, search, page } = usePaginationParams();
 
   const totalPage = data?.totalPage ?? 1;
 

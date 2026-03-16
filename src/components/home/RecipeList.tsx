@@ -2,14 +2,11 @@ import { CookingPot } from "lucide-react";
 import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import RecipeListSkeleton from "@/components/home/skeleton/RecipeListSkeleton";
-import { useSearchParams } from "react-router";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
+import usePaginationParams from "@/hooks/usePagination";
 
 export default function RecipeList() {
-  const [params, setParams] = useSearchParams();
-  const categoryName = params.get("category") ?? "전체";
-  const search = params.get("search") ?? "";
-  const page = Number(params.get("page") ?? 1);
+  const { categoryName, search, page } = usePaginationParams();
 
   const { data: categories = [] } = useGetRecipeCategory();
   const categoryId =
@@ -32,7 +29,7 @@ export default function RecipeList() {
             {categoryName} 레시피
           </span>
           <span className="text-sm text-gray-500">
-            ({recipeData?.recipeIds?.length}개)
+            ({recipeData?.totalCount}개)
           </span>
         </h1>
       </div>
