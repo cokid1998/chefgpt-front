@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import DotIndicator from "@/components/common/DotIndicator";
 
 interface RecipeNavigateProps {
   totalLength: number;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  hasIntro?: boolean; // 추가
+  hasIntro?: boolean;
 }
 
 export default function RecipeNavigate({
@@ -46,18 +47,11 @@ export default function RecipeNavigate({
             ? "시작하기"
             : `${currentStep} / ${totalLength}`}
         </div>
-        <div className="flex gap-1">
-          {[...Array(hasIntro ? totalLength + 1 : totalLength)].map((_, i) => (
-            <div
-              key={i}
-              className={`h-2 rounded-full transition-all ${
-                (hasIntro ? i === currentStep : i + 1 === currentStep)
-                  ? "w-8 bg-green-500"
-                  : "w-2 bg-black/30"
-              }`}
-            />
-          ))}
-        </div>
+        <DotIndicator
+          totalLength={hasIntro ? totalLength + 1 : totalLength}
+          activeStep={currentStep}
+          hasIntro={hasIntro}
+        />
       </div>
 
       <Button
