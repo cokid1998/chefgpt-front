@@ -6,16 +6,16 @@ interface RecipeStepNavigateProps {
   totalLength: number;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  hasIntro?: boolean;
+  isRecipeIntro?: boolean;
 }
 
-export default function RecipeStepNavigate({
+export default function RecipeIndicator({
   totalLength,
   currentStep,
   setCurrentStep,
-  hasIntro = false,
+  isRecipeIntro = false,
 }: RecipeStepNavigateProps) {
-  const minStep = hasIntro ? 0 : 1;
+  const startStep = isRecipeIntro ? 0 : 1;
 
   const nextStep = () => {
     if (currentStep < totalLength) {
@@ -24,7 +24,7 @@ export default function RecipeStepNavigate({
   };
 
   const prevStep = () => {
-    if (currentStep > minStep) {
+    if (currentStep > startStep) {
       setCurrentStep((prev) => prev - 1);
     }
   };
@@ -33,7 +33,7 @@ export default function RecipeStepNavigate({
     <div className="flex items-center justify-between">
       <Button
         onClick={prevStep}
-        disabled={currentStep === minStep}
+        disabled={currentStep === startStep}
         size="lg"
         className="bg-green-500 text-white hover:bg-green-600 disabled:opacity-30"
       >
@@ -43,14 +43,13 @@ export default function RecipeStepNavigate({
 
       <div className="text-center">
         <div className="mb-1 text-sm opacity-70">
-          {hasIntro && currentStep === 0
+          {isRecipeIntro && currentStep === 0
             ? "시작하기"
             : `${currentStep} / ${totalLength}`}
         </div>
         <DotIndicator
-          totalLength={hasIntro ? totalLength + 1 : totalLength}
-          activeStep={currentStep}
-          hasIntro={hasIntro}
+          totalLength={isRecipeIntro ? totalLength + 1 : totalLength}
+          activeIndex={isRecipeIntro ? currentStep + 1 : currentStep}
         />
       </div>
 

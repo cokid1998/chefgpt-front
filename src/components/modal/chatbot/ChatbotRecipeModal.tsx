@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import type { ChatbotRecipe } from "@/types/recipeType";
 import usePostCreateRecipe from "@/hooks/API/recipe/POST/usePostCreateRecipe";
-import RecipeStepNavigate from "@/components/recipe/RecipeNavigate";
+import RecipeIndicator from "@/components/recipe/RecipeIndicator";
 
 interface ChatbotRecipeModalProps {
   recipe: ChatbotRecipe;
@@ -56,11 +56,11 @@ export default function ChatbotRecipeModal({
         <div className="mt-auto">
           <Separator className="my-4 w-full" />
 
-          <RecipeStepNavigate
+          <RecipeIndicator
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalLength={recipe.steps.length}
-            hasIntro
+            isRecipeIntro
           />
 
           <Button

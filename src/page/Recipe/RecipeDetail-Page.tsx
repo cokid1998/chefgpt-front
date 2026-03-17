@@ -8,7 +8,7 @@ import { useOpenModal } from "@/store/modalStore";
 import IngredientViewModal from "@/components/modal/recipe/IngredientViewModal";
 import usePostRecipeToggleLike from "@/hooks/API/recipe/POST/usePostRecipeToggleLike";
 import useIsMobile from "@/hooks/useIsMobile";
-import RecipeStepNavigate from "@/components/recipe/RecipeNavigate";
+import RecipeIndicator from "@/components/recipe/RecipeIndicator";
 
 export default function RecipeDetailPage() {
   const nav = useNavigate();
@@ -83,7 +83,7 @@ export default function RecipeDetailPage() {
           youtubeId={recipe.youtubeVideoId}
         />
 
-        <RecipeStepNavigate
+        <RecipeIndicator
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           totalLength={recipe?.recipeSteps.length}
