@@ -1,39 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Plus, Refrigerator } from "lucide-react";
 import Chatbot from "@/components/refrigerator/Chatbot";
-import useGetAllFood from "@/hooks/API/food/GET/useGetAllFood";
 import { useOpenModal } from "@/store/modalStore";
 import CreateFoodModal from "@/components/modal/refrigerator/CreateFoodModal";
-import { useState } from "react";
 import FoodList from "@/components/refrigerator/foodList/FoodList";
 import FoodCount from "@/components/refrigerator/foodCount/FoodCount";
 import FoodSearchBar from "@/components/refrigerator/foodSearchBar/FoodSearchBar";
 
 function RefrigeratorPage() {
   const openModal = useOpenModal();
-  const [selectCategory, setSelectCategory] = useState("전체");
-  const [search, setSearch] = useState("");
-  const [selectExpire, setSelectExpire] = useState("ALL");
-
-  const { data: foodIds = [], isLoading: isFoodsLoading } = useGetAllFood(
-    selectCategory,
-    search,
-    selectExpire,
-  );
-
-  const handleCategoryClick = (category: string) => {
-    setSelectCategory(category);
-  };
-
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setSearch(e.currentTarget.value);
-    }
-  };
-
-  const handleExpireClick = (expire: string) => {
-    setSelectExpire(expire);
-  };
 
   return (
     <>
@@ -69,15 +44,9 @@ function RefrigeratorPage() {
           <div className="flex w-full flex-col gap-8">
             <FoodCount />
 
-            <FoodSearchBar
-              selectExpire={selectExpire}
-              selectCategory={selectCategory}
-              onSearchKeyDown={handleSearchKeyDown}
-              onCategoryClick={handleCategoryClick}
-              onExpireClick={handleExpireClick}
-            />
+            <FoodSearchBar />
 
-            <FoodList foodIds={foodIds} isFoodsLoading={isFoodsLoading} />
+            <FoodList />
           </div>
           <Chatbot />
         </div>
