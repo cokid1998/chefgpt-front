@@ -19,7 +19,7 @@ export default function VoteList() {
           {activeVoteListLoading
             ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
             : activeVoteList?.map((item) => (
-                <VoteCard key={item.title} {...item} />
+                <VoteCard key={item.id} {...item} />
               ))}
         </div>
       </div>
@@ -31,7 +31,7 @@ export default function VoteList() {
           {closeVoteListLoading
             ? [...Array(3)].map((_, i) => <VoteCardSkeleton key={i} />)
             : closeVoteList?.map((item) => (
-                <VoteCard key={item.title} {...item} />
+                <VoteCard key={item.id} {...item} />
               ))}
         </div>
       </div>
