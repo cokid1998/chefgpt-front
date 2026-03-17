@@ -1,9 +1,8 @@
 import FoodCard from "@/components/refrigerator/foodList/FoodCard";
 import { Package } from "lucide-react";
-import FoodCountSkeleton from "@/components/refrigerator/skeleton/FoodCountSkeleton";
+import FoodCardSkeleton from "@/components/refrigerator/skeleton/FoodCardSkeleton";
 
 interface FoodListProps {
-  // foods: FoodType[];
   foodIds: number[];
   isFoodsLoading: boolean;
 }
@@ -13,7 +12,7 @@ export default function FoodList({ foodIds, isFoodsLoading }: FoodListProps) {
     return (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {[...Array(4)].map((_, i) => (
-          <FoodCountSkeleton key={i} />
+          <FoodCardSkeleton key={i} />
         ))}
       </div>
     );

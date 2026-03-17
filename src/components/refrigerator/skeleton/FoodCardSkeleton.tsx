@@ -1,4 +1,4 @@
-export default function CardSkeleton() {
+export default function FoodCardSkeleton() {
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 shadow">
       <div className="mb-3 flex items-start justify-between">
