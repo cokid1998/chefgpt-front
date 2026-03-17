@@ -11,10 +11,10 @@ import {
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import RecipeSearchBarSkeleton from "@/components/home/skeleton/RecipeSearchBarSkeleton";
 import type { RecipeCategoryType } from "@/types/recipeType";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 
 export default function RecipeSearchBar() {
-  const { categoryName, search, setParams } = usePaginationParams();
+  const { categoryName, search, setParams } = useListParams();
 
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetRecipeCategory();

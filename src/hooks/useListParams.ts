@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 
-const usePaginationParams = () => {
+const useListParams = () => {
   const [params, setParams] = useSearchParams();
   const categoryName = params.get("category") ?? "전체";
   const search = params.get("search") ?? "";
@@ -9,4 +9,4 @@ const usePaginationParams = () => {
   return { params, setParams, categoryName, search, page };
 };
 
-export default usePaginationParams;
+export default useListParams;

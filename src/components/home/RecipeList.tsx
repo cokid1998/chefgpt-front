@@ -3,10 +3,10 @@ import RecipeCard from "@/components/recipe/RecipeCard";
 import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import RecipeListSkeleton from "@/components/home/skeleton/RecipeListSkeleton";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 
 export default function RecipeList() {
-  const { categoryName, search, page } = usePaginationParams();
+  const { categoryName, search, page } = useListParams();
 
   const { data: categories = [] } = useGetRecipeCategory();
   const categoryId =

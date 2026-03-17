@@ -7,10 +7,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import useGetArticleCategory from "@/hooks/API/article/GET/useGetArticleCategory";
 import ArticleSearchBarSkeleton from "@/components/article/skeleton/ArticleSearchBarSkeleton";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 
 export default function ArticleSearchBar() {
-  const { categoryName, search, setParams } = usePaginationParams();
+  const { categoryName, search, setParams } = useListParams();
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetArticleCategory();
 

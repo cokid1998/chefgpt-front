@@ -1,11 +1,11 @@
 import ArticleCard from "@/components/article/ArticleCard";
 import useGetArticleCount from "@/hooks/API/article/GET/useGetArticleCount";
 import ArticleCardSkeleton from "@/components/article/skeleton/ArticleCardSkeleton";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
 
 export default function ArticleList() {
-  const { categoryName, search, page } = usePaginationParams();
+  const { categoryName, search, page } = useListParams();
 
   const { data: articleCount } = useGetArticleCount();
 

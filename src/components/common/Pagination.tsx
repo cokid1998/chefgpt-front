@@ -8,7 +8,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useEffect, type RefObject } from "react";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 
 interface PaginationProps {
   data: any;
@@ -16,7 +16,7 @@ interface PaginationProps {
 }
 
 export default function Pagination({ data, listRef }: PaginationProps) {
-  const { categoryName, search, page } = usePaginationParams();
+  const { categoryName, search, page } = useListParams();
 
   const totalPage = data?.totalPage ?? 1;
 

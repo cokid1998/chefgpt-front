@@ -5,13 +5,13 @@ import ArticleList from "@/components/article/ArticleList";
 import { useNavigate } from "react-router";
 import { ARTICLE_CREATE_URL } from "@/constants/Url";
 import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 import Pagination from "@/components/common/Pagination";
 import { useRef } from "react";
 
 export default function ArticlePage() {
   const articleListRef = useRef<HTMLDivElement>(null);
-  const { categoryName, search, page } = usePaginationParams();
+  const { categoryName, search, page } = useListParams();
   const nav = useNavigate();
 
   const { data: articleData } = useGetAllArticle(categoryName, search, page);

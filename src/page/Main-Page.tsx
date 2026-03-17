@@ -10,12 +10,12 @@ import RecipeList from "@/components/home/RecipeList";
 import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import Pagination from "@/components/common/Pagination";
-import usePaginationParams from "@/hooks/usePagination";
+import useListParams from "@/hooks/useListParams";
 
 export default function HomePage() {
   const listRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const { categoryName, search, page } = usePaginationParams();
+  const { categoryName, search, page } = useListParams();
 
   const { data: categories = [] } = useGetRecipeCategory();
   const categoryId =
