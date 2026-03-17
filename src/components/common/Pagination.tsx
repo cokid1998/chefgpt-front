@@ -12,10 +12,10 @@ import useListParams from "@/hooks/useListParams";
 
 interface PaginationProps {
   data: any;
-  listRef: RefObject<HTMLDivElement | null>;
+  focusRef: RefObject<HTMLDivElement | null>;
 }
 
-export default function Pagination({ data, listRef }: PaginationProps) {
+export default function Pagination({ data, focusRef }: PaginationProps) {
   const { categoryName, search, page } = useListParams();
 
   const totalPage = data?.totalPage ?? 1;
@@ -31,11 +31,11 @@ export default function Pagination({ data, listRef }: PaginationProps) {
   );
 
   useEffect(() => {
-    listRef.current?.scrollIntoView({ behavior: "instant" });
+    focusRef.current?.scrollIntoView({ behavior: "instant" });
   }, [page]);
 
   return (
-    <RootPagination className="mt-10" ref={listRef}>
+    <RootPagination className="mt-10" ref={focusRef}>
       <PaginationContent>
         <PaginationItem>
           {page === 1 ? (

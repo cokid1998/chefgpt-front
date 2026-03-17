@@ -81,7 +81,7 @@ export default function HomePage() {
 
           <RecipeList />
 
-          <Pagination data={recipeData} listRef={listRef} />
+          <Pagination data={recipeData} focusRef={listRef} />
         </div>
       </div>
     </>

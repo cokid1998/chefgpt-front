@@ -10,7 +10,7 @@ import Pagination from "@/components/common/Pagination";
 import { useRef } from "react";
 
 export default function ArticlePage() {
-  const articleListRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const { categoryName, search, page } = useListParams();
   const nav = useNavigate();
 
@@ -45,13 +45,16 @@ export default function ArticlePage() {
           </div>
         </div>
 
-        <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-4 py-8 md:px-8">
+        <div
+          className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-4 py-8 md:px-8"
+          ref={listRef}
+        >
           <div className="flex w-full flex-col gap-8">
             <ArticleSearchBar />
 
             <ArticleList />
 
-            <Pagination data={articleData} listRef={articleListRef} />
+            <Pagination data={articleData} focusRef={listRef} />
           </div>
         </div>
       </div>
