@@ -38,10 +38,11 @@ export const QUERY_KEYS = {
 
   article: {
     all: ["article"],
-    list: (category: string = "", search: string = "") => [
+    list: (category: string = "", search: string = "", page: number = 1) => [
       "article",
       category,
       search,
+      page,
     ],
     byId: (articleId: number) => ["article", articleId],
     my: ["article", "my"],

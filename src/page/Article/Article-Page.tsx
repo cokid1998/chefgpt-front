@@ -4,26 +4,17 @@ import ArticleSearchBar from "@/components/article/ArticleSearchBar";
 import ArticleList from "@/components/article/ArticleList";
 import { useNavigate } from "react-router";
 import { ARTICLE_CREATE_URL } from "@/constants/Url";
-import { useState } from "react";
 import useGetAllArticle from "@/hooks/API/article/GET/useGetAllArticle";
+import usePaginationParams from "@/hooks/usePagination";
+import Pagination from "@/components/common/Pagination";
+import { useRef } from "react";
 
 export default function ArticlePage() {
+  const articleListRef = useRef<HTMLDivElement>(null);
+  const { categoryName, search, page } = usePaginationParams();
   const nav = useNavigate();
-  const [search, setSearch] = useState("");
-  const [selectCategory, setSelectCategory] = useState("전체");
 
-  const { data: articleIds = [], isLoading: isArticleLoading } =
-    useGetAllArticle(selectCategory, search);
-
-  const handleCategoryClick = (category: string) => {
-    setSelectCategory(category);
-  };
-
-  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setSearch(e.currentTarget.value);
-    }
-  };
+  const { data: articleData } = useGetAllArticle(categoryName, search, page);
 
   return (
     <>
@@ -56,17 +47,11 @@ export default function ArticlePage() {
 
         <div className="mx-auto flex w-full max-w-7xl justify-between gap-8 px-4 py-8 md:px-8">
           <div className="flex w-full flex-col gap-8">
-            <ArticleSearchBar
-              selectCategory={selectCategory}
-              onSearchKeyDown={handleSearchKeyDown}
-              onCategoryClick={handleCategoryClick}
-            />
+            <ArticleSearchBar />
 
-            <ArticleList
-              selectCategory={selectCategory}
-              articleIds={articleIds}
-              isArticleLoading={isArticleLoading}
-            />
+            <ArticleList />
+
+            <Pagination data={articleData} listRef={articleListRef} />
           </div>
         </div>
       </div>

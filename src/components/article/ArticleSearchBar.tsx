@@ -7,20 +7,30 @@ import {
 import { Badge } from "@/components/ui/badge";
 import useGetArticleCategory from "@/hooks/API/article/GET/useGetArticleCategory";
 import ArticleSearchBarSkeleton from "@/components/article/skeleton/ArticleSearchBarSkeleton";
+import usePaginationParams from "@/hooks/usePagination";
 
-interface ArticleSearchBarProps {
-  selectCategory: string;
-  onSearchKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  onCategoryClick: (category: string) => void;
-}
-
-export default function ArticleSearchBar({
-  selectCategory,
-  onSearchKeyDown,
-  onCategoryClick,
-}: ArticleSearchBarProps) {
+export default function ArticleSearchBar() {
+  const { categoryName, search, setParams } = usePaginationParams();
   const { data: categories = [], isLoading: isCategoryLoading } =
     useGetArticleCategory();
+
+  const handleCategoryClick = (category: string) => {
+    setParams({
+      category: category,
+      search,
+      page: "1",
+    });
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setParams({
+        category: categoryName,
+        search: e.currentTarget.value,
+        page: "1",
+      });
+    }
+  };
 
   if (isCategoryLoading) return <ArticleSearchBarSkeleton />;
 
@@ -29,7 +39,7 @@ export default function ArticleSearchBar({
       <InputGroup className="mb-4 h-12 bg-white">
         <InputGroupInput
           placeholder="아티클 검색..."
-          onKeyDown={onSearchKeyDown}
+          onKeyDown={handleSearchKeyDown}
           className="w-full"
         />
         <InputGroupAddon>
@@ -42,9 +52,9 @@ export default function ArticleSearchBar({
           return (
             <Badge
               variant={"outline"}
-              className={`w-fit cursor-pointer border-green-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50 ${selectCategory === cat.name ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg" : "border-green-200 text-gray-600 hover:border-green-400 hover:bg-green-50"}`}
+              className={`w-fit cursor-pointer border-green-200 bg-white px-5 py-2 text-sm font-medium text-gray-600 hover:border-green-400 hover:bg-green-50 ${categoryName === cat.name ? "bg-green-gradient border-none text-white shadow-md hover:shadow-lg" : "border-green-200 text-gray-600 hover:border-green-400 hover:bg-green-50"}`}
               key={cat.id}
-              onClick={() => onCategoryClick(cat.name)}
+              onClick={() => handleCategoryClick(cat.name)}
             >
               {cat.name}
             </Badge>
