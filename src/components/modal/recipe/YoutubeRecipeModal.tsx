@@ -10,7 +10,7 @@ import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import { useIsLogged } from "@/store/authStore";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { useQueryClient } from "@tanstack/react-query";
-import RecipeNavigate from "@/components/recipe/RecipeNavigate";
+import RecipeStepNavigate from "@/components/recipe/RecipeNavigate";
 
 interface YoutubeRecipeModalProps {
   recipeInfo: YoutubeRecipeType;
@@ -86,7 +86,7 @@ export default function YoutubeRecipeModal({
         <div className="mt-auto">
           <Separator className="my-4 w-full" />
 
-          <RecipeNavigate
+          <RecipeStepNavigate
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
             totalLength={recipeInfo.steps.length}

@@ -2,19 +2,19 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import DotIndicator from "@/components/common/DotIndicator";
 
-interface RecipeNavigateProps {
+interface RecipeStepNavigateProps {
   totalLength: number;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   hasIntro?: boolean;
 }
 
-export default function RecipeNavigate({
+export default function RecipeStepNavigate({
   totalLength,
   currentStep,
   setCurrentStep,
   hasIntro = false,
-}: RecipeNavigateProps) {
+}: RecipeStepNavigateProps) {
   const minStep = hasIntro ? 0 : 1;
 
   const nextStep = () => {
