@@ -47,6 +47,10 @@ export default function MyInfoArticleTab({ curTab }: MyInfoArticleTabProps) {
 
   const isLoading = isMyArticle ? isMyArticleLoading : isLikedArticleLoading;
 
+  const totalCount = isMyArticle
+    ? myArticleData?.totalCount
+    : myLikedArticleData?.totalCount;
+
   const renderList = () => {
     if (isLoading) {
       return Array.from({ length: 6 }).map((_, i) => (
@@ -62,7 +66,7 @@ export default function MyInfoArticleTab({ curTab }: MyInfoArticleTabProps) {
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curLabel}({curList?.length ?? 0}개)
+        {curLabel}({totalCount}개)
         <Select
           value={select}
           onValueChange={(value) => handleSelectChange(value)}

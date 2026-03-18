@@ -21,7 +21,6 @@ import {
 import { Vote } from "lucide-react";
 import { VOTE } from "@/constants/Url";
 import Pagination from "@/components/common/Pagination";
-import { useRef } from "react";
 import useListParams from "@/hooks/useListParams";
 
 const MY_INFO_VOTE_TYPE = {
@@ -55,6 +54,10 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
   const isLoading = isMyVote ? isMyVoteLoading : isVotedLoading;
 
+  const totalCount = isMyVote
+    ? myVoteData?.totalCount
+    : myVotedData?.totalCount;
+
   const renderList = () => {
     if (isLoading) {
       return Array.from({ length: 3 }).map((_, i) =>
@@ -80,7 +83,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curLabel}({curList?.length}개)
+        {curLabel}({totalCount}개)
         <Select
           value={select}
           onValueChange={(value) => handleSelectChange(value)}

@@ -47,12 +47,16 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
 
   const isLoading = isMyRecipe ? isMyRecipeLoading : isLikedRecipeLoading;
 
+  const totalCount = isMyRecipe
+    ? myRecipeData?.totalCount
+    : likedRecipeData?.totalCount;
+
   if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
     <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
-        {curLabel}({curList?.length}개)
+        {curLabel}({totalCount}개)
         <Select
           value={select}
           onValueChange={(value) => handleSelectChange(value)}
