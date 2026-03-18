@@ -7,7 +7,7 @@ export default function MyInfoRecipeTabSkeleton() {
 
       <div className="p-6 pt-0">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((i) => (
+          {Array.from({ length: 9 }).map((_, i) => (
             <div key={i} className="overflow-hidden rounded-2xl border shadow">
               <div className="relative h-48 animate-pulse bg-gray-200">
                 <div className="absolute top-3 left-3 h-6 w-16 rounded-md bg-gray-300" />
