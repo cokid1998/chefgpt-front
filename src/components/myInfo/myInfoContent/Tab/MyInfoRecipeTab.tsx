@@ -14,7 +14,6 @@ import {
 import useGetLikedRecipe from "@/hooks/API/recipe/GET/useGetLikedRecipe";
 import useListParams from "@/hooks/useListParams";
 import Pagination from "@/components/common/Pagination";
-import { useRef } from "react";
 
 export const MY_RECIPE_TYPE = {
   MY: { LABEL: "내 레시피", VALUE: "my" },
@@ -26,7 +25,6 @@ interface MyInfoRecipeTabProps {
 }
 
 export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
-  const listRef = useRef<HTMLDivElement>(null);
   const { setParams, page, select, tab } = useListParams();
   const isMyRecipe = select === MY_RECIPE_TYPE.MY.VALUE;
 
@@ -52,7 +50,7 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
   if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
-    <div className="rounded-lg border-none bg-white shadow-lg" ref={listRef}>
+    <div className="rounded-lg border-none bg-white shadow-lg">
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
         {curLabel}({curList?.length}개)
         <Select
@@ -87,7 +85,6 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
           data={
             select === MY_RECIPE_TYPE.MY.VALUE ? myRecipeData : likedRecipeData
           }
-          focusRef={listRef}
           buildUrl={(page) => `?tab=${tab}&select=${select}&page=${page}`}
         />
       </div>
