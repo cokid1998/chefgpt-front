@@ -11,8 +11,8 @@ import { useEffect, type RefObject } from "react";
 import useListParams from "@/hooks/useListParams";
 
 interface PaginationProps {
-  data: any;
-  focusRef: RefObject<HTMLDivElement | null>;
+  data: any; // Todo: any제거
+  focusRef?: RefObject<HTMLDivElement | null>;
   buildUrl: (page: number) => string; // URL 구성 방식을 외부에서 주입
 }
 
@@ -34,11 +34,13 @@ export default function Pagination({
   );
 
   useEffect(() => {
-    focusRef.current?.scrollIntoView({ behavior: "instant" });
+    if (focusRef) {
+      focusRef.current?.scrollIntoView({ behavior: "instant" });
+    }
   }, [page]);
 
   return (
-    <RootPagination className="mt-10" ref={focusRef}>
+    <RootPagination className="mt-10">
       <PaginationContent>
         <PaginationItem>
           {page === 1 ? (
