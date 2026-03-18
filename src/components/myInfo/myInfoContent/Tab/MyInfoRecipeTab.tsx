@@ -1,5 +1,5 @@
 import { ChefHat, Heart } from "lucide-react";
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import useGetMyRecipe from "@/hooks/API/recipe/GET/useGetMyRecipe";
 import { CREATE_RECIPE } from "@/constants/Url";
 import MyInfoRecipeTabSkeleton from "@/components/myInfo/skeleton/MyInfoRecipeTabSkeleton";
@@ -12,8 +12,11 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import useGetLikedRecipe from "@/hooks/API/recipe/GET/useGetLikedRecipe";
+import useListParams from "@/hooks/useListParams";
+import Pagination from "@/components/common/Pagination";
+import { useRef } from "react";
 
-const MY_RECIPE_TYPE = {
+export const MY_RECIPE_TYPE = {
   MY: { LABEL: "내 레시피", VALUE: "my" },
   LIKED: { LABEL: "좋아요 누른 레시피", VALUE: "liked" },
 } as const;
@@ -23,33 +26,37 @@ interface MyInfoRecipeTabProps {
 }
 
 export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const curSelect = searchParams.get("select") ?? MY_RECIPE_TYPE.MY.VALUE;
-  const isMyRecipe = curSelect === MY_RECIPE_TYPE.MY.VALUE;
+  const listRef = useRef<HTMLDivElement>(null);
+  const { setParams, page, select, tab } = useListParams();
+  const isMyRecipe = select === MY_RECIPE_TYPE.MY.VALUE;
 
-  const { data: myRecipeIdList, isLoading: isMyRecipeLoading } =
-    useGetMyRecipe();
-  const { data: likedRecipeIdList, isLoading: isLikedRecipeLoading } =
-    useGetLikedRecipe(curSelect === MY_RECIPE_TYPE.LIKED.VALUE);
+  const { data: myRecipeData, isLoading: isMyRecipeLoading } =
+    useGetMyRecipe(page);
+  const { data: likedRecipeData, isLoading: isLikedRecipeLoading } =
+    useGetLikedRecipe(select === MY_RECIPE_TYPE.LIKED.VALUE, page);
 
   const handleSelectChange = (value: string) => {
-    setSearchParams({ tab: curTab, select: value });
+    setParams({ tab: curTab, select: value });
   };
 
   const curLabel = isMyRecipe
     ? MY_RECIPE_TYPE.MY.LABEL
     : MY_RECIPE_TYPE.LIKED.LABEL;
-  const curList = isMyRecipe ? myRecipeIdList : likedRecipeIdList;
+
+  const curList = isMyRecipe
+    ? myRecipeData?.myRecipeIds
+    : likedRecipeData?.likedRecipeIds;
+
   const isLoading = isMyRecipe ? isMyRecipeLoading : isLikedRecipeLoading;
 
   if (isLoading) return <MyInfoRecipeTabSkeleton />;
 
   return (
-    <div className="rounded-lg border-none bg-white shadow-lg">
+    <div className="rounded-lg border-none bg-white shadow-lg" ref={listRef}>
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
         {curLabel}({curList?.length}개)
         <Select
-          value={curSelect}
+          value={select}
           onValueChange={(value) => handleSelectChange(value)}
         >
           <SelectTrigger size="sm">
@@ -76,6 +83,13 @@ export default function MyInfoRecipeTab({ curTab }: MyInfoRecipeTabProps) {
             ))}
           </div>
         )}
+        <Pagination
+          data={
+            select === MY_RECIPE_TYPE.MY.VALUE ? myRecipeData : likedRecipeData
+          }
+          focusRef={listRef}
+          buildUrl={(page) => `?tab=${tab}&select=${select}&page=${page}`}
+        />
       </div>
     </div>
   );

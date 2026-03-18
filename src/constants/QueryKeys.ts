@@ -58,7 +58,7 @@ export const QUERY_KEYS = {
       page,
     ],
     byId: (recipeId: number) => ["recipe", recipeId],
-    my: ["recipe", "my"],
-    liked: ["recipe", "liked"],
+    my: (page: number = 1) => ["recipe", "my", page],
+    liked: (page: number = 1) => ["recipe", "liked", page],
   },
 } as const;
