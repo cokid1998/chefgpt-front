@@ -13,13 +13,16 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { useSearchParams, Link } from "react-router";
+import { Link } from "react-router";
 import {
   MyVoteItemSkeleton,
   VotedItemSkeleton,
 } from "@/components/myInfo/skeleton/MyInfoVoteTabSkeleton";
 import { Vote } from "lucide-react";
 import { VOTE } from "@/constants/Url";
+import Pagination from "@/components/common/Pagination";
+import { useRef } from "react";
+import useListParams from "@/hooks/useListParams";
 
 const MY_INFO_VOTE_TYPE = {
   MY: { LABEL: "내 투표", VALUE: "my" },
@@ -31,23 +34,25 @@ interface MyInfoVoteTabProps {
 }
 
 export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const curSelect = searchParams.get("select") ?? MY_INFO_VOTE_TYPE.MY.VALUE;
-  const isMyVote = curSelect === MY_INFO_VOTE_TYPE.MY.VALUE;
+  const { select, setParams, page, tab } = useListParams();
+  const isMyVote = select === MY_INFO_VOTE_TYPE.MY.VALUE;
 
-  const { data: myVoteList = [], isLoading: isMyVoteLoading } = useGetMyVote();
-  const { data: votedList = [], isLoading: isVotedLoading } = useGetMyVoted(
-    curSelect === MY_INFO_VOTE_TYPE.VOTED.VALUE,
+  const { data: myVoteData, isLoading: isMyVoteLoading } = useGetMyVote(page);
+  const { data: myVotedData, isLoading: isVotedLoading } = useGetMyVoted(
+    select === MY_INFO_VOTE_TYPE.VOTED.VALUE,
+    page,
   );
 
   const handleSelectChange = (value: string) => {
-    setSearchParams({ tab: curTab, select: value });
+    setParams({ tab: curTab, select: value });
   };
 
   const curLabel = isMyVote
     ? MY_INFO_VOTE_TYPE.MY.LABEL
     : MY_INFO_VOTE_TYPE.VOTED.LABEL;
-  const curList = isMyVote ? myVoteList : votedList;
+
+  const curList = isMyVote ? myVoteData?.myVote : myVoteData?.myVote;
+
   const isLoading = isMyVote ? isMyVoteLoading : isVotedLoading;
 
   const renderList = () => {
@@ -62,10 +67,14 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
     }
 
     if (isMyVote) {
-      return myVoteList.map((vote) => <MYVoteItem key={vote.id} vote={vote} />);
+      return myVoteData?.myVote.map((vote) => (
+        <MYVoteItem key={vote.id} vote={vote} />
+      ));
     }
 
-    return votedList.map((vote) => <VotedItem key={vote.id} vote={vote} />);
+    return myVotedData?.myVoted.map((vote) => (
+      <VotedItem key={vote.id} vote={vote} />
+    ));
   };
 
   return (
@@ -73,7 +82,7 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
         {curLabel}({curList?.length}개)
         <Select
-          value={curSelect}
+          value={select}
           onValueChange={(value) => handleSelectChange(value)}
         >
           <SelectTrigger size="sm">
@@ -92,12 +101,19 @@ export default function MyInfoVoteTab({ curTab }: MyInfoVoteTabProps) {
 
       <div className="p-6 pt-0">
         <div className="space-y-4">
-          {!isLoading && curList.length === 0 ? (
+          {!isLoading && curList?.length === 0 ? (
             <EmptyVote isMyVote={isMyVote} />
           ) : (
             renderList()
           )}
         </div>
+
+        <Pagination
+          data={
+            select === MY_INFO_VOTE_TYPE.MY.VALUE ? myVoteData : myVotedData
+          }
+          buildUrl={(page) => `?tab=${tab}&select=${select}&page=${page}`}
+        />
       </div>
     </div>
   );

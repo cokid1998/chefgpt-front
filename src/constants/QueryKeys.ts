@@ -31,8 +31,8 @@ export const QUERY_KEYS = {
   vote: {
     all: ["vote"],
     list: (status: "active" | "close") => ["vote", "list", status],
-    my: ["vote", "my"],
-    voted: ["vote", "voted"],
+    my: (page: number) => ["vote", "my", page],
+    voted: (page: number) => ["vote", "voted", page],
   },
 
   article: {
