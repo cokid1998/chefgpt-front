@@ -2,63 +2,54 @@ import { useState } from "react";
 import DotIndicator from "@/components/common/DotIndicator";
 import VoteCard from "@/components/vote/voteList/VoteCard";
 import type { VoteType } from "@/types/voteType";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface VoteCarouselProps {
   data: VoteType[];
 }
 
 export default function VoteCarousel({ data }: VoteCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const visibleCount = 3;
   const totalLength = Math.ceil(data.length / visibleCount);
-  const maxIndex = data.length - visibleCount;
+  const maxGroupIndex = totalLength - 1;
 
   const handlePrev = () => {
-    if (currentIndex === 1) return;
-
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    setCurrentIndex((prev) => (prev === 0 ? maxGroupIndex : prev - 1));
   };
 
   const handleNext = () => {
-    if (currentIndex === totalLength) {
-      setCurrentIndex(1);
-      return;
-    }
-
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+    setCurrentIndex((prev) => (prev === maxGroupIndex ? 0 : prev + 1));
   };
+
+  // Todo: 날짜 손봐야함
 
   return (
     <div className="relative w-full">
       <button
         onClick={handlePrev}
-        disabled={currentIndex === 1}
-        className={`absolute top-1/2 -left-3 z-10 -translate-y-1/2 rounded-full bg-white px-3 py-2 shadow ${
-          currentIndex === 1
-            ? "cursor-default text-gray-200"
-            : "cursor-pointer text-gray-500 shadow hover:shadow-lg"
-        }`}
+        className="absolute top-1/2 -left-3 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-white p-2 text-gray-500 shadow hover:shadow-lg"
       >
-        ◀
+        <ChevronLeft />
       </button>
 
       <button
         onClick={handleNext}
-        className={`absolute top-1/2 -right-3 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-white px-3 py-2 text-gray-500 shadow hover:shadow-lg`}
+        className="absolute top-1/2 -right-3 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-white p-2 text-gray-500 shadow hover:shadow-lg"
       >
-        ▶
+        <ChevronRight />
       </button>
 
       <div className="mx-8 overflow-hidden">
         <div
           className="flex transition-transform duration-500"
           style={{
-            transform: `translateX(-${currentIndex * (100 / visibleCount)}%)`,
+            transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {data.map((item) => (
-            <div key={item.id} className="min-w-[33.3333%] p-2">
+          {data.map((item, index) => (
+            <div key={item.id} className="min-w-1/3 p-2">
               <VoteCard {...item} />
             </div>
           ))}
@@ -66,7 +57,10 @@ export default function VoteCarousel({ data }: VoteCarouselProps) {
       </div>
 
       <div className="flex justify-center">
-        <DotIndicator totalLength={totalLength} activeIndex={currentIndex} />
+        <DotIndicator
+          totalLength={totalLength}
+          activeIndex={currentIndex + 1}
+        />
       </div>
     </div>
   );

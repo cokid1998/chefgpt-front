@@ -36,8 +36,10 @@ export default function CreateVoteModal() {
 
     const formatFormData = {
       ...formData,
-      startDate: now.format("YYYY-MM-DD"),
-      endDate: !endDate ? now.add(7, "day").format("YYYY-MM-DD") : endDate,
+      startDate: now.utc().format("YYYY-MM-DD"),
+      endDate: !endDate
+        ? now.utc().add(7, "day").format("YYYY-MM-DD")
+        : endDate,
     };
 
     createVote(formatFormData);
