@@ -105,7 +105,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed z-30 flex max-h-screen min-h-screen w-(--sidebar-width) flex-col border-r bg-white transition-transform duration-300 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      className={`fixed z-30 flex max-h-dvh min-h-dvh w-(--sidebar-width) flex-col border-r bg-white transition-transform duration-300 md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
     >
       <button
         className="absolute top-4 right-4 cursor-pointer md:hidden"

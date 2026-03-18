@@ -41,7 +41,10 @@ export function MobileHeader({ isOpen, onOpen, onClose }: MobileHeaderProps) {
   return (
     <div className="pt-14 md:hidden">
       {isOpen && (
-        <div className="fixed inset-0 z-20 bg-black/50" onClick={onClose} />
+        <div
+          className="fixed inset-0 z-20 min-h-dvh bg-black/50"
+          onClick={onClose}
+        />
       )}
       <header className="fixed top-0 z-10 flex h-14 w-full items-center border-b bg-white px-4">
         <button onClick={onOpen} className="cursor-pointer">
