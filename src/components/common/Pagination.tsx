@@ -13,18 +13,21 @@ import useListParams from "@/hooks/useListParams";
 interface PaginationProps {
   data: any;
   focusRef: RefObject<HTMLDivElement | null>;
+  buildUrl: (page: number) => string; // URL 구성 방식을 외부에서 주입
 }
 
-export default function Pagination({ data, focusRef }: PaginationProps) {
-  const { categoryName, search, page } = useListParams();
+export default function Pagination({
+  data,
+  focusRef,
+  buildUrl,
+}: PaginationProps) {
+  const { page } = useListParams();
 
   const totalPage = data?.totalPage ?? 1;
-
   const groupSize = 10;
   const currentGroup = Math.ceil(page / groupSize);
   const start = (currentGroup - 1) * groupSize + 1;
   const end = Math.min(start + groupSize - 1, totalPage);
-
   const pageRange = Array.from(
     { length: end - start + 1 },
     (_, i) => start + i,
@@ -40,13 +43,11 @@ export default function Pagination({ data, focusRef }: PaginationProps) {
         <PaginationItem>
           {page === 1 ? (
             <PaginationPrevious
-              aria-disabled={true}
+              aria-disabled
               className="pointer-events-none opacity-50"
             />
           ) : (
-            <Link
-              to={`?category=${categoryName}&search=${search}&page=${page - 1}`}
-            >
+            <Link to={buildUrl(page - 1)}>
               <PaginationPrevious />
             </Link>
           )}
@@ -54,7 +55,7 @@ export default function Pagination({ data, focusRef }: PaginationProps) {
 
         {pageRange.map((num) => (
           <PaginationItem key={num}>
-            <Link to={`?category=${categoryName}&search=${search}&page=${num}`}>
+            <Link to={buildUrl(num)}>
               <PaginationLink isActive={num === page}>{num}</PaginationLink>
             </Link>
           </PaginationItem>
@@ -63,13 +64,11 @@ export default function Pagination({ data, focusRef }: PaginationProps) {
         <PaginationItem>
           {page === totalPage ? (
             <PaginationNext
-              aria-disabled={true}
+              aria-disabled
               className="pointer-events-none opacity-50"
             />
           ) : (
-            <Link
-              to={`?category=${categoryName}&search=${search}&page=${page + 1}`}
-            >
+            <Link to={buildUrl(page + 1)}>
               <PaginationNext />
             </Link>
           )}

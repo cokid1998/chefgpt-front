@@ -54,7 +54,13 @@ export default function ArticlePage() {
 
             <ArticleList />
 
-            <Pagination data={articleData} focusRef={listRef} />
+            <Pagination
+              data={articleData}
+              focusRef={listRef}
+              buildUrl={(page) =>
+                `?category=${categoryName}&search=${search}&page=${page}`
+              }
+            />
           </div>
         </div>
       </div>

@@ -81,7 +81,13 @@ export default function HomePage() {
 
           <RecipeList />
 
-          <Pagination data={recipeData} focusRef={listRef} />
+          <Pagination
+            data={recipeData}
+            focusRef={listRef}
+            buildUrl={(page) =>
+              `?category=${categoryName}&search=${search}&page=${page}`
+            }
+          />
         </div>
       </div>
     </>
