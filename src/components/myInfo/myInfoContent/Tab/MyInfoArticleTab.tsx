@@ -9,43 +9,47 @@ import {
 } from "@/components/ui/select";
 import useGetLikedArticle from "@/hooks/API/article/GET/useGetLikedArticle";
 import useGetMyArticle from "@/hooks/API/article/GET/useGetMyArticle";
-import { useSearchParams, Link } from "react-router";
-import {} from "lucide-react";
+import { Link } from "react-router";
 import { ARTICLE_CREATE_URL } from "@/constants/Url";
 import { BookOpen, Heart } from "lucide-react";
+import Pagination from "@/components/common/Pagination";
+import useListParams from "@/hooks/useListParams";
 
 const MY_ARTICLE_TYPE = {
   MY: { LABEL: "내 요리정보", VALUE: "my" },
   LIKED: { LABEL: "좋아요 누른 요리정보", VALUE: "liked" },
-};
+} as const;
 
 interface MyInfoArticleTabProps {
   curTab: string;
 }
 
 export default function MyInfoArticleTab({ curTab }: MyInfoArticleTabProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const curSelect = searchParams.get("select") ?? MY_ARTICLE_TYPE.MY.VALUE;
-  const isMyArticle = curSelect === MY_ARTICLE_TYPE.MY.VALUE;
+  const { setParams, page, select, tab } = useListParams();
+  const isMyArticle = select === MY_ARTICLE_TYPE.MY.VALUE;
+
+  const { data: myArticleData, isLoading: isMyArticleLoading } =
+    useGetMyArticle(page);
+  const { data: myLikedArticleData, isLoading: isLikedArticleLoading } =
+    useGetLikedArticle(select === MY_ARTICLE_TYPE.LIKED.VALUE, page);
 
   const handleSelectChange = (value: string) => {
-    setSearchParams({ tab: curTab, select: value });
+    setParams({ tab: curTab, select: value });
   };
-
-  const { data: myArticleIdList, isLoading: isMyArticleLoading } =
-    useGetMyArticle();
-  const { data: likedArticleIdList, isLoading: isLikedArticleLoading } =
-    useGetLikedArticle(curSelect === MY_ARTICLE_TYPE.LIKED.VALUE);
 
   const curLabel = isMyArticle
     ? MY_ARTICLE_TYPE.MY.LABEL
     : MY_ARTICLE_TYPE.LIKED.LABEL;
-  const curList = isMyArticle ? myArticleIdList : likedArticleIdList;
+
+  const curList = isMyArticle
+    ? myArticleData?.myArticleIds
+    : myLikedArticleData?.myArticleIds;
+
   const isLoading = isMyArticle ? isMyArticleLoading : isLikedArticleLoading;
 
   const renderList = () => {
     if (isLoading) {
-      return Array.from({ length: 3 }).map((_, i) => (
+      return Array.from({ length: 6 }).map((_, i) => (
         <ArticleCardSkeleton key={i} />
       ));
     }
@@ -60,7 +64,7 @@ export default function MyInfoArticleTab({ curTab }: MyInfoArticleTabProps) {
       <div className="flex justify-between space-y-1.5 p-6 leading-none font-semibold tracking-tight">
         {curLabel}({curList?.length ?? 0}개)
         <Select
-          value={curSelect}
+          value={select}
           onValueChange={(value) => handleSelectChange(value)}
         >
           <SelectTrigger size="sm">
@@ -85,6 +89,15 @@ export default function MyInfoArticleTab({ curTab }: MyInfoArticleTabProps) {
             {renderList()}
           </div>
         )}
+
+        <Pagination
+          data={
+            select === MY_ARTICLE_TYPE.MY.VALUE
+              ? myArticleData
+              : myLikedArticleData
+          }
+          buildUrl={(page) => `?tab=${tab}&select=${select}&page=${page}`}
+        />
       </div>
     </div>
   );

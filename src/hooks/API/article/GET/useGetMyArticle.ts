@@ -3,22 +3,31 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/QueryKeys";
 import { GET_MY_ARTICLE } from "@/constants/APIUrl";
 import type { Article } from "@/types/articleType";
+import type { Pagination } from "@/types/common";
 
-const useGetMyArticle = () => {
+type MyArticlePagination = Pagination<Article[]>;
+
+const useGetMyArticle = (page: number, take: number = 6) => {
   const queryClient = useQueryClient();
   return useQuery({
-    queryKey: QUERY_KEYS.article.my,
+    queryKey: QUERY_KEYS.article.my(page),
     queryFn: async () => {
-      const myArticles = await API.get<Article[]>(GET_MY_ARTICLE);
+      const res = await API.get<MyArticlePagination>(GET_MY_ARTICLE, {
+        params: { page, take },
+      });
 
-      myArticles.data.forEach((myArticle) =>
+      res.data.data.forEach((myArticle) =>
         queryClient.setQueryData(
           QUERY_KEYS.article.byId(myArticle.id),
           myArticle,
         ),
       );
 
-      return myArticles.data.map((myArticle) => myArticle.id);
+      return {
+        myArticleIds: res.data.data.map((myArticle) => myArticle.id),
+        totalCount: res.data.totalCount,
+        totalPage: res.data.totalPage,
+      };
     },
   });
 };
