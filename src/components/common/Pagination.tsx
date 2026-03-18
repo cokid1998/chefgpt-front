@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/pagination";
 import { useEffect, type RefObject } from "react";
 import useListParams from "@/hooks/useListParams";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface PaginationProps {
   data: any; // Todo: any제거
@@ -21,10 +22,11 @@ export default function Pagination({
   focusRef,
   buildUrl,
 }: PaginationProps) {
+  const isMobile = useIsMobile();
   const { page } = useListParams();
 
   const totalPage = data?.totalPage ?? 1;
-  const groupSize = 10;
+  const groupSize = isMobile ? 5 : 10;
   const currentGroup = Math.ceil(page / groupSize);
   const start = (currentGroup - 1) * groupSize + 1;
   const end = Math.min(start + groupSize - 1, totalPage);
