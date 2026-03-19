@@ -26,7 +26,7 @@ export default function RecipeCard({ recipeId }: { recipeId: number }) {
         </Badge>
       </div>
 
-      <div className="flex flex-1 flex-col justify-between p-5">
+      <div className="flex flex-1 flex-col justify-between bg-white p-5">
         <div>
           <h1 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900 transition-colors duration-400 group-hover:text-green-500">
             {recipe?.title}
