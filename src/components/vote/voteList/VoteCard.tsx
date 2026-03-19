@@ -45,50 +45,56 @@ export default function VoteCard({
   const isEndVote = dayjs(endDate).isBefore(now);
 
   return (
-    <div
-      className={`rounded-xl border p-6 shadow transition-all ${
-        isEndVote
-          ? "bg-gray-50"
-          : "bg-white hover:border-green-300 hover:shadow-xl"
-      }`}
-    >
-      <div className="flex items-start justify-between">
-        <h3 className="mb-2 line-clamp-2 text-lg font-bold text-gray-900">
-          {title}
-        </h3>
-        <Badge
-          className={`rounded-md ${isEndVote ? "bg-gray-500" : "bg-green-500"}`}
-        >
-          {formatDday(endDate)}
-        </Badge>
-      </div>
-      <p className="mb-4 line-clamp-2 text-sm text-gray-500">{description}</p>
+    <div className="px-2 md:px-0">
+      <div
+        className={`flex flex-col rounded-xl border p-3 shadow transition-all md:min-h-[310px] md:p-6 ${
+          isEndVote
+            ? "bg-gray-50"
+            : "bg-white hover:border-green-300 hover:shadow-xl"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="mb-1 line-clamp-2 text-sm font-bold text-gray-900 md:mb-2 md:text-lg">
+            {title}
+          </h3>
+          <Badge
+            className={`shrink-0 rounded-md text-xs md:text-sm ${
+              isEndVote ? "bg-gray-500" : "bg-green-500"
+            }`}
+          >
+            {formatDday(endDate)}
+          </Badge>
+        </div>
 
-      <div className="mb-4 space-y-3">
-        <VoteButton
-          selectedOptions={selectedOptions}
-          optionType="A"
-          isEndVote={isEndVote}
-          optionRatio={optionARatio}
-          optionTitle={optionA}
-          onClick={() => handleSubmitVote(id, "A")}
-        />
+        <p className={`line-clamp-2 text-xs text-gray-500 md:text-sm`}>
+          {description}
+        </p>
 
-        <VoteButton
-          selectedOptions={selectedOptions}
-          optionType="B"
-          isEndVote={isEndVote}
-          optionRatio={optionBRatio}
-          optionTitle={optionB}
-          onClick={() => handleSubmitVote(id, "B")}
-        />
-      </div>
+        <div className="mb-3 space-y-2 md:mb-4 md:space-y-3">
+          <VoteButton
+            selectedOptions={selectedOptions}
+            optionType="A"
+            isEndVote={isEndVote}
+            optionRatio={optionARatio}
+            optionTitle={optionA}
+            onClick={() => handleSubmitVote(id, "A")}
+          />
+          <VoteButton
+            selectedOptions={selectedOptions}
+            optionType="B"
+            isEndVote={isEndVote}
+            optionRatio={optionBRatio}
+            optionTitle={optionB}
+            onClick={() => handleSubmitVote(id, "B")}
+          />
+        </div>
 
-      <div className="flex items-center gap-1">
-        <Users className="size-4 text-gray-500" />
-        <span className="text-sm text-gray-500">
-          {participantsCount} 명 참여
-        </span>
+        <div className="mt-auto flex items-center gap-1">
+          <Users className="size-3 text-gray-500 md:size-4" />
+          <span className="text-xs text-gray-500 md:text-sm">
+            {participantsCount} 명 참여
+          </span>
+        </div>
       </div>
     </div>
   );

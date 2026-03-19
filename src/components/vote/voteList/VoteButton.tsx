@@ -34,16 +34,17 @@ export default function VoteButton({
         }`}
         style={{ width: `${optionRatio}%` }}
       />
-      <div className="relative flex items-center justify-between p-4">
-        <div className="flex items-center gap-2">
+      <div className="relative flex items-center justify-between p-2 md:p-4">
+        <div className="flex items-center gap-1 md:gap-2">
           {selectedOptions === optionType && !isEndVote && (
-            <CheckCircle2 className={`size-5 text-green-600`} />
+            <CheckCircle2 className={`size-3.5 text-green-600 md:size-5`} />
           )}
-
-          <span className="font-medium text-gray-900">{optionTitle}</span>
+          <span className="text-xs text-gray-900 md:text-base md:font-medium">
+            {optionTitle}
+          </span>
         </div>
         <Badge
-          className={`rounded-md ${isEndVote ? "bg-gray-500" : "bg-green-500"}`}
+          className={`rounded-md px-1.5 md:px-2 ${isEndVote ? "bg-gray-500" : "bg-green-500"}`}
         >
           {optionRatio}%
         </Badge>
