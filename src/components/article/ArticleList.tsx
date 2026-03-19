@@ -25,7 +25,7 @@ export default function ArticleList() {
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {isArticleLoading
-          ? [...Array(9)].map((_, i) => <ArticleCardSkeleton key={i} />)
+          ? [...Array(6)].map((_, i) => <ArticleCardSkeleton key={i} />)
           : articleData?.articleIds.map((id) => {
               return <ArticleCard key={id} articleId={id} />;
             })}

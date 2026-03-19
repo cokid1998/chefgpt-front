@@ -21,7 +21,7 @@ export default function FoodList() {
   if (isFoodsLoading) {
     return (
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {[...Array(4)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <FoodCardSkeleton key={i} />
         ))}
       </div>

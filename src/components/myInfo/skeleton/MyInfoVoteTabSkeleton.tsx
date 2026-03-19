@@ -6,14 +6,14 @@ export function MyVoteItemSkeleton() {
     <div className="rounded-xl border p-4">
       {/* 제목/설명 */}
       <div className="mb-3">
-        <div className="mb-2 h-4 w-2/3 animate-pulse rounded bg-gray-200" />
-        <div className="h-3 w-1/2 animate-pulse rounded bg-gray-200" />
+        <div className="mb-1 h-6 w-1/3 animate-pulse rounded bg-gray-200" />
+        <div className="h-5 w-4/5 animate-pulse rounded bg-gray-200" />
       </div>
 
       {/* 옵션 A */}
       <div className="mb-3">
         <div className="mb-1 flex justify-between">
-          <div className="h-3 w-16 animate-pulse rounded bg-gray-200" />
+          <div className="h-5 w-16 animate-pulse rounded bg-gray-200" />
           <div className="h-3 w-8 animate-pulse rounded bg-gray-200" />
         </div>
         <div className="h-2 w-full rounded-full bg-gray-100">
@@ -24,18 +24,18 @@ export function MyVoteItemSkeleton() {
       {/* 옵션 B */}
       <div className="mb-4">
         <div className="mb-1 flex justify-between">
-          <div className="h-3 w-16 animate-pulse rounded bg-gray-200" />
+          <div className="h-5 w-16 animate-pulse rounded bg-gray-200" />
           <div className="h-3 w-8 animate-pulse rounded bg-gray-200" />
         </div>
         <div className="h-2 w-full rounded-full bg-gray-100">
-          <div className="h-2 w-1/2 animate-pulse rounded-full bg-gray-200" />
+          <div className="h-2 w-1/3 animate-pulse rounded-full bg-gray-200" />
         </div>
       </div>
 
       {/* 하단 정보 */}
-      <div className="flex justify-between">
-        <div className="h-3 w-20 animate-pulse rounded bg-gray-200" />
-        <div className="h-3 w-24 animate-pulse rounded bg-gray-200" />
+      <div className="bg-red flex justify-between">
+        <div className="h-5 w-20 animate-pulse rounded bg-gray-200" />
+        <div className="h-5 w-24 animate-pulse rounded bg-gray-200" />
       </div>
     </div>
   );

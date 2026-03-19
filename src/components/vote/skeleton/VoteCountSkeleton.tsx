@@ -2,7 +2,10 @@ export default function VoteCountSkeleton() {
   return (
     <div className="mt-8 grid w-full grid-cols-1 gap-6 md:-mt-8 md:grid-cols-3">
       {[...Array(3)].map((_, i) => (
-        <div key={i} className="rounded-2xl bg-white p-6 shadow-md">
+        <div
+          key={i}
+          className="max-h-[100px] rounded-2xl bg-white p-6 shadow-md"
+        >
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 animate-pulse rounded-xl bg-gray-200" />
             <div className="flex-1">

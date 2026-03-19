@@ -1,7 +1,6 @@
-import VoteCard from "@/components/vote/voteList/VoteCard";
-import VoteCardSkeleton from "@/components/vote/skeleton/VoteCardSkeleton";
 import useGetAllVote from "@/hooks/API/vote/GET/useGetAllVote";
 import VoteCarousel from "@/components/vote/voteList/VoteCarousel";
+import VoteCarouselSkeleton from "@/components/vote/skeleton/VoteCarouselSkeleton";
 
 export default function VoteList() {
   const { data: activeVoteList = [], isLoading: isActiveVoteLoading } =
@@ -20,11 +19,7 @@ export default function VoteList() {
         </h2>
 
         {isActiveVoteLoading ? (
-          <div className="w-ful flex">
-            {[...Array(3)].map((_, i) => (
-              <VoteCardSkeleton key={i} />
-            ))}
-          </div>
+          <VoteCarouselSkeleton />
         ) : (
           <VoteCarousel data={activeVoteList} />
         )}
@@ -39,11 +34,7 @@ export default function VoteList() {
         </h2>
 
         {isCloseVoteLoading ? (
-          <div className="w-ful flex">
-            {[...Array(3)].map((_, i) => (
-              <VoteCardSkeleton key={i} />
-            ))}
-          </div>
+          <VoteCarouselSkeleton />
         ) : (
           <VoteCarousel data={closeVoteList} />
         )}

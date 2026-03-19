@@ -66,7 +66,7 @@ export default function VoteCard({
           </Badge>
         </div>
 
-        <p className={`line-clamp-2 text-xs text-gray-500 md:text-sm`}>
+        <p className="mb-3 line-clamp-2 text-xs text-gray-500 md:text-sm">
           {description}
         </p>
 
