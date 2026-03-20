@@ -148,3 +148,12 @@
 .ProseMirror h3 {
   @apply my-2 text-2xl font-bold;
 }
+
+@keyframes dotAppear {
+  0%, 66%, 100% { opacity: 0; }
+  33% { opacity: 1; }
+}
+
+.dot-animate {
+  animation: dotAppear 1.2s infinite;
+}

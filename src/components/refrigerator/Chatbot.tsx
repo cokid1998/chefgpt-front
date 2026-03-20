@@ -90,7 +90,6 @@ export default function Chatbot() {
 
   return (
     <div className="flex h-[calc(100vh-120px)] w-full flex-col overflow-hidden rounded-xl border bg-white shadow-lg md:min-w-96">
-      {/* Header */}
       <div className="flex flex-col border-b p-6 pb-4">
         <div className="mb-1.5 flex items-center gap-2 text-xl font-semibold tracking-tight">
           <div className="bg-green-gradient rounded-lg p-2">
@@ -103,7 +102,6 @@ export default function Chatbot() {
         </p>
       </div>
 
-      {/* Chat Area */}
       <ScrollArea
         type="always"
         ref={scrollRef}
@@ -165,13 +163,12 @@ export default function Chatbot() {
               <Bot className="h-5 w-5 text-white" />
             </div>
             <div className="rounded-2xl bg-gray-100 px-4 py-3">
-              <Loader2 className="h-5 w-5 animate-spin text-gray-500" />
+              <ChatDotLoading />
             </div>
           </motion.div>
         )}
       </ScrollArea>
 
-      {/* Quick Propmt */}
       <AnimatePresence>
         {chatContent.length <= 1 && (
           <motion.div className="border-t px-4 pb-3" exit={{ y: 150 }}>
@@ -198,7 +195,6 @@ export default function Chatbot() {
         )}
       </AnimatePresence>
 
-      {/* Input Area */}
       <div className="z-1 border-t bg-white p-4">
         <div className="flex gap-2">
           <Input
@@ -234,5 +230,21 @@ export default function Chatbot() {
         </p>
       </div>
     </div>
+  );
+}
+
+function ChatDotLoading() {
+  return (
+    <>
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className="dot-animate text-lg leading-none"
+          style={{ animationDelay: `${i * 0.4}s` }}
+        >
+          .
+        </span>
+      ))}
+    </>
   );
 }
