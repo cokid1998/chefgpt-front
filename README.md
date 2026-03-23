@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# 0. Getting Started (시작하기)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```bash
+$ npm install
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+$ npm start
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+[서비스 링크](https://chefgpt-front.vercel.app/)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Architecture
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<br/>
+<br/>
+
+# 1. Project Overview (프로젝트 개요)
+
+### 프로젝트 이름: ChefGPT
+
+ChefGPT는 유튜브 영상 속 레시피를 텍스트 데이터로 변환하여  
+영상에 의존하지 않고도 레시피를 쉽게 확인하고 활용할 수 있도록 만든 플랫폼입니다.
+
+기존의 영상 기반 레시피는 필요한 정보를 빠르게 찾기 어렵다는 문제를 해결하고자 했습니다.
+
+또한 단순한 레시피 저장을 넘어,  
+사용자의 냉장고 데이터를 기반으로 한 레시피 추천과  
+요리 투표 및 정보 공유 기능을 통해 커뮤니티 경험까지 제공합니다.
+
+<br/>
+<br/>
+
+# 2. Tech Stack
+
+<div align="center" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png" />
+    <br/>
+    <sub><b>React</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png" />
+    <br/>
+    <sub><b>TypeScript</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react_query.png" />
+    <br/>
+    <sub><b>React Query</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/tailwind_css.png" />
+    <br/>
+    <sub><b>Tailwind CSS</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/shadcn_ui.png" />
+    <br/>
+    <sub><b>Shadcn</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg" />
+    <br/>
+    <sub><b>Zustand</b></sub>
+  </div>
+
+  <div align="center">
+    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/vite.png" />
+    <br/>
+    <sub><b>Vite</b></sub>
+  </div>
+
+</div>
+
+<br/>
+<br/>
+<br/>
+
+# 3. Key Features (주요기능)
+
+- ### **🔐 인증**:
+  - 로컬스토리지와, JWT를 통한 인증기능
+
+- ### **🎬 유튜브 레시피 추출**:
+  - 유튜브 링크를 입력하면 서버에서 자막 데이터를 추출 및 정제 -> 읽기 쉬운 레시피 형태로 변환
+
+- ### **✍️ 수동 레시피 작성**:
+  - 사용자가 직접 레시피를 작성하고 저장 가능
+
+- ### **🧊 내 냉장고 관리**:
+  - 보유 중인 식재료를 직접 등록 및 관리
+
+- ### **🤖 레시피 추천**:
+  - 사용자의 냉장고 식재료를 기반으로 레시피 추천
+
+- ### **🗳️ 요리 투표 (커뮤니티 기능)**:
+  - "부먹 VS 찍먹" 같은 주제로 투표 생성 가능
+
+- ### **📚 요리 정보 공유**:
+  - 재료 차이, 보관 방법등을 에디터로 작성하고 다른 사용자가 열람 가능
+
+- ### **👤 마이페이지**:
+  - 내가 작성한 콘텐츠를 한눈에 확인 가능
+
+<br/>
+<br/>
+<br/>
+
+# 4. 📁 Project Structure
+
+```
+src
+├── assets        # 이미지 및 정적 파일
+├── components    # 도메인별 컴포넌트
+│   ├── article       # 요리정보 컴포넌트
+│   ├── recipe        # 레시피 컴포넌트
+│   ├── refrigerator  # 내 냉장고 컴포넌트
+│   ├── vote          # 투표 기능 컴포넌트
+│   ├── myInfo        # 내 정보 컴포넌트
+│   ├── modal         # 모달 컴포넌트
+│   ├── layout        # 레이아웃 구성
+│   ├── common        # 공통 컴포넌트
+│   └── ui            # Shadcn 컴포넌트
+│
+├── hooks
+│   ├── API           # API 요청 로직 (React Query 기반)
+│   │   ├── GET / POST / PATCH / DELETE 단위로 분리
+│   │   └── 도메인별 (article, recipe, vote 등) 구성
+│   └── custom hooks  # 공통 훅 (스크롤, 모바일 감지 등)
+│
+├── constants         # API URL, Query Key 등 상수 관리
+├── store             # 전역 상태 관리 (인증, 모달)
+├── provider          # 모달 Provider
+├── types             # 프로젝트에서 사용하는 타입
+├── page              # 라우팅되는 페이지
+├── lib               # Shadcn 컴포넌트에서 사용하는 유틸함수
+│
+├── App.tsx
+├── route.tsx         # 라우팅 설정
+└── main.tsx          # 엔트리 포인트
 ```
