@@ -9,6 +9,7 @@ $ npm start
 [서비스 링크](https://chefgpt-front.vercel.app/)
 
 ### Architecture
+<img width="942" height="585" alt="스크린샷 2026-03-22 오후 5 18 02" src="https://github.com/user-attachments/assets/6ebd5d41-17b9-411c-a910-c7d99f10c841" />
 
 <br/>
 <br/>
