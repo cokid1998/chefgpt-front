@@ -9,6 +9,7 @@ $ npm start
 [서비스 링크](https://chefgpt-front.vercel.app/)
 
 ### Architecture
+
 <img width="942" height="585" alt="스크린샷 2026-03-22 오후 5 18 02" src="https://github.com/user-attachments/assets/6ebd5d41-17b9-411c-a910-c7d99f10c841" />
 
 <br/>
@@ -32,50 +33,45 @@ ChefGPT는 유튜브 영상 속 레시피를 텍스트 데이터로 변환하여
 
 # 2. Tech Stack
 
-<div align="center" style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png" />
-    <br/>
-    <sub><b>React</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png" />
-    <br/>
-    <sub><b>TypeScript</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react_query.png" />
-    <br/>
-    <sub><b>React Query</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/tailwind_css.png" />
-    <br/>
-    <sub><b>Tailwind CSS</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/shadcn_ui.png" />
-    <br/>
-    <sub><b>Shadcn</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg" />
-    <br/>
-    <sub><b>Zustand</b></sub>
-  </div>
-
-  <div align="center">
-    <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/vite.png" />
-    <br/>
-    <sub><b>Vite</b></sub>
-  </div>
-
-</div>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react.png" />
+      <br/>
+      <sub><b>React</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/typescript.png" />
+      <br/>
+      <sub><b>TypeScript</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/react_query.png" />
+      <br/>
+      <sub><b>React Query</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/tailwind_css.png" />
+      <br/>
+      <sub><b>Tailwind CSS</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/shadcn_ui.png" />
+      <br/>
+      <sub><b>Shadcn</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg" />
+      <br/>
+      <sub><b>Zustand</b></sub>
+    </td>
+    <td align="center">
+      <img width="50" src="https://raw.githubusercontent.com/marwin1991/profile-technology-icons/refs/heads/main/icons/vite.png" />
+      <br/>
+      <sub><b>Vite</b></sub>
+    </td>
+  </tr>
+</table>
 
 <br/>
 <br/>
