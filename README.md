@@ -1,4 +1,4 @@
-# 0. Getting Started (시작하기)
+# 0. Getting Started
 
 ```bash
 $ npm install
@@ -15,7 +15,7 @@ $ npm start
 <br/>
 <br/>
 
-# 1. Project Overview (프로젝트 개요)
+# 1. Project Overview
 
 ### 프로젝트 이름: ChefGPT
 
@@ -77,7 +77,7 @@ ChefGPT는 유튜브 영상 속 레시피를 텍스트 데이터로 변환하여
 <br/>
 <br/>
 
-# 3. Key Features (주요기능)
+# 3. Key Features
 
 - ### **🔐 인증**:
   - 로컬스토리지와, JWT를 통한 인증기능
