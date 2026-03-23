@@ -3,7 +3,7 @@
 ```bash
 $ npm install
 
-$ npm start
+$ npm dev
 ```
 
 ### Architecture
