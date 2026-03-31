@@ -5,9 +5,13 @@ import { useEffect } from "react";
 
 interface EditorViewerProps {
   content: JSONContent | null | string;
+  isAutoHeight?: boolean; // 높이를 auto로 할지 결정하는 prop 추가
 }
 
-export default function EditorViewer({ content }: EditorViewerProps) {
+export default function EditorViewer({
+  content,
+  isAutoHeight = false,
+}: EditorViewerProps) {
   const viewer = useEditor({
     editable: false,
     extensions: [
@@ -42,7 +46,10 @@ export default function EditorViewer({ content }: EditorViewerProps) {
 
   return (
     <div className="flex-1 overflow-y-auto border bg-white">
-      <EditorContent editor={viewer} className="max-h-96 md:max-h-150" />
+      <EditorContent
+        editor={viewer}
+        className={isAutoHeight ? "h-auto" : "md:max-h max-h-96"}
+      />
     </div>
   );
 }

@@ -87,7 +87,7 @@ export default function ArticleDetailPage() {
             </div>
 
             <div>
-              <EditorViewer content={article?.contentJSON} />
+              <EditorViewer content={article?.contentJSON} isAutoHeight />
             </div>
 
             <div className="mt-8 border-t border-gray-200 pt-6">
