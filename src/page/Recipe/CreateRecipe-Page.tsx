@@ -3,10 +3,17 @@ import { Bot, Youtube, PenLine } from "lucide-react";
 import YoutubeRecipeForm from "@/components/recipe/RecipeCreateForm/YoutubeRecipeForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ManualRecipeForm from "@/components/recipe/RecipeCreateForm/ManualRecipeForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import YoutubeRecipeGuideModal from "@/components/modal/recipe/YoutubeRecipeGuideModal";
+import { useOpenModal } from "@/store/modalStore";
 
 export default function CreateRecipePage() {
   const [mode, setMode] = useState("youtube");
+  const openModal = useOpenModal();
+
+  useEffect(() => {
+    openModal(<YoutubeRecipeGuideModal />);
+  }, []);
 
   return (
     <>
