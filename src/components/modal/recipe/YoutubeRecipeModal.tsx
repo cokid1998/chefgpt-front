@@ -54,7 +54,7 @@ export default function YoutubeRecipeModal({
   useEffect(() => {
     return () => {
       queryClient.removeQueries({
-        queryKey: QUERY_KEYS.recipe.byYoutubeUrl(youtubeUrl),
+        queryKey: QUERY_KEYS.recipe.youtube,
       });
     };
   }, []);
