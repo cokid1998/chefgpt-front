@@ -14,12 +14,12 @@ export default function EditorViewer({ content }: EditorViewerProps) {
       StarterKit.configure({
         bulletList: {
           HTMLAttributes: {
-            class: "pl-4 min-h-96 [&_li_p]:inline list-disc",
+            class: "pl-4 [&_li_p]:inline list-disc",
           },
         },
         orderedList: {
           HTMLAttributes: {
-            class: "pl-4 min-h-96 [&_li_p]:inline list-decimal",
+            class: "pl-4 [&_li_p]:inline list-decimal",
           },
         },
       }),
