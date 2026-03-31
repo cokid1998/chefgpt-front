@@ -21,7 +21,6 @@ export default function YoutubeRecipeForm() {
   );
 
   const {
-    data: recipeInfo,
     refetch: recipeInfoFetch,
     isLoading,
     isPending,
@@ -57,6 +56,11 @@ export default function YoutubeRecipeForm() {
   const handleOnclick = async () => {
     const recipeInfo = await recipeInfoFetch();
 
+    if (error?.response?.data.code === "NO_CAPTION") {
+      console.log("error");
+      return;
+    }
+
     if (recipeInfo.data && !isFetching && !isError) {
       openModal(
         <YoutubeRecipeModal
@@ -66,6 +70,8 @@ export default function YoutubeRecipeForm() {
       );
     }
   };
+
+  console.log(error?.response?.data.code);
 
   return (
     <>
@@ -98,8 +104,19 @@ export default function YoutubeRecipeForm() {
               </p>
             </div>
 
-            {/* Todo: 에러 케이스 서버에서 구현 */}
-            {isError && (
+            {error?.response?.data.code === "NO_CAPTION" && (
+              <Alert
+                variant="destructive"
+                className="rounded-xl border-red-500"
+              >
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  {error.response.data.message}
+                </AlertDescription>
+              </Alert>
+            )}
+
+            {isError && !(error?.response?.data.code === "NO_CAPTION") && (
               <Alert
                 variant="destructive"
                 className="rounded-xl border-red-500"
