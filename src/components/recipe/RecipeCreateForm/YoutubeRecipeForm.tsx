@@ -30,30 +30,6 @@ export default function YoutubeRecipeForm() {
     error,
   } = useGetYoutubeRecipe(youtubeUrl);
 
-  /*
-    You Might Not Need an Effect
-    리팩토링 관련 공식문서 : https://react.dev/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers
-    리팩토링 관련 블로그 : https://velog.io/@cokid/useEffect%EB%8A%94-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%ED%95%B8%EB%93%A4%EB%9F%AC%EA%B0%80-%EC%95%84%EB%8B%88%EB%8B%A4
-
-    모달 오픈용 effect
-    useEffect(() => {
-      if (recipeInfo && !isFetching && !isError) {
-        openModal(
-          <CreateRecipeModal recipeInfo={recipeInfo} youtubeUrl={youtubeUrl} />,
-        );
-      }
-    }, [recipeInfo, isFetching]);
-
-    캐시 삭제용 effect - dependency분리를 위한 별도 코드
-    useEffect(() => {
-      return () => {
-        queryClient.removeQueries({
-          queryKey: QUERY_KEYS.recipe.byUrl(youtubeUrl),
-        });
-      };
-    }, []);
-  */
-
   const handleOnclick = async () => {
     const recipeInfo = await recipeInfoFetch();
 
@@ -71,8 +47,6 @@ export default function YoutubeRecipeForm() {
       );
     }
   };
-
-  console.log(error?.response?.data.code);
 
   return (
     <>
