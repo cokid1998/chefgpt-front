@@ -30,13 +30,17 @@ export default function YoutubeRecipeForm() {
     error,
   } = useGetYoutubeRecipe(youtubeUrl);
 
+  const getErrorMessage = () => {
+    if (!isError) return null;
+
+    return (
+      error?.response?.data.message ??
+      "알수없는 에러가 발생했습니다. 다시 시도해주세요"
+    );
+  };
+
   const handleOnclick = async () => {
     const recipeInfo = await recipeInfoFetch();
-
-    if (error?.response?.data.code === SERVER_ERROR.NO_CAPTION) {
-      console.log("error");
-      return;
-    }
 
     if (recipeInfo.data && !isFetching && !isError) {
       openModal(
@@ -79,30 +83,15 @@ export default function YoutubeRecipeForm() {
               </p>
             </div>
 
-            {error?.response?.data.code === SERVER_ERROR.NO_CAPTION && (
+            {isError && (
               <Alert
                 variant="destructive"
                 className="rounded-xl border-red-500"
               >
                 <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  {error.response.data.message}
-                </AlertDescription>
+                <AlertDescription>{getErrorMessage()}</AlertDescription>
               </Alert>
             )}
-
-            {isError &&
-              !(error?.response?.data.code === SERVER_ERROR.NO_CAPTION) && (
-                <Alert
-                  variant="destructive"
-                  className="rounded-xl border-red-500"
-                >
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    알수없는 에러가 발생했습니다. 다시 시도해주세요
-                  </AlertDescription>
-                </Alert>
-              )}
 
             {isFetching && (
               <Alert className="rounded-xl border-green-200 bg-green-50">
