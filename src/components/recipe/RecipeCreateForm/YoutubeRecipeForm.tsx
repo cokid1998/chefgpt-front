@@ -13,6 +13,7 @@ import useGetYoutubeRecipe from "@/hooks/API/recipe/GET/useGetYoutubeRecipe";
 import { useOpenModal } from "@/store/modalStore";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import YoutubeRecipeModal from "@/components/modal/recipe/YoutubeRecipeModal";
+import { SERVER_ERROR } from "@/constants/ServerError";
 
 export default function YoutubeRecipeForm() {
   const openModal = useOpenModal();
@@ -56,7 +57,7 @@ export default function YoutubeRecipeForm() {
   const handleOnclick = async () => {
     const recipeInfo = await recipeInfoFetch();
 
-    if (error?.response?.data.code === "NO_CAPTION") {
+    if (error?.response?.data.code === SERVER_ERROR.NO_CAPTION) {
       console.log("error");
       return;
     }
@@ -104,7 +105,7 @@ export default function YoutubeRecipeForm() {
               </p>
             </div>
 
-            {error?.response?.data.code === "NO_CAPTION" && (
+            {error?.response?.data.code === SERVER_ERROR.NO_CAPTION && (
               <Alert
                 variant="destructive"
                 className="rounded-xl border-red-500"
@@ -116,17 +117,18 @@ export default function YoutubeRecipeForm() {
               </Alert>
             )}
 
-            {isError && !(error?.response?.data.code === "NO_CAPTION") && (
-              <Alert
-                variant="destructive"
-                className="rounded-xl border-red-500"
-              >
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>
-                  알수없는 에러가 발생했습니다. 다시 시도해주세요
-                </AlertDescription>
-              </Alert>
-            )}
+            {isError &&
+              !(error?.response?.data.code === SERVER_ERROR.NO_CAPTION) && (
+                <Alert
+                  variant="destructive"
+                  className="rounded-xl border-red-500"
+                >
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    알수없는 에러가 발생했습니다. 다시 시도해주세요
+                  </AlertDescription>
+                </Alert>
+              )}
 
             {isFetching && (
               <Alert className="rounded-xl border-green-200 bg-green-50">
