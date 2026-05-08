@@ -11,11 +11,13 @@ import useGetAllRecipe from "@/hooks/API/recipe/GET/useGetAllRecipe";
 import useGetRecipeCategory from "@/hooks/API/recipe/GET/useGetRecipeCategory";
 import Pagination from "@/components/common/Pagination";
 import useListParams from "@/hooks/useListParams";
+import { useDelAuth } from "@/store/authStore";
 
 export default function HomePage() {
   const listRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { categoryName, search, page } = useListParams();
+  const delAuth = useDelAuth();
 
   const { data: categories = [] } = useGetRecipeCategory();
   const categoryId =
@@ -26,7 +28,10 @@ export default function HomePage() {
   useEffect(() => {
     // 여기서 location.state를 통해 페이지 접근불가 이유 분기처리
     if (location.state?.fromLogout) {
+      // Todo: delAuth함수가 여기 있는게 논리상 맞는지 의문..
+      delAuth();
       toast.success("로그아웃 완료.");
+      // location.state 초기화 (토스트 중복 노출 방지)
       window.history.replaceState({}, document.title);
     }
     // if (location.state?.Unauthorized) {
