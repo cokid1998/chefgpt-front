@@ -21,7 +21,7 @@ export default function ChatbotRecipeModal({
     "recepe-item",
   );
 
-  const { mutate: createRecipe } = usePostCreateRecipe();
+  const { mutate: createRecipe, isPending } = usePostCreateRecipe();
 
   const handleCreateRecipe = () => {
     const formatData = {
@@ -67,8 +67,9 @@ export default function ChatbotRecipeModal({
             variant="outline"
             className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
             onClick={handleCreateRecipe}
+            disabled={isPending}
           >
-            레시피 저장하기
+            {isPending ? "저장 중..." : "레시피 저장하기"}
           </Button>
         </div>
       </div>

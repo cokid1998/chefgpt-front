@@ -32,7 +32,7 @@ export default function YoutubeRecipeModal({
     "recepe-item",
   );
 
-  const { mutate: createRecipe } = usePostCreateRecipe();
+  const { mutate: createRecipe, isPending } = usePostCreateRecipe();
   const { data: categoryData } = useGetRecipeCategory();
 
   const handleCreateRecipe = () => {
@@ -97,11 +97,13 @@ export default function YoutubeRecipeModal({
             variant="outline"
             className="mt-5 w-full border border-green-500 bg-green-500/10 text-black hover:bg-green-400/20"
             onClick={handleCreateRecipe}
-            disabled={!isLogged}
+            disabled={!isLogged || isPending}
           >
-            {!isLogged
-              ? "로그인 후 레시피를 저장할 수 있습니다."
-              : "레시피 저장하기"}
+            {isPending
+              ? "저장 중..."
+              : !isLogged
+                ? "로그인 후 레시피를 저장할 수 있습니다."
+                : "레시피 저장하기"}
           </Button>
         </div>
       </div>
