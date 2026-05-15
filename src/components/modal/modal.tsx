@@ -51,6 +51,20 @@ export default function Modal() {
     };
   }, [isModalOpen]);
 
+  useEffect(() => {
+    console.log("asdf");
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   return (
     <AnimatePresence>
       {isModalOpen && (
