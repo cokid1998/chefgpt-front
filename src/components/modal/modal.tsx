@@ -69,13 +69,24 @@ export default function Modal() {
   // overlay영역을 클릭하면 모달이 닫히도록
   useEffect(() => {
     const handleClickOverlay = (e: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      // Select Portal 영역 클릭 시 무시
+      const target = e.target as Node;
+
+      // data-radix-popper-content-wrapper는 Shadcn Select Portal의 wrapper
+      const isInsidePortal = document
+        .querySelector("[data-radix-popper-content-wrapper]")
+        ?.contains(target);
+
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(target) &&
+        !isInsidePortal
+      ) {
         closeModal();
       }
     };
 
     document.addEventListener("mousedown", handleClickOverlay);
-
     return () => document.removeEventListener("mousedown", handleClickOverlay);
   }, []);
 
